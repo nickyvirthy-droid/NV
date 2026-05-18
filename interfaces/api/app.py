@@ -1,19 +1,35 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
-from core.state.manager import StateManager
+from core.runtime.runtime import NickyRuntime
 
-app = FastAPI(title="NV")
+runtime = NickyRuntime()
 
-state_manager = StateManager()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await runtime.startup()
+
+    yield
+
+    await runtime.shutdown()
+
+
+app = FastAPI(
+    title="NV",
+    lifespan=lifespan,
+)
 
 
 @app.get("/health")
 async def health():
     return {
-        "status": "healthy"
+        "status": "healthy",
+        "system": "NV",
     }
 
 
 @app.get("/state")
 async def state():
-    return state_manager.get_state()
+    return runtime.state_manager.get_state()
