@@ -1,0 +1,20 @@
+[0;1;32m●[0m nv.service - NV Core Runtime
+     Loaded: loaded (]8;;file://nicky-server/etc/systemd/system/nv.service/etc/systemd/system/nv.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Mon 2026-05-18 15:19:01 -03; 5s ago
+   Main PID: 33360 (python)
+      Tasks: 6 (limit: 9316)
+     Memory: 30.7M (peak: 31.5M)
+        CPU: 348ms
+     CGroup: /system.slice/nv.service
+             └─[0;38;5;245m33360 /home/alex/NV/.venv/bin/python main.py[0m
+
+May 18 15:19:01 nicky-server python[33360]: INFO:     Started server process [33360]
+May 18 15:19:01 nicky-server python[33360]: INFO:     Waiting for application startup.
+May 18 15:19:01 nicky-server python[33360]: {"event": "runtime_starting", "timestamp": "2026-05-18T18:19:01.827437Z"}
+May 18 15:19:01 nicky-server python[33360]: {"event": "runtime_started", "timestamp": "2026-05-18T18:19:01.827491Z"}
+May 18 15:19:01 nicky-server python[33360]: {"event_type": "USER_MESSAGE_RECEIVED", "handler": "log_all_events", "event": "event_handler_registered", "timestamp": "2026-05-18T18:19:01.827530Z"}
+May 18 15:19:01 nicky-server python[33360]: {"event_type": "ACTION_REQUESTED", "handler": "log_all_events", "event": "event_handler_registered", "timestamp": "2026-05-18T18:19:01.827563Z"}
+May 18 15:19:01 nicky-server python[33360]: {"event_type": "ACTION_COMPLETED", "handler": "log_all_events", "event": "event_handler_registered", "timestamp": "2026-05-18T18:19:01.827615Z"}
+May 18 15:19:01 nicky-server python[33360]: {"event_type": "SYSTEM_HEALTH_CHECK", "handler": "log_all_events", "event": "event_handler_registered", "timestamp": "2026-05-18T18:19:01.827642Z"}
+May 18 15:19:01 nicky-server python[33360]: INFO:     Application startup complete.
+May 18 15:19:01 nicky-server python[33360]: INFO:     Uvicorn running on http://0.0.0.0:18000 (Press CTRL+C to quit)

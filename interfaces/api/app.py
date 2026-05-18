@@ -4,6 +4,9 @@ from fastapi import FastAPI
 
 from core.runtime.runtime import NickyRuntime
 
+from core.events.event import Event
+from core.events.types import EventType
+
 runtime = NickyRuntime()
 
 
@@ -24,11 +27,18 @@ app = FastAPI(
 
 @app.get("/health")
 async def health():
+    await runtime.event_bus.emit(
+        Event(
+            type=EventType.SYSTEM_HEALTH_CHECK,
+            source="api.health",
+            payload={},
+        )
+    )
+
     return {
         "status": "healthy",
         "system": "NV",
     }
-
 
 @app.get("/state")
 async def state():

@@ -1,7 +1,8 @@
-from enum import StrEnum
+from enum import Enum
 
 
-class EventType(StrEnum):
+class EventType(str, Enum):
     USER_MESSAGE_RECEIVED = "USER_MESSAGE_RECEIVED"
     ACTION_REQUESTED = "ACTION_REQUESTED"
     ACTION_COMPLETED = "ACTION_COMPLETED"
+    SYSTEM_HEALTH_CHECK = "SYSTEM_HEALTH_CHECK"
