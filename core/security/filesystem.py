@@ -1,10 +1,8 @@
 from pathlib import Path
 
-
 ALLOWED_PATHS = [
-    Path("/home/alex/NV"),
+    Path("/home/alex/NV/workspaces"),
 ]
-
 
 def is_path_allowed(
     path: str,
