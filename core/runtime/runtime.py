@@ -8,6 +8,10 @@ from observability.logging.logger import setup_logger
 from core.events.handlers.system import log_all_events
 from core.events.types import EventType
 
+from core.actions.create_folder import create_folder
+from core.actions.executor import ActionExecutor
+from core.actions.registry import ActionRegistry
+
 class NickyRuntime:
     def __init__(self):
         self.registry = RuntimeRegistry()
@@ -17,6 +21,14 @@ class NickyRuntime:
         self.state_manager = StateManager()
 
         self.event_bus = EventBus(
+            logger=self.logger,
+        )
+
+        self.action_registry = ActionRegistry()
+
+        self.action_executor = ActionExecutor(
+            registry=self.action_registry,
+            event_bus=self.event_bus,
             logger=self.logger,
         )
 
@@ -58,10 +70,21 @@ class NickyRuntime:
             "event_bus",
             self.event_bus,
         )
+
+        self.state_manager.register_capability(
+            "action_executor",
+        )
+
         for event_type in EventType:
             self.event_bus.subscribe(
                 event_type,
                 log_all_events,
+        )
+
+        self.action_registry.register(
+            "create_folder",
+            create_folder,
+            description="Create a folder on filesystem",
         )
 
     async def shutdown(self):
