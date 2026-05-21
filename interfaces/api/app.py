@@ -15,6 +15,9 @@ class ActionRequest(BaseModel):
     action: str
     payload: dict
 
+class ChatRequest(BaseModel):
+    message: str
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await runtime.startup()
@@ -58,3 +61,10 @@ async def actions(
         request.payload,
     )
 
+@app.post("/chat")
+async def chat(
+    request: ChatRequest,
+):
+    return await runtime.chat_service.chat(
+        request.message,
+    )

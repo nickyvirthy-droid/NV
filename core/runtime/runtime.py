@@ -12,6 +12,11 @@ from core.actions.create_folder import create_folder
 from core.actions.executor import ActionExecutor
 from core.actions.registry import ActionRegistry
 
+from llm.chat.service import ChatService
+from llm.providers.llamacpp import (
+    LlamaCppProvider,
+)
+
 class NickyRuntime:
     def __init__(self):
         self.registry = RuntimeRegistry()
@@ -31,6 +36,16 @@ class NickyRuntime:
             event_bus=self.event_bus,
             logger=self.logger,
         )
+
+        self.llm_provider = LlamaCppProvider(
+            base_url="http://127.0.0.1:8081",
+        )
+
+        self.chat_service = ChatService(
+            provider=self.llm_provider,
+        )
+
+        self.loaded_models = []
 
     async def startup(self):
         self.logger.info(
@@ -89,6 +104,18 @@ class NickyRuntime:
 
         self.state_manager.set_actions(
             self.action_registry.list_actions()
+        )
+
+        self.loaded_models.append(
+            "Qwen2.5-3B-Instruct"
+        )
+
+        self.state_manager.loaded_models = (
+            self.loaded_models
+        )
+
+        self.state_manager.register_capability(
+            "llm_provider",
         )
 
     async def shutdown(self):
