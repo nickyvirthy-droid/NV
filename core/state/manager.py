@@ -16,6 +16,8 @@ class StateManager:
 
         self.loaded_models = []
 
+        self.actions = {}
+
     def set_runtime_status(
         self,
         status: str,
@@ -49,4 +51,11 @@ class StateManager:
             "capabilities": self.capabilities,
             "interfaces": self.interfaces,
             "loaded_models": self.loaded_models,
+            "actions": self.actions,
         }
+
+    def set_actions(
+        self,
+        actions,
+    ):
+        self.actions = actions

@@ -7,10 +7,13 @@ class ActionRegistry:
         name,
         action,
         description="",
+        safe=True,
     ):
         self.actions[name] = {
             "handler": action,
             "description": description,
+            "safe": safe,
+            "type": "action",
         }
 
     def get(
@@ -21,6 +24,16 @@ class ActionRegistry:
 
     def list_actions(self):
         return {
-            name: data["description"]
+            name: {
+                "description": data[
+                    "description"
+                ],
+                "safe": data[
+                    "safe"
+                ],
+                "type": data[
+                    "type"
+                ],
+            }
             for name, data in self.actions.items()
         }

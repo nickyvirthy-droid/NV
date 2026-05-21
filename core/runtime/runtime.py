@@ -82,9 +82,13 @@ class NickyRuntime:
         )
 
         self.action_registry.register(
-            "create_folder",
+            "filesystem.create_folder",
             create_folder,
-            description="Create a folder on filesystem",
+            description="Create folder inside workspace sandbox",
+        )
+
+        self.state_manager.set_actions(
+            self.action_registry.list_actions()
         )
 
     async def shutdown(self):
