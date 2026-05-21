@@ -35,6 +35,22 @@ class NickyRuntime:
             self.state_manager,
         )
 
+        self.state_manager.set_runtime_status(
+            "running",
+        )
+
+        self.state_manager.register_capability(
+            "event_bus",
+        )
+
+        self.state_manager.register_capability(
+            "state_manager",
+        )
+
+        self.state_manager.register_capability(
+            "logger",
+        )
+
         self.logger.info(
             "runtime_started",
         )
