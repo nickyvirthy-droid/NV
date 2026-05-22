@@ -17,6 +17,10 @@ from llm.providers.llamacpp import (
     LlamaCppProvider,
 )
 
+from core.actions.service import (
+    ActionService,
+)
+
 class NickyRuntime:
     def __init__(self):
         self.registry = RuntimeRegistry()
@@ -43,9 +47,16 @@ class NickyRuntime:
 
         self.chat_service = ChatService(
             provider=self.llm_provider,
+            runtime=self,
         )
 
         self.loaded_models = []
+
+        self.action_service = (
+            ActionService(
+                self.action_executor
+            )
+        )
 
     async def startup(self):
         self.logger.info(

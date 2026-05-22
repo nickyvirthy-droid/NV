@@ -9,6 +9,10 @@ from core.events.types import EventType
 
 from pydantic import BaseModel
 
+from core.runtime.metadata import (
+    RuntimeMetadata,
+)
+
 runtime = NickyRuntime()
 
 class ActionRequest(BaseModel):
@@ -35,17 +39,9 @@ app = FastAPI(
 
 @app.get("/health")
 async def health():
-    await runtime.event_bus.emit(
-        Event(
-            type=EventType.SYSTEM_HEALTH_CHECK,
-            source="api.health",
-            payload={},
-        )
-    )
-
     return {
         "status": "healthy",
-        "system": "NV",
+        **RuntimeMetadata.get(),
     }
 
 @app.get("/state")

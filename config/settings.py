@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     MYSQL_PASSWORD: str
     MYSQL_DATABASE: str
 
+    WORKSPACE_ROOT: str = (
+        "/home/alex/NV/workspaces/alex"
+    )
+
     class Config:
         env_file = ".env"
 

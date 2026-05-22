@@ -10,7 +10,8 @@ class LlamaCppProvider:
 
     async def chat(
         self,
-        prompt,
+        system_prompt,
+        user_message,
     ):
         async with httpx.AsyncClient() as client:
             response = await client.post(
@@ -18,9 +19,13 @@ class LlamaCppProvider:
                 json={
                     "messages": [
                         {
+                            "role": "system",
+                            "content": system_prompt,
+                        },
+                        {
                             "role": "user",
-                            "content": prompt,
-                        }
+                            "content": user_message,
+                        },
                     ],
                     "temperature": 0.7,
                     "max_tokens": 512,
