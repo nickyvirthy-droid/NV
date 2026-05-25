@@ -1,0 +1,135 @@
+.
+├── automation
+│   ├── home_assistant
+│   ├── mqtt
+│   ├── triggers
+│   └── workflows
+├── config
+│   ├── __pycache__
+│   │   ├── settings.cpython-312.pyc
+│   │   └── version.cpython-312.pyc
+│   ├── settings.py
+│   └── version.py
+├── core
+│   ├── actions
+│   │   ├── create_folder.py
+│   │   ├── executor.py
+│   │   ├── parser.py
+│   │   ├── path_resolver.py
+│   │   ├── __pycache__
+│   │   │   ├── create_folder.cpython-312.pyc
+│   │   │   ├── executor.cpython-312.pyc
+│   │   │   ├── parser.cpython-312.pyc
+│   │   │   ├── path_resolver.cpython-312.pyc
+│   │   │   ├── registry.cpython-312.pyc
+│   │   │   └── service.cpython-312.pyc
+│   │   ├── registry.py
+│   │   └── service.py
+│   ├── capabilities
+│   ├── chat
+│   │   ├── memory.py
+│   │   ├── prompt_builder.py
+│   │   ├── service.py
+│   │   └── session.py
+│   ├── events
+│   │   ├── bus.py
+│   │   ├── event.py
+│   │   ├── handlers
+│   │   │   ├── __pycache__
+│   │   │   │   └── system.cpython-312.pyc
+│   │   │   └── system.py
+│   │   ├── __pycache__
+│   │   │   ├── bus.cpython-312.pyc
+│   │   │   ├── event.cpython-312.pyc
+│   │   │   └── types.cpython-312.pyc
+│   │   └── types.py
+│   ├── orchestrator
+│   ├── runtime
+│   │   ├── metadata.py
+│   │   ├── __pycache__
+│   │   │   ├── metadata.cpython-312.pyc
+│   │   │   ├── registry.cpython-312.pyc
+│   │   │   └── runtime.cpython-312.pyc
+│   │   ├── registry.py
+│   │   └── runtime.py
+│   ├── security
+│   │   ├── filesystem.py
+│   │   └── __pycache__
+│   │       └── filesystem.cpython-312.pyc
+│   └── state
+│       ├── manager.py
+│       └── __pycache__
+│           └── manager.cpython-312.pyc
+├── data
+├── docker
+├── docs
+│   ├── ACTION_PROTOCOL.md
+│   ├── NICKY_IDENTITY.md
+│   ├── NV_ARCHITECTURE.md
+│   ├── NV_WORKING_STATE.md
+│   ├── ROADMAP.md
+│   └── tree.txt
+├── ): implement runtime event architecture"
+├── interfaces
+│   ├── api
+│   │   ├── app.py
+│   │   └── __pycache__
+│   │       └── app.cpython-312.pyc
+│   ├── cli
+│   ├── pwa
+│   ├── telegram
+│   └── websocket
+├── llm
+│   ├── chat
+│   │   ├── __pycache__
+│   │   │   └── service.cpython-312.pyc
+│   │   └── service.py
+│   ├── external
+│   ├── local
+│   │   └── ollama_client.py
+│   ├── memory
+│   ├── prompts
+│   │   ├── builder.py
+│   │   ├── __pycache__
+│   │   │   └── builder.cpython-312.pyc
+│   │   └── system.txt
+│   ├── providers
+│   │   ├── llamacpp.py
+│   │   └── __pycache__
+│   │       └── llamacpp.cpython-312.pyc
+│   └── routing
+├── logs
+├── main.py
+├── observability
+│   ├── health
+│   ├── logging
+│   │   ├── logger.py
+│   │   └── __pycache__
+│   │       └── logger.cpython-312.pyc
+│   ├── metrics
+│   └── tracing
+├── pyproject.toml
+├── requirements.txt
+├── scripts
+├── static
+├── storage
+│   ├── cache
+│   ├── files
+│   ├── mysql
+│   └── vectors
+├── system
+│   ├── android
+│   ├── desktop
+│   ├── filesystem
+│   ├── permissions
+│   └── power
+├── tests
+├── tree.txt
+└── workspaces
+    ├── alex
+    │   ├── projeto
+    │   └── projeto1
+    ├── automation
+    └── temp
+
+72 directories, 61 files

@@ -3,7 +3,7 @@ from llm.providers.base import (
 )
 
 
-class LlamaCppProvider(
+class OllamaProvider(
     BaseProvider
 ):
 
@@ -30,4 +30,4 @@ class LlamaCppProvider(
 
     def name(self):
 
-        return "llama.cpp"
+        return "ollama"

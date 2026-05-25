@@ -1,40 +1,38 @@
-class ActionParser:
-    @staticmethod
-    def parse(text):
-        lines = text.splitlines()
+import json
 
-        action = None
-        payload = {}
 
-        for line in lines:
-            line = line.strip()
+def parse_message(message: str):
 
-            if line.startswith(
-                "ACTION:"
-            ):
-                action = (
-                    line.replace(
-                        "ACTION:",
-                        "",
-                    )
-                    .strip()
-                )
+    message = message.strip()
 
-            if line.startswith(
-                "PATH:"
-            ):
-                payload["path"] = (
-                    line.replace(
-                        "PATH:",
-                        "",
-                    )
-                    .strip()
-                )
+    if message.startswith("{"):
 
-        if not action:
-            return None
+        return json.loads(message)
 
-        return {
-            "action": action,
-            "payload": payload,
-        }
+    lines = message.splitlines()
+
+    result = {}
+
+    for line in lines:
+
+        if ":" not in line:
+            continue
+
+        key, value = line.split(
+            ":",
+            1
+        )
+
+        key = key.strip().upper()
+        value = value.strip()
+
+        if key == "ACTION":
+            result["action"] = value
+
+        elif key == "PATH":
+
+            result["payload"] = {
+                "path": value
+            }
+
+    return result

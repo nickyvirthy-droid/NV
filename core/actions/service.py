@@ -1,12 +1,14 @@
 from core.actions.parser import (
-    ActionParser,
+    parse_message,
 )
 
 from core.actions.path_resolver import (
     PathResolver,
 )
 
+
 class ActionService:
+
     def __init__(
         self,
         executor,
@@ -17,29 +19,35 @@ class ActionService:
         self,
         llm_response,
     ):
-        parsed = (
-            ActionParser.parse(
-                llm_response
-            )
+
+        parsed = parse_message(
+            llm_response
         )
 
         if not parsed:
+
             return {
                 "executed": False,
                 "response": llm_response,
             }
 
-        if "path" in parsed["payload"]:
-            parsed["payload"]["path"] = (
+        payload = parsed.get(
+            "payload",
+            {}
+        )
+
+        if "path" in payload:
+
+            payload["path"] = (
                 PathResolver.resolve(
-                    parsed["payload"]["path"]
+                    payload["path"]
                 )
             )
 
         result = (
             await self.executor.execute(
                 parsed["action"],
-                parsed["payload"],
+                payload,
             )
         )
 
