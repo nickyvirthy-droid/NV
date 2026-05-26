@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: nv-runtime
+Version: 1.0.0
+Summary: NV Operational Cognitive Runtime
+Requires-Python: >=3.12
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: httpx
+Requires-Dist: pydantic
+Requires-Dist: sqlalchemy
+Requires-Dist: aiosqlite
+Requires-Dist: python-dotenv

@@ -1,0 +1,18 @@
+[project]
+name = "nv-runtime"
+version = "1.0.0"
+description = "NV Operational Cognitive Runtime"
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "httpx",
+    "pydantic",
+    "sqlalchemy",
+    "aiosqlite",
+    "python-dotenv"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
