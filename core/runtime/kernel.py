@@ -26,6 +26,9 @@ from core.actions.manager import ActionManager
 from plugins.actions.loader import (
     register_actions
 )
+from core.database.manager import (
+    DatabaseManager
+)
 
 class RuntimeKernel:
 
@@ -50,6 +53,8 @@ class RuntimeKernel:
         self.actions = ActionManager(
             kernel=self
         )
+
+        self.database = DatabaseManager()
 
         register_actions(
             self.actions
@@ -117,6 +122,11 @@ class RuntimeKernel:
         self.container.register(
             "actions",
             self.actions
+        )
+
+        self.container.register(
+            "database",
+            self.database
         )
 
     async def load_providers(self):
