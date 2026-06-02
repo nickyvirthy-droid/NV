@@ -17,7 +17,12 @@ Arquiteto: Alex Projeti
 import asyncio
 
 from core.runtime.kernel import RuntimeKernel
-
+from core.actions.resolver.resolver import (
+    ActionResolver
+)
+from core.actions.formatters.system_info import (
+    format_system_info
+)
 from llm.prompts.messages import Message
 from llm.providers.request import ProviderRequest
 
@@ -41,6 +46,8 @@ async def chat():
     llm = providers.get("llamacpp")
 
     session = sessions.create()
+
+    resolver = ActionResolver()
 
     session.messages.append(
         Message(
@@ -70,6 +77,33 @@ async def chat():
             "quit"
         ):
             break
+
+        action_name = resolver.resolve(
+            user_input
+        )
+
+        if action_name:
+
+            result = await kernel.actions.execute(
+                action_name
+            )
+
+            if action_name == "system_info":
+
+                output = format_system_info(
+                    result
+                )
+
+            else:
+
+                output = str(result)
+
+            print()
+            print(f"Nicky > {output}")
+            print()
+
+            continue
+
 
         session.messages.append(
             Message(

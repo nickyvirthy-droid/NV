@@ -22,6 +22,10 @@ from config.runtime import RuntimeConfig
 from llm.providers.manager import ProviderManager
 from llm.providers.llamacpp import LlamaCppProvider
 from core.sessions.manager import SessionManager
+from core.actions.manager import ActionManager
+from plugins.actions.loader import (
+    register_actions
+)
 
 class RuntimeKernel:
 
@@ -42,6 +46,14 @@ class RuntimeKernel:
         self.providers = ProviderManager()
 
         self.sessions = SessionManager()
+
+        self.actions = ActionManager(
+            kernel=self
+        )
+
+        register_actions(
+            self.actions
+        )
 
         self._register_core_services()
 
@@ -100,6 +112,11 @@ class RuntimeKernel:
         self.container.register(
             "sessions",
             self.sessions
+        )
+
+        self.container.register(
+            "actions",
+            self.actions
         )
 
     async def load_providers(self):
