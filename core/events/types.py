@@ -1,0 +1,29 @@
+"""
+
+OMEGA DRAKON • SYSTEMS
+
+Tecnologia que respira.
+
+Módulo: Event Types
+
+Descrição: Eventos oficiais do runtime NV.
+
+Interface Viva: Nicky Virthy
+
+Arquiteto: Alex Projeti
+
+"""
+
+SYSTEM_BOOT = "SYSTEM_BOOT"
+
+SYSTEM_SHUTDOWN = "SYSTEM_SHUTDOWN"
+
+PLUGIN_DISCOVERED = "PLUGIN_DISCOVERED"
+
+WORKFLOW_STARTED = "WORKFLOW_STARTED"
+
+WORKFLOW_COMPLETED = "WORKFLOW_COMPLETED"
+
+ACTION_EXECUTED = "ACTION_EXECUTED"
+
+ACTION_FAILED = "ACTION_FAILED"

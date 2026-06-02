@@ -19,7 +19,7 @@ import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format='[NICKY][%(levelname)s] %(message)s'
+    format='[NICKY][%(levelname)s] %(asctime)s :: %(message)s'
 )
 
 logger = logging.getLogger("NV")
