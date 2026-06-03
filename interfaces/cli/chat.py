@@ -17,17 +17,30 @@ Arquiteto: Alex Projeti
 import asyncio
 
 from core.runtime.kernel import RuntimeKernel
+
 from core.actions.resolver.resolver import (
     ActionResolver
 )
+
 from core.actions.formatters.system_info import (
     format_system_info
 )
+
+from core.memory.resolver.profile import (
+    extract_name,
+    is_name_question
+)
+
 from llm.prompts.messages import Message
 from llm.providers.request import ProviderRequest
-
 from llm.system.prompt import build_system_prompt
+from core.actions.formatters.datetime import (
+    format_datetime
+)
 
+from core.actions.formatters.uptime import (
+    format_uptime
+)
 
 async def chat():
 
@@ -43,7 +56,13 @@ async def chat():
         "sessions"
     )
 
-    llm = providers.get("llamacpp")
+    memory = kernel.container.resolve(
+        "memory"
+    )
+
+    llm = providers.get(
+        "llamacpp"
+    )
 
     session = sessions.create()
 
@@ -66,7 +85,9 @@ async def chat():
 
     while True:
 
-        user_input = input("Você > ").strip()
+        user_input = input(
+            "Você > "
+        ).strip()
 
         if not user_input:
             continue
@@ -78,8 +99,64 @@ async def chat():
         ):
             break
 
+        # ==================================
+        # PROFILE MEMORY
+        # ==================================
+
+        name = extract_name(
+            user_input
+        )
+
+        if name:
+
+            memory.profile.set_name(
+                name
+            )
+
+            print()
+            print(
+                f"Nicky > Entendido. Vou lembrar que seu nome é {name}."
+            )
+            print()
+
+            continue
+
+        if is_name_question(
+            user_input
+        ):
+
+            stored_name = (
+                memory.profile.get_name()
+            )
+
+            print()
+
+            if stored_name:
+
+                print(
+                    f"Nicky > Seu nome é {stored_name}."
+                )
+
+            else:
+
+                print(
+                    "Nicky > Ainda não sei seu nome."
+                )
+
+            print()
+
+            continue
+
+        # ==================================
+        # ACTION ENGINE
+        # ==================================
+
         action_name = resolver.resolve(
             user_input
+        )
+
+        print(
+            f"[DEBUG] action={action_name}"
         )
 
         if action_name:
@@ -94,16 +171,33 @@ async def chat():
                     result
                 )
 
+            elif action_name == "datetime":
+
+                output = format_datetime(
+                    result
+                )
+
+            elif action_name == "uptime":
+
+                output = format_uptime(
+                    result
+                )
+
             else:
 
                 output = str(result)
 
             print()
-            print(f"Nicky > {output}")
+            print(
+                f"Nicky > {output}"
+            )
             print()
 
             continue
 
+        # ==================================
+        # LLM
+        # ==================================
 
         session.messages.append(
             Message(
@@ -126,11 +220,15 @@ async def chat():
         )
 
         print()
-        print(f"Nicky > {response.content}")
+        print(
+            f"Nicky > {response.content}"
+        )
         print()
 
     await kernel.shutdown()
 
 
 if __name__ == "__main__":
-    asyncio.run(chat())
+    asyncio.run(
+        chat()
+    )

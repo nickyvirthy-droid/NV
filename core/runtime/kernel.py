@@ -29,6 +29,17 @@ from plugins.actions.loader import (
 from core.database.manager import (
     DatabaseManager
 )
+from core.database.repositories.key_value import (
+    KeyValueRepository
+)
+
+from core.memory.profile import (
+    ProfileMemory
+)
+
+from core.memory.manager import (
+    MemoryManager
+)
 
 class RuntimeKernel:
 
@@ -55,6 +66,18 @@ class RuntimeKernel:
         )
 
         self.database = DatabaseManager()
+
+        repo = KeyValueRepository(
+            self.database
+        )
+
+        profile = ProfileMemory(
+            repo
+        )
+
+        self.memory = MemoryManager(
+            profile
+        )
 
         register_actions(
             self.actions
@@ -127,6 +150,11 @@ class RuntimeKernel:
         self.container.register(
             "database",
             self.database
+        )
+
+        self.container.register(
+            "memory",
+            self.memory
         )
 
     async def load_providers(self):

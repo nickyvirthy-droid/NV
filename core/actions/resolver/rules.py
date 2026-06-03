@@ -31,5 +31,33 @@ ACTION_RULES = {
         "versão do python",
 
         "versao do python",
+    ],
+
+    "uptime": [
+
+        "uptime",
+
+        "tempo ativo",
+
+        "há quanto tempo ligado",
+
+        "tempo ligado",
+    ],
+
+    "datetime": [
+
+        "hora",
+
+        "horário",
+
+        "horario",
+
+        "data",
+
+        "que horas são",
+
+        "que horas sao",
+
+        "hora atual",
     ]
 }
