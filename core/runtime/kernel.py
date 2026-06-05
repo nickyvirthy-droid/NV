@@ -32,15 +32,19 @@ from core.database.manager import (
 from core.database.repositories.key_value import (
     KeyValueRepository
 )
-
 from core.memory.profile import (
     ProfileMemory
 )
-
 from core.memory.manager import (
     MemoryManager
 )
+from core.database.repositories.messages import (
+    MessagesRepository
+)
 
+from core.sessions.history import (
+    SessionHistory
+)
 class RuntimeKernel:
 
     def __init__(self):
@@ -66,6 +70,14 @@ class RuntimeKernel:
         )
 
         self.database = DatabaseManager()
+
+        messages_repo = MessagesRepository(
+            self.database
+        )
+
+        self.history = SessionHistory(
+            messages_repo
+        )
 
         repo = KeyValueRepository(
             self.database
@@ -155,6 +167,11 @@ class RuntimeKernel:
         self.container.register(
             "memory",
             self.memory
+        )
+
+        self.container.register(
+            "history",
+            self.history
         )
 
     async def load_providers(self):

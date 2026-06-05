@@ -47,6 +47,35 @@ def run_migrations():
         """
     )
 
+    db.execute_commit(
+        """
+        CREATE TABLE IF NOT EXISTS nv_messages (
+
+            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+            owner_id VARCHAR(128) NOT NULL,
+
+            source VARCHAR(32) NOT NULL,
+
+            role VARCHAR(32) NOT NULL,
+
+            content LONGTEXT NOT NULL,
+
+            created_at TIMESTAMP
+            DEFAULT CURRENT_TIMESTAMP,
+
+            INDEX idx_owner (
+                owner_id
+            ),
+
+            INDEX idx_created (
+                created_at
+            )
+
+        )
+        """
+    )
+
     print(
         "Migration executed."
     )

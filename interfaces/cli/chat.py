@@ -17,27 +17,25 @@ Arquiteto: Alex Projeti
 import asyncio
 
 from core.runtime.kernel import RuntimeKernel
-
 from core.actions.resolver.resolver import (
     ActionResolver
 )
-
 from core.actions.formatters.system_info import (
     format_system_info
 )
-
 from core.memory.resolver.profile import (
     extract_name,
+    extract_city,
+    extract_printer,
+    extract_server,
     is_name_question
 )
-
 from llm.prompts.messages import Message
 from llm.providers.request import ProviderRequest
 from llm.system.prompt import build_system_prompt
 from core.actions.formatters.datetime import (
     format_datetime
 )
-
 from core.actions.formatters.uptime import (
     format_uptime
 )
@@ -60,15 +58,33 @@ async def chat():
         "memory"
     )
 
+    history = kernel.container.resolve(
+        "history"
+    )
+
+    config = kernel.container.resolve(
+        "config"
+    )
+
     llm = providers.get(
         "llamacpp"
     )
 
     session = sessions.create()
 
+    session.messages = history.load(
+        config.owner_id,
+        config.history_limit
+    )
+
+    print(
+        f"[DEBUG] mensagens carregadas: {len(session.messages)}"
+    )
+
     resolver = ActionResolver()
 
-    session.messages.append(
+    session.messages.insert(
+        0,
         Message(
             role="system",
             content=build_system_prompt()
@@ -88,6 +104,13 @@ async def chat():
         user_input = input(
             "Você > "
         ).strip()
+
+        history.save(
+            config.owner_id,
+            "cli",
+            "user",
+            user_input
+        )
 
         if not user_input:
             continue
@@ -120,6 +143,70 @@ async def chat():
             print()
 
             continue
+
+
+        city = extract_city(
+            user_input
+        )
+
+        if city:
+
+            memory.set(
+                "profile",
+                "city",
+                city
+            )
+
+            print()
+            print(
+                f"Nicky > Entendido. Vou lembrar que você mora em {city}."
+            )
+            print()
+
+            continue
+
+
+        printer = extract_printer(
+            user_input
+        )
+
+        if printer:
+
+            memory.set(
+                "profile",
+                "printer",
+                printer
+            )
+
+            print()
+            print(
+                f"Nicky > Entendido. Vou lembrar que sua impressora é {printer}."
+            )
+            print()
+
+            continue
+
+
+        server = extract_server(
+            user_input
+        )
+
+        if server:
+
+            memory.set(
+                "profile",
+                "server_name",
+                server
+            )
+
+            print()
+            print(
+                f"Nicky > Entendido. Vou lembrar que seu servidor é {server}."
+            )
+            print()
+
+            continue
+
 
         if is_name_question(
             user_input
@@ -217,6 +304,13 @@ async def chat():
                 role="assistant",
                 content=response.content
             )
+        )
+
+        history.save(
+            config.owner_id,
+            "cli",
+            "assistant",
+            response.content
         )
 
         print()

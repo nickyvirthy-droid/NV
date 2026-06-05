@@ -25,3 +25,7 @@ class RuntimeConfig:
     debug: bool = True
 
     plugins_dir: str = "plugins"
+
+    owner_id: str = "alex"
+
+    history_limit: int = 50

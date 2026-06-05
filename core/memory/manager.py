@@ -69,7 +69,7 @@ class MemoryManager:
         AND item_key=%s
         """
 
-        self.repository.database.execute(
+        self.repository.db.execute_commit(
             query,
             (
                 namespace,

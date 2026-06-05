@@ -6,7 +6,7 @@ Tecnologia que respira.
 
 Módulo: Profile Resolver
 
-Descrição: Resolve intenções relacionadas ao perfil.
+Descrição: Extração e consulta de informações do perfil.
 
 Interface Viva: Nicky Virthy
 
@@ -40,6 +40,91 @@ def extract_name(text: str):
         if match:
 
             return match.group(1).strip().title()
+
+    return None
+
+
+def extract_city(text: str):
+
+    patterns = [
+
+        r"moro em (.+)",
+
+        r"sou de (.+)",
+
+        r"minha cidade é (.+)",
+
+        r"minha cidade e (.+)",
+    ]
+
+    text = text.lower().strip()
+
+    for pattern in patterns:
+
+        match = re.search(
+            pattern,
+            text
+        )
+
+        if match:
+
+            return match.group(1).strip().title()
+
+    return None
+
+
+def extract_printer(text: str):
+
+    patterns = [
+
+        r"tenho uma impressora (.+)",
+
+        r"minha impressora é (.+)",
+
+        r"minha impressora e (.+)",
+    ]
+
+    text = text.strip()
+
+    for pattern in patterns:
+
+        match = re.search(
+            pattern,
+            text,
+            re.IGNORECASE
+        )
+
+        if match:
+
+            return match.group(1).strip()
+
+    return None
+
+
+def extract_server(text: str):
+
+    patterns = [
+
+        r"meu servidor é (.+)",
+
+        r"meu servidor e (.+)",
+
+        r"uso o servidor (.+)",
+    ]
+
+    text = text.strip()
+
+    for pattern in patterns:
+
+        match = re.search(
+            pattern,
+            text,
+            re.IGNORECASE
+        )
+
+        if match:
+
+            return match.group(1).strip()
 
     return None
 

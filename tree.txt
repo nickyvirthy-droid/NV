@@ -1,0 +1,259 @@
+.
+├── config
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── runtime.cpython-312.pyc
+│   └── runtime.py
+├── core
+│   ├── actions
+│   │   ├── base.py
+│   │   ├── context.py
+│   │   ├── formatters
+│   │   │   ├── datetime.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── datetime.cpython-312.pyc
+│   │   │   │   ├── system_info.cpython-312.pyc
+│   │   │   │   └── uptime.cpython-312.pyc
+│   │   │   ├── system_info.py
+│   │   │   └── uptime.py
+│   │   ├── __init__.py
+│   │   ├── manager.py
+│   │   ├── __pycache__
+│   │   │   ├── base.cpython-312.pyc
+│   │   │   ├── context.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   └── registry.cpython-312.pyc
+│   │   ├── registry.py
+│   │   └── resolver
+│   │       ├── __pycache__
+│   │       │   ├── resolver.cpython-312.pyc
+│   │       │   └── rules.cpython-312.pyc
+│   │       ├── resolver.py
+│   │       └── rules.py
+│   ├── capabilities
+│   │   └── __init__.py
+│   ├── database
+│   │   ├── connection.py
+│   │   ├── __init__.py
+│   │   ├── manager.py
+│   │   ├── migrations.py
+│   │   ├── __pycache__
+│   │   │   ├── connection.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   └── migrations.cpython-312.pyc
+│   │   └── repositories
+│   │       ├── base.py
+│   │       ├── __init__.py
+│   │       ├── key_value.py
+│   │       └── __pycache__
+│   │           ├── base.cpython-312.pyc
+│   │           ├── __init__.cpython-312.pyc
+│   │           └── key_value.cpython-312.pyc
+│   ├── events
+│   │   ├── bus.py
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── bus.cpython-312.pyc
+│   │   │   └── __init__.cpython-312.pyc
+│   │   └── types.py
+│   ├── __init__.py
+│   ├── memory
+│   │   ├── __init__.py
+│   │   ├── manager.py
+│   │   ├── profile.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   └── profile.cpython-312.pyc
+│   │   └── resolver
+│   │       ├── __init__.py
+│   │       ├── profile.py
+│   │       └── __pycache__
+│   │           ├── __init__.cpython-312.pyc
+│   │           └── profile.cpython-312.pyc
+│   ├── orchestration
+│   │   └── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
+│   ├── registry
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── services.cpython-312.pyc
+│   │   └── services.py
+│   ├── runtime
+│   │   ├── context.py
+│   │   ├── __init__.py
+│   │   ├── kernel.py
+│   │   └── __pycache__
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── kernel.cpython-312.pyc
+│   ├── security
+│   │   └── __init__.py
+│   ├── sessions
+│   │   ├── __init__.py
+│   │   ├── manager.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   └── session.cpython-312.pyc
+│   │   └── session.py
+│   ├── state
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── runtime_state.cpython-312.pyc
+│   │   └── runtime_state.py
+│   ├── tools
+│   │   └── __init__.py
+│   └── workflows
+│       └── __init__.py
+├── data
+│   └── __init__.py
+├── docs
+│   ├── CHANGELOG.md
+│   ├── __init__.py
+│   ├── PROMPT_CONTINUIDADE_V1.2.1.md
+│   └── README.md
+├── __init__.py
+├── interfaces
+│   ├── api
+│   │   └── __init__.py
+│   ├── cli
+│   │   ├── chat.py
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── telegram
+│   │   └── __init__.py
+│   └── websocket
+│       └── __init__.py
+├── llm
+│   ├── __init__.py
+│   ├── planning
+│   │   └── __init__.py
+│   ├── prompts
+│   │   ├── builder.py
+│   │   ├── __init__.py
+│   │   ├── messages.py
+│   │   └── __pycache__
+│   │       ├── builder.cpython-312.pyc
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── messages.cpython-312.pyc
+│   ├── providers
+│   │   ├── base.py
+│   │   ├── __init__.py
+│   │   ├── llamacpp.py
+│   │   ├── manager.py
+│   │   ├── __pycache__
+│   │   │   ├── base.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── llamacpp.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   ├── request.cpython-312.pyc
+│   │   │   └── response.cpython-312.pyc
+│   │   ├── request.py
+│   │   └── response.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
+│   ├── reasoning
+│   │   └── __init__.py
+│   ├── routing
+│   │   └── __init__.py
+│   └── system
+│       ├── behaviors.py
+│       ├── identity.py
+│       ├── policy.py
+│       ├── prompt.py
+│       └── __pycache__
+│           ├── behaviors.cpython-312.pyc
+│           ├── identity.cpython-312.pyc
+│           ├── policy.cpython-312.pyc
+│           └── prompt.cpython-312.pyc
+├── main.py
+├── nv_runtime.egg-info
+│   ├── dependency_links.txt
+│   ├── PKG-INFO
+│   ├── requires.txt
+│   ├── SOURCES.txt
+│   └── top_level.txt
+├── observability
+│   ├── audit
+│   │   └── __init__.py
+│   ├── health
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── logging
+│   │   ├── __init__.py
+│   │   └── logger.py
+│   ├── metrics
+│   │   └── __init__.py
+│   └── tracing
+│       └── __init__.py
+├── plugins
+│   ├── actions
+│   │   ├── datetime
+│   │   │   ├── action.py
+│   │   │   └── __pycache__
+│   │   │       └── action.cpython-312.pyc
+│   │   ├── __init__.py
+│   │   ├── loader.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── loader.cpython-312.pyc
+│   │   ├── system_info
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   └── uptime
+│   │       ├── action.py
+│   │       └── __pycache__
+│   │           └── action.cpython-312.pyc
+│   ├── __init__.py
+│   ├── integrations
+│   │   └── __init__.py
+│   ├── loader.py
+│   ├── plugin.py
+│   ├── providers
+│   │   └── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── loader.cpython-312.pyc
+│   └── workflows
+│       └── __init__.py
+├── pyproject.toml
+├── requirements.txt
+├── scripts
+│   └── __init__.py
+├── storage
+│   ├── cache
+│   │   └── __init__.py
+│   ├── files
+│   │   └── __init__.py
+│   ├── __init__.py
+│   ├── postgres
+│   │   └── __init__.py
+│   ├── sqlite
+│   │   └── __init__.py
+│   └── vectors
+│       └── __init__.py
+├── tests
+│   ├── __init__.py
+│   ├── test_action.py
+│   ├── test_database.py
+│   ├── test_execute_action.py
+│   ├── test_kernel_actions.py
+│   ├── test_key_value.py
+│   ├── test_memory_manager.py
+│   ├── test_migration.py
+│   ├── test_profile_memory.py
+│   ├── test_resolver.py
+│   ├── test_runtime_database.py
+│   └── test_runtime_memory.py
+└── tree.txt
+
+80 directories, 177 files
