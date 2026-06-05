@@ -1,6 +1,8 @@
 import asyncio
 
-from core.actions.manager import ActionManager
+from core.runtime.kernel import (
+    RuntimeKernel
+)
 
 from plugins.actions.system_info.action import (
     SystemInfoAction
@@ -9,7 +11,9 @@ from plugins.actions.system_info.action import (
 
 async def main():
 
-    manager = ActionManager()
+    kernel = RuntimeKernel()
+
+    manager = kernel.actions
 
     manager.registry.register(
         SystemInfoAction()
