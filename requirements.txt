@@ -10,13 +10,16 @@ h11==0.16.0
 httpcore==1.0.9
 httpx==0.28.1
 idna==3.16
+iniconfig==2.3.0
 mysql-connector-python==9.7.0
-# Editable Git install with no remote (nv-runtime==1.0.0)
--e /home/alex/NV
+-e git+https://github.com/nickyvirthy-droid/NV.git@377cd241f4761a01f8956036b6ad1cdd2300a2b6#egg=nv_runtime
 packaging==26.2
+pluggy==1.6.0
 psutil==7.2.2
 pydantic==2.13.4
 pydantic_core==2.46.4
+Pygments==2.20.0
+pytest==9.0.3
 python-dotenv==1.2.2
 setuptools==82.0.1
 SQLAlchemy==2.0.50

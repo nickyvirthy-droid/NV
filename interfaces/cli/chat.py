@@ -23,11 +23,10 @@ from core.actions.resolver.resolver import (
 from core.actions.formatters.system_info import (
     format_system_info
 )
+from core.memory.extractor import (
+    extract_facts
+)
 from core.memory.resolver.profile import (
-    extract_name,
-    extract_city,
-    extract_printer,
-    extract_server,
     is_name_question
 )
 from llm.prompts.messages import Message
@@ -39,6 +38,7 @@ from core.actions.formatters.datetime import (
 from core.actions.formatters.uptime import (
     format_uptime
 )
+
 
 async def chat():
 
@@ -123,97 +123,42 @@ async def chat():
             break
 
         # ==================================
-        # PROFILE MEMORY
+        # MEMORY EXTRACTION
         # ==================================
 
-        name = extract_name(
+        facts = extract_facts(
             user_input
         )
 
-        if name:
+        if facts:
 
-            memory.profile.set_name(
-                name
+            memory.save_facts(
+                facts
             )
 
             print()
-            print(
-                f"Nicky > Entendido. Vou lembrar que seu nome é {name}."
-            )
+
+            for fact in facts:
+
+                print(
+                    "Nicky > Entendido. Vou lembrar disso."
+                )
+
             print()
 
             continue
 
-
-        city = extract_city(
-            user_input
-        )
-
-        if city:
-
-            memory.set(
-                "profile",
-                "city",
-                city
-            )
-
-            print()
-            print(
-                f"Nicky > Entendido. Vou lembrar que você mora em {city}."
-            )
-            print()
-
-            continue
-
-
-        printer = extract_printer(
-            user_input
-        )
-
-        if printer:
-
-            memory.set(
-                "profile",
-                "printer",
-                printer
-            )
-
-            print()
-            print(
-                f"Nicky > Entendido. Vou lembrar que sua impressora é {printer}."
-            )
-            print()
-
-            continue
-
-
-        server = extract_server(
-            user_input
-        )
-
-        if server:
-
-            memory.set(
-                "profile",
-                "server_name",
-                server
-            )
-
-            print()
-            print(
-                f"Nicky > Entendido. Vou lembrar que seu servidor é {server}."
-            )
-            print()
-
-            continue
-
+        # ==================================
+        # MEMORY QUERIES
+        # ==================================
 
         if is_name_question(
             user_input
         ):
 
-            stored_name = (
-                memory.profile.get_name()
+            stored_name = memory.get(
+                "profile",
+                "user_name"
             )
 
             print()

@@ -8,7 +8,7 @@ async def main():
     kernel = RuntimeKernel()
 
     result = await kernel.actions.execute(
-        "system_info"
+        "disk_usage"
     )
 
     print(result)

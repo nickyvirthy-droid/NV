@@ -15,6 +15,7 @@ Arquiteto: Alex Projeti
 """
 
 import time
+import psutil
 
 from core.actions.base import BaseAction
 
@@ -33,8 +34,10 @@ class UptimeAction(BaseAction):
         payload
     ):
 
-        uptime = time.time() - time.monotonic()
+        uptime = int(
+            time.time() - psutil.boot_time()
+        )
 
         return {
-            "seconds": int(uptime)
+            "seconds": uptime
         }

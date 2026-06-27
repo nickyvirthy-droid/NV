@@ -17,7 +17,9 @@ Arquiteto: Alex Projeti
 from core.memory.profile import (
     ProfileMemory
 )
-
+from core.memory.facts import (
+    MemoryFact
+)
 
 class MemoryManager:
 
@@ -90,3 +92,25 @@ class MemoryManager:
             )
             is not None
         )
+
+    def save_fact(
+        self,
+        fact: MemoryFact
+    ):
+
+        self.set(
+            fact.namespace,
+            fact.key,
+            fact.value
+        )
+
+    def save_facts(
+        self,
+        facts: list[MemoryFact]
+    ):
+
+        for fact in facts:
+
+            self.save_fact(
+                fact
+            )

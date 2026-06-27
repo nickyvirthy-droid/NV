@@ -16,7 +16,10 @@ Arquiteto: Alex Projeti
 
 from core.actions.registry import ActionRegistry
 from core.actions.context import ActionContext
-
+from core.security import SecurityManager
+from core.security.exceptions import (
+    PolicyViolation
+)
 
 class ActionManager:
 
@@ -28,6 +31,8 @@ class ActionManager:
         self.kernel = kernel
 
         self.registry = ActionRegistry()
+
+        self.security = SecurityManager()
 
     async def execute(
         self,
@@ -50,6 +55,18 @@ class ActionManager:
 
             context = ActionContext(
                 kernel=self.kernel
+            )
+
+        decision = await self.security.validate(
+            action_name=action_name,
+            payload=payload
+        )
+
+        if not decision.allowed:
+
+            raise PolicyViolation(
+                decision.reason
+                or "Action blocked by security policy."
             )
 
         return await action.execute(

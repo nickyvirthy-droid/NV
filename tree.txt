@@ -1,10 +1,30 @@
 .
+├── backups
+│   ├── teste_backup.txt.20260613_115725.bak
+│   ├── teste_backup.txt.20260622_175301.bak
+│   ├── teste_backup.txt.20260622_181634.bak
+│   ├── teste_backup.txt.20260622_181808.bak
+│   ├── teste_backup.txt.20260622_182717.bak
+│   ├── teste_backup.txt.20260622_183821.bak
+│   ├── teste_bug.py.20260608_173750.bak
+│   ├── teste_patch.txt.20260608_170639.bak
+│   ├── teste_patch.txt.20260608_171355.bak
+│   ├── teste_restore.txt.20260613_115725.bak
+│   ├── teste_restore.txt.20260622_175303.bak
+│   ├── teste_restore.txt.20260622_181636.bak
+│   ├── teste_restore.txt.20260622_181810.bak
+│   ├── teste_restore.txt.20260622_182722.bak
+│   └── teste_restore.txt.20260622_183826.bak
 ├── config
 │   ├── __init__.py
 │   ├── __pycache__
 │   │   ├── __init__.cpython-312.pyc
 │   │   └── runtime.cpython-312.pyc
-│   └── runtime.py
+│   ├── runtime.py
+│   └── security
+│       ├── approval.yaml
+│       ├── permissions.yaml
+│       └── scopes.yaml
 ├── core
 │   ├── actions
 │   │   ├── base.py
@@ -34,6 +54,7 @@
 │   │       └── rules.py
 │   ├── capabilities
 │   │   └── __init__.py
+│   ├── coder.py
 │   ├── database
 │   │   ├── connection.py
 │   │   ├── __init__.py
@@ -48,23 +69,31 @@
 │   │       ├── base.py
 │   │       ├── __init__.py
 │   │       ├── key_value.py
+│   │       ├── messages.py
 │   │       └── __pycache__
 │   │           ├── base.cpython-312.pyc
 │   │           ├── __init__.cpython-312.pyc
-│   │           └── key_value.cpython-312.pyc
+│   │           ├── key_value.cpython-312.pyc
+│   │           └── messages.cpython-312.pyc
 │   ├── events
 │   │   ├── bus.py
 │   │   ├── __init__.py
 │   │   ├── __pycache__
 │   │   │   ├── bus.cpython-312.pyc
-│   │   │   └── __init__.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── types.cpython-312.pyc
 │   │   └── types.py
 │   ├── __init__.py
+│   ├── logger.py
 │   ├── memory
+│   │   ├── extractor.py
+│   │   ├── facts.py
 │   │   ├── __init__.py
 │   │   ├── manager.py
 │   │   ├── profile.py
 │   │   ├── __pycache__
+│   │   │   ├── extractor.cpython-312.pyc
+│   │   │   ├── facts.cpython-312.pyc
 │   │   │   ├── __init__.cpython-312.pyc
 │   │   │   ├── manager.cpython-312.pyc
 │   │   │   └── profile.cpython-312.pyc
@@ -77,7 +106,9 @@
 │   ├── orchestration
 │   │   └── __init__.py
 │   ├── __pycache__
-│   │   └── __init__.cpython-312.pyc
+│   │   ├── coder.cpython-312.pyc
+│   │   ├── __init__.cpython-312.pyc
+│   │   └── logger.cpython-312.pyc
 │   ├── registry
 │   │   ├── __init__.py
 │   │   ├── __pycache__
@@ -89,14 +120,38 @@
 │   │   ├── __init__.py
 │   │   ├── kernel.py
 │   │   └── __pycache__
+│   │       ├── context.cpython-312.pyc
 │   │       ├── __init__.cpython-312.pyc
 │   │       └── kernel.cpython-312.pyc
 │   ├── security
-│   │   └── __init__.py
+│   │   ├── approval_engine.py
+│   │   ├── audit_engine.py
+│   │   ├── audit_models.py
+│   │   ├── exceptions.py
+│   │   ├── __init__.py
+│   │   ├── manager.py
+│   │   ├── models.py
+│   │   ├── permission_engine.py
+│   │   ├── policy_engine.py
+│   │   ├── __pycache__
+│   │   │   ├── approval_engine.cpython-312.pyc
+│   │   │   ├── audit_engine.cpython-312.pyc
+│   │   │   ├── audit_models.cpython-312.pyc
+│   │   │   ├── exceptions.cpython-312.pyc
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   ├── manager.cpython-312.pyc
+│   │   │   ├── models.cpython-312.pyc
+│   │   │   ├── permission_engine.cpython-312.pyc
+│   │   │   ├── policy_engine.cpython-312.pyc
+│   │   │   └── scope_engine.cpython-312.pyc
+│   │   ├── roles.py
+│   │   └── scope_engine.py
 │   ├── sessions
+│   │   ├── history.py
 │   │   ├── __init__.py
 │   │   ├── manager.py
 │   │   ├── __pycache__
+│   │   │   ├── history.cpython-312.pyc
 │   │   │   ├── __init__.cpython-312.pyc
 │   │   │   ├── manager.cpython-312.pyc
 │   │   │   └── session.cpython-312.pyc
@@ -110,14 +165,37 @@
 │   ├── tools
 │   │   └── __init__.py
 │   └── workflows
-│       └── __init__.py
+│       ├── context.py
+│       ├── engine.py
+│       ├── __init__.py
+│       ├── manager.py
+│       ├── models.py
+│       ├── __pycache__
+│       │   ├── base.cpython-312.pyc
+│       │   ├── context.cpython-312.pyc
+│       │   ├── engine.cpython-312.pyc
+│       │   ├── __init__.cpython-312.pyc
+│       │   ├── manager.cpython-312.pyc
+│       │   ├── models.cpython-312.pyc
+│       │   └── registry.cpython-312.pyc
+│       └── registry.py
 ├── data
 │   └── __init__.py
+├── debug_action.py
 ├── docs
+│   ├── 000 ativar venv.txt
+│   ├── 000 comandos.txt
 │   ├── CHANGELOG.md
-│   ├── __init__.py
-│   ├── PROMPT_CONTINUIDADE_V1.2.1.md
-│   └── README.md
+│   ├── FOUNDATION.md
+│   ├── MILESTONE.md
+│   ├── Nicky Virthy.txt
+│   ├── PROCEDIMENTO OFICIAL DE FECHAMENTO.md
+│   ├── PROMPT_CONTINUIDADE.md
+│   ├── README.md
+│   ├── Regra Prompt.md
+│   ├── Regras de Trabalho.md
+│   ├── SECURITY_LAYER.md
+│   └── workflows.md
 ├── __init__.py
 ├── interfaces
 │   ├── api
@@ -172,6 +250,8 @@
 │           ├── identity.cpython-312.pyc
 │           ├── policy.cpython-312.pyc
 │           └── prompt.cpython-312.pyc
+├── logs
+│   └── security
 ├── main.py
 ├── nv_runtime.egg-info
 │   ├── dependency_links.txt
@@ -187,32 +267,383 @@
 │   ├── __init__.py
 │   ├── logging
 │   │   ├── __init__.py
-│   │   └── logger.py
+│   │   ├── logger.py
+│   │   └── __pycache__
+│   │       ├── __init__.cpython-312.pyc
+│   │       └── logger.cpython-312.pyc
 │   ├── metrics
 │   │   └── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
 │   └── tracing
 │       └── __init__.py
 ├── plugins
 │   ├── actions
+│   │   ├── action_info
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── action_schema
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── action_validate
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── cpu_info
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── database_backup
+│   │   │   └── __init__.py
+│   │   ├── database_query
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── database_schema
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── database_stats
+│   │   │   └── __init__.py
+│   │   ├── database_tables
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── datetime
 │   │   │   ├── action.py
+│   │   │   ├── __init__.py
 │   │   │   └── __pycache__
-│   │   │       └── action.cpython-312.pyc
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── disk_usage
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── docker_list
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── docker_logs
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── docker_stats
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── docker_status
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_archive
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_copy
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_delete
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_exists
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_extract
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_hash
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_info
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_list
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_mkdir
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_move
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_read
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_search
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_touch
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_tree
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── filesystem_write
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_add
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_branch
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_checkout
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_commit
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_diff
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_fetch
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_log
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_pull
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_push
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── git_status
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── __init__.py
+│   │   ├── ip_address
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── list_actions
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── loader.py
+│   │   ├── memory_usage
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── process_info
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── process_kill
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── process_list
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── __pycache__
 │   │   │   ├── __init__.cpython-312.pyc
 │   │   │   └── loader.cpython-312.pyc
+│   │   ├── service_list
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── service_logs
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── service_status
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_env
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_exec
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_groups
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_hostname
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   ├── system_info
 │   │   │   ├── action.py
 │   │   │   ├── __init__.py
 │   │   │   └── __pycache__
 │   │   │       ├── action.cpython-312.pyc
 │   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_ping
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_user
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
+│   │   ├── system_which
+│   │   │   ├── action.py
+│   │   │   ├── __init__.py
+│   │   │   ├── init.py
+│   │   │   └── __pycache__
+│   │   │       ├── action.cpython-312.pyc
+│   │   │       └── __init__.cpython-312.pyc
 │   │   └── uptime
 │   │       ├── action.py
+│   │       ├── __init__.py
 │   │       └── __pycache__
-│   │           └── action.cpython-312.pyc
+│   │           ├── action.cpython-312.pyc
+│   │           └── __init__.cpython-312.pyc
 │   ├── __init__.py
 │   ├── integrations
 │   │   └── __init__.py
@@ -224,9 +655,29 @@
 │   │   ├── __init__.cpython-312.pyc
 │   │   └── loader.cpython-312.pyc
 │   └── workflows
-│       └── __init__.py
+│       ├── __init__.py
+│       └── loader.py
+├── __pycache__
+│   ├── __init__.cpython-312.pyc
+│   └── main.cpython-312.pyc
 ├── pyproject.toml
 ├── requirements.txt
+├── sandbox
+│   ├── archive_test
+│   │   └── teste.txt
+│   ├── archive_test.zip
+│   ├── destino_copy.txt
+│   ├── destino.txt
+│   ├── extracted
+│   │   └── teste.txt
+│   ├── hash_test.txt
+│   ├── origem_copy.txt
+│   ├── test.db
+│   ├── test_dir
+│   │   └── subdir
+│   ├── teste.txt
+│   ├── teste_write.txt
+│   └── touch_test.txt
 ├── scripts
 │   └── __init__.py
 ├── storage
@@ -241,19 +692,221 @@
 │   │   └── __init__.py
 │   └── vectors
 │       └── __init__.py
+├── teste_bug.py
+├── teste_patch.txt
 ├── tests
+│   ├── backups
 │   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-312.pyc
+│   │   ├── test_action.cpython-312.pyc
+│   │   ├── test_action.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_action_info_action.cpython-312.pyc
+│   │   ├── test_action_manager.cpython-312.pyc
+│   │   ├── test_action_manager.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_action_registry.cpython-312.pyc
+│   │   ├── test_action_resolver.cpython-312.pyc
+│   │   ├── test_action_schema_action.cpython-312.pyc
+│   │   ├── test_action_validate_action.cpython-312.pyc
+│   │   ├── test_backup_manager.cpython-312.pyc
+│   │   ├── test_code_analyzer.cpython-312.pyc
+│   │   ├── test_cpu_info_action.cpython-312.pyc
+│   │   ├── test_database.cpython-312.pyc
+│   │   ├── test_database.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_database_manager.cpython-312.pyc
+│   │   ├── test_database_query_action.cpython-312.pyc
+│   │   ├── test_database_schema_action.cpython-312.pyc
+│   │   ├── test_database_tables_action.cpython-312.pyc
+│   │   ├── test_datetime_action.cpython-312.pyc
+│   │   ├── test_disk_usage_action.cpython-312.pyc
+│   │   ├── test_docker_list_action.cpython-312.pyc
+│   │   ├── test_docker_logs_action.cpython-312.pyc
+│   │   ├── test_docker_stats_action.cpython-312.pyc
+│   │   ├── test_docker_status_action.cpython-312.pyc
+│   │   ├── teste_coder.cpython-312.pyc
+│   │   ├── teste_coder_git.cpython-312.pyc
+│   │   ├── test_event_bus.cpython-312.pyc
+│   │   ├── test_execute_action.cpython-312.pyc
+│   │   ├── test_execute_action.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_filesystem_archive_action.cpython-312.pyc
+│   │   ├── test_filesystem_copy_action.cpython-312.pyc
+│   │   ├── test_filesystem_delete_action.cpython-312.pyc
+│   │   ├── test_filesystem_exists_action.cpython-312.pyc
+│   │   ├── test_filesystem_extract_action.cpython-312.pyc
+│   │   ├── test_filesystem_hash_action.cpython-312.pyc
+│   │   ├── test_filesystem_info_action.cpython-312.pyc
+│   │   ├── test_filesystem_list_action.cpython-312.pyc
+│   │   ├── test_filesystem_mkdir_action.cpython-312.pyc
+│   │   ├── test_filesystem_move_action.cpython-312.pyc
+│   │   ├── test_filesystem_read_action.cpython-312.pyc
+│   │   ├── test_filesystem_search_action.cpython-312.pyc
+│   │   ├── test_filesystem_touch_action.cpython-312.pyc
+│   │   ├── test_filesystem_tree_action.cpython-312.pyc
+│   │   ├── test_filesystem_write_action.cpython-312.pyc
+│   │   ├── test_git_add_action.cpython-312.pyc
+│   │   ├── test_git_branch_action.cpython-312.pyc
+│   │   ├── test_git_checkout_action.cpython-312.pyc
+│   │   ├── test_git_commit_action.cpython-312.pyc
+│   │   ├── test_git_diff_action.cpython-312.pyc
+│   │   ├── test_git_fetch_action.cpython-312.pyc
+│   │   ├── test_git_log_action.cpython-312.pyc
+│   │   ├── test_git_pull_action.cpython-312.pyc
+│   │   ├── test_git_push_action.cpython-312.pyc
+│   │   ├── test_git_status_action.cpython-312.pyc
+│   │   ├── test_history.cpython-312.pyc
+│   │   ├── test_history.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_ip_address_action.cpython-312.pyc
+│   │   ├── test_kernel_actions.cpython-312.pyc
+│   │   ├── test_kernel_actions.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_key_value.cpython-312.pyc
+│   │   ├── test_key_value.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_list_actions_action.cpython-312.pyc
+│   │   ├── test_logger.cpython-312.pyc
+│   │   ├── test_memory_fact.cpython-312.pyc
+│   │   ├── test_memory_manager.cpython-312.pyc
+│   │   ├── test_memory_manager.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_memory_usage_action.cpython-312.pyc
+│   │   ├── test_messages_repository.cpython-312.pyc
+│   │   ├── test_migration.cpython-312.pyc
+│   │   ├── test_migration.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_process_info_action.cpython-312.pyc
+│   │   ├── test_process_kill_action.cpython-312.pyc
+│   │   ├── test_process_list_action.cpython-312.pyc
+│   │   ├── test_profile_memory.cpython-312.pyc
+│   │   ├── test_profile_memory.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_resolver.cpython-312.pyc
+│   │   ├── test_resolver.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_rollback_manager.cpython-312.pyc
+│   │   ├── test_runtime_coder.cpython-312.pyc
+│   │   ├── test_runtime_coder.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_runtime_context.cpython-312.pyc
+│   │   ├── test_runtime_database.cpython-312.pyc
+│   │   ├── test_runtime_database.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_runtime_memory.cpython-312.pyc
+│   │   ├── test_runtime_memory.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_runtime_state.cpython-312.pyc
+│   │   ├── test_sandbox_manager.cpython-312.pyc
+│   │   ├── test_security_approval.cpython-312.pyc
+│   │   ├── test_security_audit.cpython-312.pyc
+│   │   ├── test_security_manager.cpython-312.pyc
+│   │   ├── test_security_permission.cpython-312.pyc
+│   │   ├── test_security_policy.cpython-312.pyc
+│   │   ├── test_security_scope.cpython-312.pyc
+│   │   ├── test_service_container.cpython-312.pyc
+│   │   ├── test_service_list_action.cpython-312.pyc
+│   │   ├── test_service_logs_action.cpython-312.pyc
+│   │   ├── test_service_status_action.cpython-312.pyc
+│   │   ├── test_session.cpython-312.pyc
+│   │   ├── test_session_manager.cpython-312.pyc
+│   │   ├── test_system_env_action.cpython-312.pyc
+│   │   ├── test_system_exec_action.cpython-312.pyc
+│   │   ├── test_system_groups_action.cpython-312.pyc
+│   │   ├── test_system_hostname_action.cpython-312.pyc
+│   │   ├── test_system_info_action.cpython-312.pyc
+│   │   ├── test_system_ping_action.cpython-312.pyc
+│   │   ├── test_system_user_action.cpython-312.pyc
+│   │   ├── test_system_which_action.cpython-312.pyc
+│   │   ├── test_uptime_action.cpython-312.pyc
+│   │   └── test_validation_pipeline.cpython-312.pyc
+│   ├── sandbox
+│   ├── test_action_info_action.py
+│   ├── test_action_manager.py
 │   ├── test_action.py
+│   ├── test_action_registry.py
+│   ├── test_action_resolver.py
+│   ├── test_action_schema_action.py
+│   ├── test_action_validate_action.py
+│   ├── test_backup_manager.py
+│   ├── test_code_analyzer.py
+│   ├── test_cpu_info_action.py
+│   ├── test_database_manager.py
 │   ├── test_database.py
+│   ├── test_database_query_action.py
+│   ├── test_database_schema_action.py
+│   ├── test_database_tables_action.py
+│   ├── test_datetime_action.py
+│   ├── test_disk_usage_action.py
+│   ├── test_docker_list_action.py
+│   ├── test_docker_logs_action.py
+│   ├── test_docker_stats_action.py
+│   ├── test_docker_status_action.py
+│   ├── teste_coder_git.py
+│   ├── teste_coder.py
+│   ├── teste_quebrado.py
+│   ├── test_event_bus.py
 │   ├── test_execute_action.py
+│   ├── test_filesystem_archive_action.py
+│   ├── test_filesystem_copy_action.py
+│   ├── test_filesystem_delete_action.py
+│   ├── test_filesystem_exists_action.py
+│   ├── test_filesystem_extract_action.py
+│   ├── test_filesystem_hash_action.py
+│   ├── test_filesystem_info_action.py
+│   ├── test_filesystem_list_action.py
+│   ├── test_filesystem_mkdir_action.py
+│   ├── test_filesystem_move_action.py
+│   ├── test_filesystem_read_action.py
+│   ├── test_filesystem_search_action.py
+│   ├── test_filesystem_touch_action.py
+│   ├── test_filesystem_tree_action.py
+│   ├── test_filesystem_write_action.py
+│   ├── test_git_add_action.py
+│   ├── test_git_branch_action.py
+│   ├── test_git_checkout_action.py
+│   ├── test_git_commit_action.py
+│   ├── test_git_diff_action.py
+│   ├── test_git_fetch_action.py
+│   ├── test_git_log_action.py
+│   ├── test_git_pull_action.py
+│   ├── test_git_push_action.py
+│   ├── test_git_status_action.py
+│   ├── test_history.py
+│   ├── test_ip_address_action.py
 │   ├── test_kernel_actions.py
 │   ├── test_key_value.py
+│   ├── test_list_actions_action.py
+│   ├── test_logger.py
+│   ├── test_memory_fact.py
 │   ├── test_memory_manager.py
+│   ├── test_memory_usage_action.py
+│   ├── test_messages_repository.py
 │   ├── test_migration.py
+│   ├── test_process_info_action.py
+│   ├── test_process_kill_action.py
+│   ├── test_process_list_action.py
 │   ├── test_profile_memory.py
 │   ├── test_resolver.py
+│   ├── test_rollback_manager.py
+│   ├── test_runtime_coder.py
+│   ├── test_runtime_context.py
 │   ├── test_runtime_database.py
-│   └── test_runtime_memory.py
+│   ├── test_runtime_memory.py
+│   ├── test_runtime_state.py
+│   ├── test_sandbox_manager.py
+│   ├── test_security_approval.py
+│   ├── test_security_audit.py
+│   ├── test_security_manager.py
+│   ├── test_security_permission.py
+│   ├── test_security_policy.py
+│   ├── test_security_scope.py
+│   ├── test_service_container.py
+│   ├── test_service_list_action.py
+│   ├── test_service_logs_action.py
+│   ├── test_service_status_action.py
+│   ├── test_session_manager.py
+│   ├── test_session.py
+│   ├── test_system_env_action.py
+│   ├── test_system_exec_action.py
+│   ├── test_system_groups_action.py
+│   ├── test_system_hostname_action.py
+│   ├── test_system_info_action.py
+│   ├── test_system_ping_action.py
+│   ├── test_system_user_action.py
+│   ├── test_system_which_action.py
+│   ├── test_uptime_action.py
+│   ├── test_validation_pipeline.py
+│   ├── test_workflow_engine.py
+│   └── test_workflow_real.py
 └── tree.txt
 
-80 directories, 177 files
+205 directories, 705 files

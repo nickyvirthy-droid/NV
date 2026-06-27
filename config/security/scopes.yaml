@@ -1,0 +1,19 @@
+filesystem:
+
+  allowed_paths:
+    - /home/alex/NV
+    - /tmp
+
+system_exec:
+
+  allowed_commands:
+    - ls
+    - pwd
+    - df
+    - whoami
+
+database:
+
+  allowed_tables:
+    - nv_key_value
+    - nv_messages

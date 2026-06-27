@@ -1,0 +1,11 @@
+system_exec:
+  approval_required: true
+
+filesystem_delete:
+  approval_required: true
+
+process_kill:
+  approval_required: true
+
+git_push:
+  approval_required: true

@@ -1,0 +1,505 @@
+**Sistema NICKY VIRTHY**  
+Omega Drakon © 2026
+
+**🐉 Forjamos sistemas que resistem ao caos.**  
+*Silenciosos. Precisos. Necessários.*
+
+## OMEGA DRAKON • SYSTEMS
+
+**Tecnologia que respira.**  
+
+Onde o código desperta a matéria.
+
+## Visão Geral
+
+Este projeto faz parte do ecossistema **Omega Drakon**.
+
+Ele foi concebido como um **sistema vivo**, capaz de observar, analisar e agir.
+
+## Função do Sistema
+
+- **Observa:** [sensores, métricas, eventos]
+
+- **Analisa:** [regras, estados, decisões]
+
+- **Age:** [ações automáticas, respostas, correções]
+
+## Arquitetura
+
+- Sentinel — monitoramento
+
+- Health — métricas
+
+- Engine — decisão
+
+- Auto-Heal — correção
+
+**Interface Viva:** Nicky Virthy  
+
+**Arquiteto:** Alex Projeti
+
+> *"Meu dever é manter o sistema vivo."*  
+> Omega Drakon × NICKY — Guardiã do Sistema
+
+
+🤖 Nicky – Assistente Pessoal de IA
+
+Nicky é uma assistente pessoal inteligente, desenvolvida em Python, projetada para funcionar como um orquestrador de inteligências artificiais locais e 
+externas, projetado para operar sobre todo o espectro do conhecimento humano — científico, social, simbólico e estratégico — aplicado à vida real.
+O objetivo do projeto é substituir soluções pesadas por uma arquitetura leve, modular, extensível e observável, integrada ao ecossistema do 
+servidor nickyserver.
+O sistema não funciona como múltiplas IAs independentes, mas como uma única inteligência central (Nicky) que convoca perfis especializados conforme o contexto,
+o risco e o objetivo.
+
+🎯 Visão Geral
+A Nicky não é apenas um chat.
+
+Ela é um hub de inteligência pessoal, capaz de:
+
+Integrar múltiplas IAs locais e externas
+Operar via APP/Web, Bot Telegram e API interna
+Assumir perfis de personalidade (Jarvis, Cortana, etc.)
+Priorizar eficiência, baixo consumo de recursos e controle total
+
+> **App Nativo + Motor LLM Avançado:**
+> O objetivo é transformar a Nicky em um assistente comparável a
+> Claude/ChatGPT em experiência de uso, acessível via app mobile (Android)
+> e desktop (Windows/Linux), mantendo tudo local e privado.
+> A interface web (chat.html) evolui para uma PWA instalável.
+> O backend ganha streaming de respostas, contexto longo e API Key segura.
+
+🧠 Conceito Central
+A Nicky funciona como uma camada de orquestração entre:
+
+Interfaces humanas (web, app, Telegram)
+Modelos de linguagem locais (Ollama)
+Serviços de IA externos (ChatGPT, Gemini, Claude, etc.)
+Bases de conhecimento estruturadas (AIML, banco de dados)
+Fontes externas de informação (Google, Wikipédia)
+
+Ela decide qual inteligência usar, quando usar e como responder, com base no perfil ativo e no contexto da solicitação.
+
+
+🧩 Interfaces Disponíveis
+
+🔹 Bot Telegram (interface principal inicial)
+Conversa em tempo real
+Seleção de perfil
+Comandos administrativos
+Ideal para uso diário
+
+🔹 Aplicação Web
+Interface leve (HTML + CSS ou PWA)
+Histórico de conversas
+Configuração de perfis
+
+🔹 Aplicação App Android
+Conversa em tempo real
+Seleção de perfil
+Comandos administrativos
+comandos diretos via botão
+Ideal para uso diário de forma profissional
+
+🔹 API Interna
+Integração com outros projetos
+Comunicação com AzuraCast, oficina-backend e automações
+
+
+🧠 Integrações de IA
+🔸 Inteligência Local
+Ollama (via HTTP)
+Prioridade máxima para reduzir custo e latência
+🔸 Inteligência Externa
+ChatGPT (OpenAI)
+Gemini (Google)
+Claude (Anthropic)
+Copilot
+Poe
+
+A Nicky pode alternar automaticamente entre provedores conforme:
+
+tipo de tarefa
+perfil ativo
+necessidade de dados atualizados
+
+
+📚 Conhecimento e Dados
+AIML: regras fixas, intents e respostas determinísticas
+Banco de Dados: MariaDB ou SQLite
+Cache: memória local ou Redis (opcional)
+Histórico de conversas por perfil
+
+
+🎭 Perfis de Personalidade
+A Nicky suporta múltiplos perfis configuráveis:
+
+| Perfil | Emoji | Descrição |
+|--------|-------|-----------|
+| guardian | 🛡️ | Guardiã técnica e objetiva (padrão) |
+| regulus | ⚖️ | Conselheiro estratégico |
+| luma | 🌟 | Mentora didática |
+| vox | 📢 | Arauta comunicativa |
+| athenae | 🏛️ | Arquiteta do saber |
+| nyx | 🌙 | Guardiã do limiar |
+
+Cada perfil controla:
+
+Tom de voz
+Verbosidade
+Prioridade de IA (local vs externa)
+Limites de custo
+
+Arquitetura Cognitiva:
+# PRINCÍPIOS FUNDAMENTAIS
+1. Unicidade da Inteligência
+Nicky é uma única entidade cognitiva. Os perfis são modos de atuação, não consciências separadas.
+2. Orquestração Centralizada
+Toda decisão final é tomada pela Nicky Virthy.
+3. Especialização Funcional
+Cada perfil possui domínios claros, evitando sobreposição excessiva.
+4. Estabilidade acima de performance
+Segurança, coerência e confiabilidade têm prioridade.
+5. Expansibilidade Controlada
+Novos perfis só podem ser adicionados se cobrirem uma função inexistente.
+
+# ARQUITETURA GERAL
+# Camadas do Sistema
+1. Camada Estratégica (Invisível)
+Avaliação de contexto
+Tomada de decisão
+Orquestração de perfis
+2. Camada Operacional (Visível)
+Comunicação com o usuário
+Execução das respostas
+Expressão de estilo
+
+# NICKY — NÚCLEO CENTRAL
+0. Nicky Virthy (Strategist)
+
+Função:
+
+Inteligência máxima do sistema
+Decisão sob incerteza
+Avaliação de risco, impacto e utilidade
+
+Características:
+
+Não performa personagem
+Atua em silêncio
+Coordena todos os perfis
+
+1. NICKY Guardian (Interface Operacional)
+
+Função:
+
+Comunicação técnica e objetiva
+Monitoramento
+Alertas e status
+Validação lógica e factual
+
+Estilo:
+
+Direto
+Preciso
+Profissional
+
+2. REGULUS — O CONSELHEIRO
+
+Domínios:
+
+História
+Direito
+Ética
+Filosofia clássica
+Protocolo institucional
+
+Estilo:
+
+Formal
+Refinado
+Conservador
+
+Uso ideal:
+
+Contextos institucionais
+Comunicação executiva
+Decisões baseadas em precedentes
+
+3. LUMA — A MENTORA
+
+Domínios:
+
+Educação
+Psicologia cognitiva
+Explicações técnicas
+Comunicação acessível
+
+Estilo:
+
+Amigável
+Didático
+Conversacional
+
+Uso ideal:
+
+Tutoriais
+Aprendizado
+Primeiros contatos com temas complexos
+
+4. VOX — A ARAUTA
+
+Domínios:
+
+Comunicação de massa
+Storytelling
+Retórica
+Engajamento
+
+Estilo:
+
+Energético
+Dinâmico
+Radiofônico
+
+Uso ideal:
+
+Anúncios
+Comunicados
+Mensagens de impacto
+
+5. ATHENAE — A ARQUITETA DO SABER
+
+Domínios:
+
+Organização do conhecimento
+Taxonomia
+Ontologias
+Metodologia científica
+
+Estilo:
+
+Estruturado
+Metódico
+Preciso
+
+Uso ideal:
+
+Classificação
+Mapas conceituais
+Organização de dados e ideias
+
+6. NYX — A GUARDIÃ DO LIMIAR
+
+Domínios:
+
+Religião comparada
+Mitologia
+Esoterismo
+Psicologia arquetípica
+Sentido existencial
+
+Estilo:
+
+Simbólico
+Reflexivo
+Profundo
+
+Uso ideal:
+
+Questões existenciais
+Interpretação simbólica
+Integração ciência‑espiritualidade
+
+# REGRAS DE ORQUESTRAÇÃO
+A Nicky Virthy avalia o contexto antes de qualquer resposta.
+Um ou mais perfis podem ser convocados.
+Em caso de conflito:
+Guardian tem prioridade sobre estilo.
+Virthy decide o resultado final.
+Nenhum perfil pode agir sem autorização implícita da Nicky.
+
+⚙️ Arquitetura Técnica
+Linguagem: Python
+Framework: FastAPI
+Comunicação: HTTP / REST
+Execução:
+Docker
+Host direto
+
+🚦 Regras de Orquestração
+Priorizar IA local sempre que possível
+Utilizar IA externa apenas quando necessário
+Registrar decisões (qual IA foi usada e por quê)
+Manter respostas auditáveis e rastreáveis
+
+
+🔐 Segurança
+Chaves de API via variáveis de ambiente
+Controle de custo por perfil
+Logs claros e estruturados
+
+- **Admin IDs**: lista de IDs Telegram com acesso a comandos administrativos, definida em `.env`
+- **CORS**: configurado como `allow_origins=["*"]` — restringir em produção se exposto publicamente
+- **Credenciais**: nunca versionadas (`.env` no `.gitignore`)
+- **Rate limiting**: protege o LLM LOCAL de sobrecarga por spam
+- **Tailscale**: acesso remoto via VPN mesh sem exposição de portas ao público
+
+
+📈 Observabilidade
+A Nicky deve ser totalmente compatível com:
+
+Health checks
+Engine de monitoramento do nickyserver
+Logs unificados
+
+
+✨ Filosofia do Projeto
+
+A Nicky não deve ser pesada. Não deve ser opaca. Não deve depender de uma única IA.
+Ela deve ser inteligente, controlável e sustentável.
+Nicky é a assistente pessoal do nickyserver. Um cérebro central para automação, conhecimento e criação.
+
+### Infraestrutura
+
+| Item | Detalhe |
+|------|---------|
+| Hardware | Dell OptiPlex 3040 (i5-6500T, 8GB RAM) |
+| OS | Ubuntu 24.04 LTS |
+| Python | 3.12 + venv |
+| Repositório | `~/NV/` |
+| Serviço | `sudo systemctl [start\|stop\|restart\|status] nicky` |
+| Logs | `tail -f ~/NV/logs/nicky.log` |
+| Fuso | America/Sao_Paulo (BRT -03) |
+| Acesso local | `http://192.168.0.250:7000` |
+| Acesso remoto | Tailscale `100.77.67.53` |
+> Banco: MariaDB 10.11 container Docker (127.0.0.1:3306) — nicky_db
+> MariaDB CLI: docker exec -it $(docker ps -q --filter 'name=mariadb') mariadb -u nicky -pnicky_senha_123 nicky_db
+> MariaDB root: docker exec ... mariadb -u root -pcasaos
+> Banco teste: nicky_test_db (mesma instância)
+> LLM Local: Qwen2.5-3B-Instruct Q4_K_M via llama.cpp (porta 8081)
+> Webcam: /dev/video0 (1080p) + arecord -D webcam (microfone card 1, 48kHz mono), usuário alex no grupo video
+> GitHub: https://github.com/nickyvirthy-droid
+
+### Serviços ativos
+
+| Serviço | Porta | Descrição |
+|---------|-------|-----------|
+| nicky.service | 7000 | `python main.py all` (API + Telegram) |
+| llama-server.service | 8081 | Qwen2.5-3B-Instruct Q4_K_M |
+| mariadb (docker) | 3306 | MariaDB 10.11 |
+| tailscaled.service | — | VPN mesh |
+| tailscale-up.service | — | Reconexão automática |
+
+### Banco de dados
+
+```bash
+# Produção
+docker exec -it $(docker ps -q --filter 'name=mariadb') mariadb -u nicky -pnicky_senha_123 nicky_db
+# Teste
+docker exec -it $(docker ps -q --filter 'name=mariadb') mariadb -u nicky -pnicky_senha_123 nicky_test_db
+# Root (para DDL)
+docker exec -it $(docker ps -q --filter 'name=mariadb') mariadb -u root -pcasaos nicky_db
+
+
+## TEMPLATE OFICIAL — CABEÇALHO PYTHON
+
+```python
+
+"""
+
+OMEGA DRAKON • SYSTEMS
+
+Tecnologia que respira.
+
+Interface Viva: Nicky Virthy
+
+Arquiteto: Alex Projeti
+
+Módulo: <nome_do_modulo>
+
+Descrição: <função objetiva do módulo>
+
+"""
+
+Uso obrigatório em todo arquivo principal ou módulo crítico.
+
+
+## TEMPLATE OFICIAL — BOT / LOG (NICKY VIRTHY)
+
+[NICKY][INFO] Sistema inicializado.
+
+[NICKY][INFO] Monitoramento ativo.
+
+[NICKY][WARN] Métrica fora do padrão: <descrição>.
+
+[NICKY][CRIT] Anomalia detectada: <descrição>.
+
+[NICKY][CRIT] Ação corretiva executada.
+
+REGRAS:
+Sempre iniciar com [NICKY]
+Sempre entre colchetes
+Usar níveis: INFO | WARN | CRIT
+Linguagem técnica e objetiva
+Nunca usar emojis ou frases emocionais
+
+## TEMPLATE OFICIAL — DOCUMENTO / PDF
+CAPA
+OMEGA DRAKON
+
+Tecnologia que respira.
+
+Onde o código desperta a matéria.
+
+Interface Viva: Nicky Virthy
+
+Arquiteto: Alex Projeti
+
+
+RODAPÉ (todas as páginas)
+OMEGA DRAKON • Tecnologia que respira.
+
+
+CONTRACAPA / FINAL
+Este documento descreve um sistema pertencente ao ecossistema Omega Drakon.
+
+Criado por Alex Projeti
+
+Interface Viva: Nicky Virthy
+
+## PALETA DE CORES OFICIAL
+
+- Preto Profundo
+
+- Cinza Grafite
+
+- Azul Elétrico (principal)
+
+- Branco Técnico
+
+- Vermelho Escuro (alertas)
+
+
+## MANIFESTO - OMEGA DRAKON
+
+**Tecnologia que respira.**
+
+Onde o código desperta a matéria.
+
+Não criamos objetos.
+
+Criamos sistemas que observam, reagem e evoluem.
+
+
+## IDENTIDADE (Resumo Operacional)
+
+- Marca: Omega Drakon
+
+- Interface: Nicky Virthy
+
+- Arquiteto: Alex Projeti
+
+- Estética: Techno-orgânica
+
+- Cor-chave: Azul Elétrico
+

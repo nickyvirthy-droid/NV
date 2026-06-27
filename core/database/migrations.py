@@ -76,6 +76,28 @@ def run_migrations():
         """
     )
 
+    db.execute_commit(
+        """
+        CREATE TABLE IF NOT EXISTS nv_workflow_executions (
+
+            execution_id VARCHAR(128)
+            PRIMARY KEY,
+
+            workflow_id VARCHAR(128)
+            NOT NULL,
+
+            status VARCHAR(32)
+            NOT NULL,
+
+            results LONGTEXT,
+
+            created_at TIMESTAMP
+            DEFAULT CURRENT_TIMESTAMP
+
+        )
+        """
+    )
+
     print(
         "Migration executed."
     )

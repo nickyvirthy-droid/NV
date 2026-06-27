@@ -1,0 +1,49 @@
+roles:
+
+  guest:
+    permissions:
+      - read
+
+  operator:
+    permissions:
+      - read
+      - write
+
+  admin:
+    permissions:
+      - read
+      - write
+      - admin
+
+
+actions:
+
+  list_actions: read
+
+  system_info: read
+  datetime: read
+  uptime: read
+  disk_usage: read
+  memory_usage: read
+  cpu_info: read
+  ip_address: read
+
+  filesystem_read: read
+  filesystem_list: read
+  filesystem_exists: read
+  filesystem_info: read
+  filesystem_search: read
+
+  filesystem_write: write
+  filesystem_copy: write
+  filesystem_move: write
+  filesystem_touch: write
+  filesystem_mkdir: write
+
+  filesystem_delete: admin
+
+  process_kill: admin
+
+  system_exec: admin
+
+  git_push: admin

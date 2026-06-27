@@ -41,10 +41,22 @@ from core.memory.manager import (
 from core.database.repositories.messages import (
     MessagesRepository
 )
-
+from core.database.repositories.workflow_executions import (
+    WorkflowExecutionsRepository
+)
 from core.sessions.history import (
     SessionHistory
 )
+from core.coder import (
+    CoderEngine
+)
+from core.workflows.manager import (
+    WorkflowManager
+)
+from plugins.workflows.loader import (
+    register_workflows
+)
+
 class RuntimeKernel:
 
     def __init__(self):
@@ -75,6 +87,12 @@ class RuntimeKernel:
             self.database
         )
 
+        workflow_repo = (
+            WorkflowExecutionsRepository(
+                self.database
+            )
+        )
+
         self.history = SessionHistory(
             messages_repo
         )
@@ -91,8 +109,22 @@ class RuntimeKernel:
             profile
         )
 
+        self.coder = CoderEngine()
+
+        self.workflows = WorkflowManager(
+            kernel=self
+        )
+
+        self.workflow_repo = (
+            workflow_repo
+        )
+
         register_actions(
             self.actions
+        )
+
+        register_workflows(
+            self.workflows
         )
 
         self._register_core_services()
@@ -170,8 +202,23 @@ class RuntimeKernel:
         )
 
         self.container.register(
+            "coder",
+            self.coder
+        )
+
+        self.container.register(
             "history",
             self.history
+        )
+
+        self.container.register(
+            "workflows",
+            self.workflows
+        )
+
+        self.container.register(
+            "workflow_repo",
+            self.workflow_repo
         )
 
     async def load_providers(self):
