@@ -56,6 +56,15 @@ class WorkflowEngine:
             for step in workflow.steps
         ]
 
+        stages = {}
+
+        for step in workflow.steps:
+
+            stages.setdefault(
+                step.stage,
+                []
+            ).append(step)
+
         branch_targets = set()
 
         for step in workflow.steps:
@@ -359,3 +368,164 @@ class WorkflowEngine:
         )
 
         return execution
+
+async def _execute_step(
+    self,
+    step,
+    context,
+    execution,
+    kernel
+):
+
+    execution.current_step = (
+        step.step_id
+    )
+
+    await kernel.events.emit(
+        "WORKFLOW_STEP_STARTED",
+        {
+            "execution_id":
+                execution.execution_id,
+            "step_id":
+                step.step_id
+        }
+    )
+
+    payload = {}
+
+    if step.arguments:
+
+        payload.update(
+            step.arguments
+        )
+
+    payload["_workflow"] = (
+        context.data
+    )
+
+    result = None
+
+    for attempt in range(
+        step.retry_count + 1
+    ):
+
+        try:
+
+            if step.timeout:
+
+                result = await asyncio.wait_for(
+                    kernel.actions.execute(
+                        action_name=step.action_name,
+                        payload=payload
+                    ),
+                    timeout=step.timeout
+                )
+
+            else:
+
+                result = await (
+                    kernel.actions.execute(
+                        action_name=step.action_name,
+                        payload=payload
+                    )
+                )
+
+            break
+
+        except asyncio.TimeoutError:
+
+            execution.errors.append(
+                f"Step '{step.step_id}' timed out."
+            )
+
+            execution.status = "FAILED"
+
+            await kernel.events.emit(
+                "WORKFLOW_STEP_TIMEOUT",
+                {
+                    "execution_id":
+                        execution.execution_id,
+                    "step_id":
+                        step.step_id,
+                    "timeout":
+                        step.timeout
+                }
+            )
+
+            kernel.workflow_repo.save(
+                execution
+            )
+
+            raise
+
+        except Exception as e:
+
+            execution.errors.append(
+                str(e)
+            )
+
+            await kernel.events.emit(
+                "WORKFLOW_STEP_RETRY",
+                {
+                    "execution_id":
+                        execution.execution_id,
+                    "step_id":
+                        step.step_id,
+                    "attempt":
+                        attempt + 1,
+                    "error":
+                        str(e)
+                }
+            )
+
+            if (
+                attempt
+                >= step.retry_count
+            ):
+
+                execution.status = (
+                    "FAILED"
+                )
+
+                await kernel.events.emit(
+                    "WORKFLOW_STEP_FAILED",
+                    {
+                        "execution_id":
+                            execution.execution_id,
+                        "step_id":
+                            step.step_id,
+                        "error":
+                            str(e)
+                    }
+                )
+
+                kernel.workflow_repo.save(
+                    execution
+                )
+
+                raise
+
+            await asyncio.sleep(
+                step.retry_delay
+            )
+
+    context.set(
+        step.step_id,
+        result
+    )
+
+    execution.results[
+        step.step_id
+    ] = result
+
+    await kernel.events.emit(
+        "WORKFLOW_STEP_FINISHED",
+        {
+            "execution_id":
+                execution.execution_id,
+            "step_id":
+                step.step_id
+        }
+    )
+
+    return result
