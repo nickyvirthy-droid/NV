@@ -449,4 +449,76 @@ Foundation:
 100% concluída
 
 Próxima Etapa:
-v1.9.x-workflow-resilience
+v1.9.0-dag-engine
+
+---
+
+# v1.8-final
+
+Data: Junho/2026
+
+Status: CONGELADA / HOMOLOGADA
+
+---
+
+## Homologação Final
+
+Todos os testes do subsistema de workflows foram executados e aprovados.
+
+Resultado:
+
+```text
+13 passed in 13s
+```
+
+## Funcionalidades Consolidadas
+
+### Workflow Foundation
+
+* WorkflowManager
+* WorkflowRegistry
+* WorkflowEngine
+* WorkflowContext
+* WorkflowExecution Persistence
+
+### Resilience Layer
+
+* Retry por Step
+* Timeout por Step
+* Controle de Erros
+* Histórico de Execuções
+
+### Controle de Fluxo
+
+* Condition Path
+* Skip de Etapas
+* Branching (`if_true_next`)
+* Branching (`if_false_next`)
+
+## Persistência
+
+* MariaDB
+* Tabela: nv_workflow_executions
+
+## Git
+
+* Tag oficial: v1.8-final
+* Branch de manutenção: develop-v1.4.0-memory-evolution
+* Próxima branch: develop-v1.9.0-dag-engine
+
+## Observações
+
+* Histórico Git reescrito após GitHub Push Protection.
+* Segredo removido do histórico do repositório.
+* Branch `develop/v1.4.0-memory-evolution` renomeada para `develop-v1.4.0-memory-evolution`.
+
+## Próxima Versão
+
+* v1.9.0-dag-engine
+* DAG (Directed Acyclic Graph)
+* Execução paralela de Steps
+* Dependências entre etapas
+* Scheduler interno
+* Nested Workflows
+* Recuperação de Execuções
+* Métricas de Workflow

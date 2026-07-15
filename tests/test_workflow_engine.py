@@ -1,67 +1,248 @@
 """
 OMEGA DRAKON • SYSTEMS
-Script de Teste Manual: Workflow Engine v1.8.x
+
+Teste:
+Workflow Engine v1.9.x
 """
 
 import asyncio
-import logging
-from core.workflows.models import Workflow, WorkflowStep
-from core.workflows.manager import WorkflowManager
+import pytest
 
-# Configura logs para podermos ver os disparos da Engine na tela
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-logger = logging.getLogger("NV.Tests.Workflow")
+from core.workflows.models import (
+    Workflow,
+    WorkflowStep
+)
+from core.workflows.manager import (
+    WorkflowManager
+)
 
-# Mock simples do Kernel para simular o EventBus e as Actions sem carregar o sistema todo
+pytestmark = pytest.mark.anyio
+
+
 class MockEventBus:
-    async def emit(self, event_name: str, payload: dict):
-        print(f"\n📢 [EVENTO DISPARADO]: {event_name}")
-        print(f"   Payload: {payload}")
+
+    async def emit(
+        self,
+        event_name: str,
+        payload: dict
+    ):
+        print(
+            f"\n📢 {event_name}"
+        )
+        print(payload)
+
 
 class MockActionManager:
-    async def execute(self, action_name: str, payload: dict) -> dict:
-        print(f"🎬 [ActionManager Executando]: {action_name} com payload {payload}")
-        # Retorna um sucesso simulado com dados incrementais para testar o repasse de contexto
-        return {"success": True, "executed": action_name, "data_received": payload.get("input", "nenhum")}
+
+    async def execute(
+        self,
+        action_name: str,
+        payload: dict
+    ):
+
+        print(
+            f"🎬 {action_name}"
+        )
+
+        return {
+            "success": True,
+            "action": action_name,
+            "payload": payload
+        }
+
+
+class MockWorkflowRepo:
+
+    def save(
+        self,
+        execution
+    ):
+        pass
+
+    def get(
+        self,
+        execution_id
+    ):
+        return None
+
+    def list(
+        self,
+        limit=50
+    ):
+        return []
+
+    def count(self):
+        return 0
+
 
 class MockKernel:
+
     def __init__(self):
-        self.events = MockEventBus()
-        self.actions = MockActionManager()
 
-async def run_test():
-    logger.info("Inicializando cenário de teste do Workflow Engine...")
-    
-    # 1. Instancia o gerenciador de workflows
-    manager = WorkflowManager()
-    kernel_mock = MockKernel()
+        self.events = (
+            MockEventBus()
+        )
 
-    # 2. Define um fluxo linear simples: Etapa 1 -> Etapa 2
-    test_workflow = Workflow(
-        id="fluxo_teste_linear",
-        name="Workflow de Teste Linear Puro",
-        description="Testando a v1.8.x sem paralelismo",
+        self.actions = (
+            MockActionManager()
+        )
+
+        self.workflow_repo = (
+            MockWorkflowRepo()
+        )
+
+
+async def test_linear():
+
+    kernel = MockKernel()
+
+    manager = WorkflowManager(
+        kernel
+    )
+
+    workflow = Workflow(
+        workflow_id="linear_test",
+        name="Linear Test",
         steps=[
-            WorkflowStep(name="etapa_inicial", action="system.log_info", payload={"input": "Iniciando NV"}),
-            WorkflowStep(name="etapa_meio", action="process.check_status", payload={"input": "Processando dados"})
+            WorkflowStep(
+                step_id="step1",
+                action_name="action_1"
+            ),
+            WorkflowStep(
+                step_id="step2",
+                action_name="action_2"
+            )
         ]
     )
 
-    # 3. Registra o fluxo no catálogo
-    manager.register_workflow(test_workflow)
-
-    # 4. Executa o fluxo usando o mock do kernel
-    print("\n" + "="*50 + "\n🚀 INICIANDO EXECUÇÃO DO WORKFLOW\n" + "="*50)
-    result = await manager.execute_workflow(
-        workflow_id="fluxo_teste_linear",
-        kernel_services=kernel_mock,
-        metadata={"user": "alex", "env": "development"}
+    manager.register(
+        workflow
     )
-    
-    print("\n" + "="*50 + "\n📊 RESULTADO FINAL DO WORKFLOW\n" + "="*50)
-    print(f"Sucesso: {result.success}")
-    print(f"Status: {result.status}")
-    print(f"Resultados Acumulados por Etapa: {result.results}")
+
+    result = await manager.execute(
+        "linear_test"
+    )
+
+    assert (
+        result.status
+        == "COMPLETED"
+    )
+
+    assert (
+        "step1"
+        in result.results
+    )
+
+    assert (
+        "step2"
+        in result.results
+    )
+
+    assert (
+        result.results["step1"]["action"]
+        == "action_1"
+    )
+
+    assert (
+        result.results["step2"]["action"]
+        == "action_2"
+    )
+
+
+async def test_dag():
+
+    kernel = MockKernel()
+
+    manager = WorkflowManager(
+        kernel
+    )
+
+    workflow = Workflow(
+        workflow_id="dag_test",
+        name="DAG Test",
+        steps=[
+            WorkflowStep(
+                step_id="extract",
+                action_name="extract"
+            ),
+            WorkflowStep(
+                step_id="transform_a",
+                action_name="transform_a",
+                dependencies=[
+                    "extract"
+                ]
+            ),
+            WorkflowStep(
+                step_id="transform_b",
+                action_name="transform_b",
+                dependencies=[
+                    "extract"
+                ]
+            ),
+            WorkflowStep(
+                step_id="save",
+                action_name="save",
+                dependencies=[
+                    "transform_a",
+                    "transform_b"
+                ]
+            ),
+        ]
+    )
+
+    manager.register(
+        workflow
+    )
+
+    result = await manager.execute(
+        "dag_test"
+    )
+
+    assert (
+        result.status
+        == "COMPLETED"
+    )
+
+    assert list(
+        result.results.keys()
+    ) == [
+        "extract",
+        "transform_a",
+        "transform_b",
+        "save"
+    ]
+
+    assert (
+        result.results["save"]
+        ["payload"]["_inputs"]
+        ["transform_a"]["action"]
+        == "transform_a"
+    )
+
+    assert (
+        result.results["save"]
+        ["payload"]["_inputs"]
+        ["transform_b"]["action"]
+        == "transform_b"
+    )
+
+
+async def main():
+
+    print(
+        "\n========== LINEAR =========="
+    )
+
+    await test_linear()
+
+    print(
+        "\n========== DAG =========="
+    )
+
+    await test_dag()
+
 
 if __name__ == "__main__":
-    asyncio.run(run_test())
+    asyncio.run(
+        main()
+    )

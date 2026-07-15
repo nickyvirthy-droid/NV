@@ -4,9 +4,9 @@ Projeto: Nicky Virthy (NV)
 
 Roadmap Oficial de Evolução
 
-Versão de Referência: v1.8.0-workflow-engine
+Versão de Referência: v1.9.0-dag-engine
 
-Data: Junho/2026
+Data: Julho/2026
 
 Status: Atualizado
 
@@ -14,13 +14,13 @@ Status: Atualizado
 
 # Visão Geral
 
-O desenvolvimento do NV é organizado em marcos evolutivos[cite: 4].
+O desenvolvimento do NV é organizado em marcos evolutivos.
 
-Cada milestone representa uma expansão significativa das capacidades do Runtime[cite: 4].
+Cada milestone representa uma expansão significativa das capacidades do Runtime.
 
-A progressão é sequencial e cumulativa[cite: 4].
+A progressão é sequencial e cumulativa.
 
-Nenhuma milestone remove funcionalidades anteriores[cite: 4].
+Nenhuma milestone remove funcionalidades anteriores.
 
 ---
 
@@ -29,23 +29,24 @@ Nenhuma milestone remove funcionalidades anteriores[cite: 4].
 ## v1.4.0-omega-drakon
 
 Status:
-✅ Concluída[cite: 4]
+✅ Concluída
 
 Objetivo:
-Estabelecer a infraestrutura principal do Runtime[cite: 4].
+Estabelecer a infraestrutura principal do Runtime.
 
 Entregas:
-* Runtime Kernel[cite: 4]
-* Event System[cite: 4]
-* Registry Layer[cite: 4]
-* Session Layer[cite: 4]
-* Database Layer[cite: 4]
-* Memory Layer[cite: 4]
-* Provider Layer[cite: 4]
-* Plugin Layer[cite: 4]
+
+* Runtime Kernel
+* Event System
+* Registry Layer
+* Session Layer
+* Database Layer
+* Memory Layer
+* Provider Layer
+* Plugin Layer
 
 Resultado:
-Foundation operacional estabelecida[cite: 4].
+Foundation operacional estabelecida.
 
 ---
 
@@ -54,20 +55,21 @@ Foundation operacional estabelecida[cite: 4].
 ## v1.5.0-coder-engine
 
 Status:
-✅ Concluída[cite: 4]
+✅ Concluída
 
 Objetivo:
-Permitir evolução controlada do próprio código[cite: 4].
+Permitir evolução controlada do próprio código.
 
 Entregas:
-* RuntimeCoder[cite: 4]
-* FileInspector[cite: 4]
-* CodeAnalyzer[cite: 4]
-* ValidationEngine[cite: 4]
-* GitManager[cite: 4]
+
+* RuntimeCoder
+* FileInspector
+* CodeAnalyzer
+* ValidationEngine
+* GitManager
 
 Resultado:
-Primeira geração da autocorreção controlada[cite: 4].
+Primeira geração da autocorreção controlada.
 
 ---
 
@@ -76,20 +78,21 @@ Primeira geração da autocorreção controlada[cite: 4].
 ## v1.5.1-sandbox-hardening
 
 Status:
-✅ Concluída[cite: 4]
+✅ Concluída
 
 Objetivo:
-Eliminar riscos de corrupção de código[cite: 4].
+Eliminar riscos de corrupção de código.
 
 Entregas:
-* SandboxManager[cite: 4]
-* BackupManager[cite: 4]
-* RollbackManager[cite: 4]
-* ValidationPipeline[cite: 4]
-* SafeApply[cite: 4]
+
+* SandboxManager
+* BackupManager
+* RollbackManager
+* ValidationPipeline
+* SafeApply
 
 Resultado:
-Fluxo seguro de promoção de alterações[cite: 4].
+Fluxo seguro de promoção de alterações.
 
 ---
 
@@ -98,26 +101,28 @@ Fluxo seguro de promoção de alterações[cite: 4].
 ## v1.6.0-tool-runtime
 
 Status:
-✅ Concluída[cite: 4]
+✅ Concluída
 
 Objetivo:
-Transformar o Runtime em uma plataforma operacional[cite: 4].
+Transformar o Runtime em uma plataforma operacional.
 
 Entregas:
-56 Actions Operacionais[cite: 4]
+
+* 56 Actions Operacionais
 
 Categorias:
-* Sistema[cite: 4]
-* Processos[cite: 4]
-* Docker[cite: 4]
-* Serviços[cite: 4]
-* Arquivos[cite: 4]
-* Git[cite: 4]
-* Banco de Dados[cite: 4]
-* Introspecção[cite: 4]
+
+* Sistema
+* Processos
+* Docker
+* Serviços
+* Arquivos
+* Git
+* Banco de Dados
+* Introspecção
 
 Resultado:
-Primeira geração operacional concluída[cite: 4].
+Primeira geração operacional concluída.
 
 ---
 
@@ -126,47 +131,52 @@ Primeira geração operacional concluída[cite: 4].
 ## v1.7.0-security-layer
 
 Status:
-✅ Concluída[cite: 4]
+✅ Concluída
 
 Objetivo:
-Adicionar governança operacional ao Runtime[cite: 4].
+Adicionar governança operacional ao Runtime.
 
 Entregas:
 
 ### Núcleo
-* SecurityManager[cite: 4]
-* SecurityDecision[cite: 4]
+
+* SecurityManager
+* SecurityDecision
 
 ### Engines
-* PolicyEngine[cite: 4]
-* PermissionEngine[cite: 4]
-* ScopeEngine[cite: 4]
-* ApprovalEngine[cite: 4]
-* AuditEngine[cite: 4]
+
+* PolicyEngine
+* PermissionEngine
+* ScopeEngine
+* ApprovalEngine
+* AuditEngine
 
 ### Configuração
-* permissions.yaml[cite: 4]
-* scopes.yaml[cite: 4]
-* approval.yaml[cite: 4]
+
+* permissions.yaml
+* scopes.yaml
+* approval.yaml
 
 ### Auditoria
-* AuditRecord[cite: 4]
-* Audit Models[cite: 4]
+
+* AuditRecord
+* Audit Models
 
 ### Testes
-* Security Policy[cite: 4]
-* Security Permission[cite: 4]
-* Security Scope[cite: 4]
-* Security Approval[cite: 4]
-* Security Audit[cite: 4]
-* Security Manager[cite: 4]
+
+* Security Policy
+* Security Permission
+* Security Scope
+* Security Approval
+* Security Audit
+* Security Manager
 
 Resultado:
-Primeira geração da Security Layer concluída[cite: 4].
+Primeira geração da Security Layer concluída.
 
 Observação:
-Opera em modo compatibilidade[cite: 4].
-Nenhuma restrição operacional ativa nesta versão[cite: 4].
+Opera em modo compatibilidade.
+Nenhuma restrição operacional ativa nesta versão.
 
 ---
 
@@ -176,40 +186,59 @@ Nenhuma restrição operacional ativa nesta versão[cite: 4].
 
 Status:
 ✅ Concluída
+✅ Congelada
+✅ Homologada
+✅ Publicada
 
 Objetivo:
-Adicionar orquestração operacional assíncrona linear ao Runtime[cite: 4].
+Adicionar orquestração operacional assíncrona linear ao Runtime.
 
 Entregas:
-* WorkflowModels (Modelagem base de rotas)
-* WorkflowContext (Isolamento de estado por UUID de execução)
-* WorkflowRegistry (Catálogo estruturado)
-* WorkflowEngine (Motor sequencial com tratamento de falhas)
-* WorkflowManager (Fachada central conectada ao Kernel)
+
+* WorkflowModels
+* WorkflowContext
+* WorkflowRegistry
+* WorkflowEngine
+* WorkflowManager
+* WorkflowExecution Persistence
+* Workflow History
+* Workflow Conditions
+* Workflow Branching
+* Workflow Retry
+* Workflow Timeout
+* Workflow Skip
 
 Resultado:
 Coordenação linear estável entre ferramentas operacionais em ambiente real.
 
 ---
 
-# Workflow Resilience
+# DAG Workflow Engine
 
-## v1.9.x-workflow-resilience
+## v1.9.0-dag-engine
 
 Status:
-🔄 Planejada
+🔄 Aberta
 
 Objetivo:
-Adicionar inteligência de desvio, resiliência e tratamento fino a falhas dinâmicas de infraestrutura.
+Transformar o Workflow Engine linear em um mecanismo baseado em DAG (Directed Acyclic Graph).
 
 Capacidades previstas:
-* execução condicional (If/Else baseada em payloads)[cite: 4];
-* políticas automáticas de reexecução por passo (Retries)[cite: 4];
-* controle estrito de travamento por tempo (Timeouts por Step);
-* preparação de esquemas para auditoria histórica em banco de dados.
+
+* Stage Model
+* Dependency Graph
+* Parallel Execution (async DAG)
+* Execution Scheduler
+* Delayed Workflows
+* Nested Workflows
+* Workflow Templates
+* Import/Export JSON/YAML
+* Workflow Recovery / Resume
+* Workflow Metrics
+* Visual Workflow Definition
 
 Resultado esperado:
-Automações tolerantes a falhas transitórias e pipelines lógicos ramificados.
+Segunda geração do Workflow Runtime, preparada para automações complexas, paralelismo e orquestração avançada.
 
 ---
 
@@ -221,19 +250,20 @@ Status:
 🔄 Planejada
 
 Objetivo:
-Expor capacidades do Runtime para sistemas externos[cite: 4].
+Expor capacidades do Runtime para sistemas externos.
 
 Capacidades previstas:
-* REST API[cite: 4];
-* autenticação[cite: 4];
-* autorização[cite: 4];
-* integração remota[cite: 4];
-* endpoints administrativos[cite: 4];
-* endpoints operacionais[cite: 4];
-* integração com Workflow Engine[cite: 4].
+
+* REST API
+* autenticação
+* autorização
+* integração remota
+* endpoints administrativos
+* endpoints operacionais
+* integração com Workflow Engine
 
 Resultado esperado:
-Transformar o NV em uma plataforma operacional acessível externamente[cite: 4].
+Transformar o NV em uma plataforma operacional acessível externamente.
 
 ---
 
@@ -242,25 +272,26 @@ Transformar o NV em uma plataforma operacional acessível externamente[cite: 4].
 ## v2.0.0-operational-cognitive-runtime
 
 Status:
-🎯 Objetivo Final da Foundation[cite: 4]
+🎯 Objetivo Final da Foundation
 
 Requisitos:
-* Runtime Kernel[cite: 4]
-* Event System[cite: 4]
-* Registry Layer[cite: 4]
-* Session Layer[cite: 4]
-* Database Layer[cite: 4]
-* Memory Layer[cite: 4]
-* Provider Layer[cite: 4]
-* Plugin Layer[cite: 4]
-* Coder Engine[cite: 4]
-* Tool Runtime[cite: 4]
-* Security Layer[cite: 4]
-* Workflow Engine[cite: 4]
-* API Layer[cite: 4]
+
+* Runtime Kernel
+* Event System
+* Registry Layer
+* Session Layer
+* Database Layer
+* Memory Layer
+* Provider Layer
+* Plugin Layer
+* Coder Engine
+* Tool Runtime
+* Security Layer
+* Workflow Engine
+* API Layer
 
 Resultado esperado:
-Conclusão da primeira geração do NV Runtime[cite: 4].
+Conclusão da primeira geração do NV Runtime.
 
 ---
 
@@ -268,13 +299,13 @@ Conclusão da primeira geração do NV Runtime[cite: 4].
 
 | Versão | Foundation |
 | ------ | ---------- |
-| v1.4.0 | 70%[cite: 4]        |
-| v1.5.0 | 80%[cite: 4]        |
-| v1.5.1 | 85%[cite: 4]        |
-| v1.6.0 | 96%[cite: 4]        |
-| v1.7.0 | 98%[cite: 4]        |
+| v1.4.0 | 70%        |
+| v1.5.0 | 80%        |
+| v1.5.1 | 85%        |
+| v1.6.0 | 96%        |
+| v1.7.0 | 98%        |
 | v1.8.0 | 99%        |
-| v2.0.0 | 100%[cite: 4]       |
+| v2.0.0 | 100%       |
 
 ---
 
@@ -284,23 +315,33 @@ Versão Atual:
 v1.8.0-workflow-engine
 
 Status:
-CONGELADA (v1.8.x concluída)
+✅ CONGELADA
+✅ HOMOLOGADA
+✅ PUBLICADA
 
 Foundation:
 99% concluída
 
 Milestone Atual:
-Workflow Engine Core
+DAG Workflow Engine
 
 Próxima Milestone:
-Workflow Resilience
+v1.9.0-dag-engine
 
 Próxima Versão:
-v1.9.x-workflow-resilience
+v1.9.0-dag-engine
+
+Branch Estável:
+develop-v1.4.0-memory-evolution
+
+Branch de Desenvolvimento:
+develop-v1.9.0-dag-engine
+
+Tag Estável:
+v1.8-final
 
 ---
 
 OMEGA DRAKON • SYSTEMS
 
-Tecnologia que respira.[cite: 4]
-
+Tecnologia que respira.

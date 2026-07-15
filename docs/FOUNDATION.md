@@ -4,11 +4,11 @@ Projeto: Nicky Virthy (NV)
 
 Documento Oficial da Foundation
 
-Versão: v1.8.0-workflow-engine
+Versão: v1.8-final
 
 Data de Referência: Junho/2026
 
-Status: CONGELADA
+Status: CONGELADA / HOMOLOGADA
 
 ---
 
@@ -30,7 +30,7 @@ Uma camada só é considerada concluída quando:
 # Status Geral
 
 Foundation:
-99% concluída (Aguardando apenas a camada de API para o fechamento dos 100%)
+99% concluída (Aguardando apenas a API Layer para o fechamento dos 100%)
 
 Situação:
 Estável
@@ -197,6 +197,11 @@ Componentes:
 Características:
 * Execução sequencial estável;
 * Isolamento de estado em memória por UUID de execução;
+* Persistência de Execuções (MariaDB);
+* Histórico de Execuções;
+* Retry por Step;
+* Timeout por Step;
+* Condições e Branching;
 * Consumo nativo de ferramentas reais do Kernel.
 
 Status:
@@ -307,10 +312,10 @@ Security Layer[cite: 3]
 v1.8.0	Workflow Engine
 Próxima Versão
 
-v1.9.x-workflow-resilience
+v1.9.0-dag-engine
 
 Objetivo:
-Adicionar inteligência de desvios (if/else), retries automáticos e tratamento de timeouts ao subsistema de automação.
+Introduzir DAG (Directed Acyclic Graph), execução paralela de steps, dependências entre etapas e a base para workflows avançados.
 Estado Oficial
 
 Versão Atual:
@@ -323,7 +328,7 @@ Foundation:
 99% concluída
 
 Próxima Etapa:
-v1.9.x-workflow-resilience
+v1.9.0-dag-engine
 
 OMEGA DRAKON • SYSTEMS
 

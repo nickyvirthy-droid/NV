@@ -2,11 +2,11 @@
 
 Projeto: Nicky Virthy (NV)
 
-Versão Atual: v1.7.0-security-layer
+Versão Atual: v1.8-final
 
-Data de Referência: Junho/2026
+Data de Referência: Julho/2026
 
-Status da Foundation: 98% Concluída
+Status da Foundation: 100% Concluída
 
 ---
 
@@ -18,12 +18,14 @@ Continuando o desenvolvimento do Nicky Virthy (NV).
 
 Antes de realizar qualquer alteração, leia integralmente:
 
-```text id="docslist"
+```text
 docs/README.md
 docs/CHANGELOG.md
 docs/FOUNDATION.md
 docs/MILESTONE.md
 docs/SECURITY_LAYER.md
+docs/WORKFLOW_ENGINE.md
+docs/PROMPT_CONTINUIDADE.md
 ```
 
 Esses documentos representam o estado oficial da arquitetura.
@@ -33,119 +35,28 @@ Esses documentos representam o estado oficial da arquitetura.
 # ESTADO ATUAL
 
 Versão atual:
-
-```text id="currentversion"
-v1.7.0-security-layer
-```
+v1.8-final
 
 Status:
-
-```text id="currentstatus"
 CONGELADA
-```
 
 Foundation:
+100% concluída
 
-```text id="foundationstatus"
-98% concluída
-```
+Branch de desenvolvimento:
+develop-v1.9.0-dag-engine
 
----
+Branch congelada:
+develop-v1.4.0-memory-evolution
 
-# O QUE JÁ EXISTE
-
-## Runtime Foundation
-
-Concluído.
-
-Componentes:
-
-* Runtime Kernel
-* Event System
-* Registry Layer
-* Session Layer
-* Database Layer
-* Memory Layer
-* Provider Layer
-* Plugin Layer
-
----
-
-## Coder Engine
-
-Concluído.
-
-Componentes:
-
-* RuntimeCoder
-* FileInspector
-* CodeAnalyzer
-* ValidationEngine
-* ValidationPipeline
-* SandboxManager
-* BackupManager
-* RollbackManager
-* GitManager
-
----
-
-## Tool Runtime
-
-Concluído.
-
-Total atual:
-
-```text id="actioncount"
-56 Actions Operacionais
-```
-
-Categorias:
-
-* Sistema
-* Processos
-* Docker
-* Serviços
-* Arquivos
-* Git
-* Banco de Dados
-* Introspecção
-
----
-
-## Security Layer
-
-Concluída.
-
-Componentes:
-
-* SecurityManager
-* SecurityDecision
-
-Engines:
-
-* PolicyEngine
-* PermissionEngine
-* ScopeEngine
-* ApprovalEngine
-* AuditEngine
-
-Configuração:
-
-* permissions.yaml
-* scopes.yaml
-* approval.yaml
-
-Modo Atual:
-
-Compatibilidade.
-
-Nenhuma restrição ativa.
+Tag oficial:
+v1.8-final
 
 ---
 
 # ARQUITETURA ATUAL
 
-```text id="currentarchitecture"
+```text
 NV Runtime
 
 ├── Runtime Kernel
@@ -165,285 +76,228 @@ NV Runtime
 
 ---
 
+# FUNCIONALIDADES IMPLEMENTADAS
+
+## Runtime Foundation
+
+✅ Concluída
+
+## Tool Runtime
+
+✅ Concluído
+
+56 Actions Operacionais implementadas.
+
+## Security Layer
+
+✅ Concluída
+
+Modo:
+Compatibilidade.
+
+## Workflow Engine
+
+✅ Concluído
+
+Componentes:
+
+* WorkflowManager
+* WorkflowRegistry
+* WorkflowEngine
+* WorkflowContext
+* WorkflowModels
+
+Recursos:
+
+* execução sequencial;
+* contexto isolado;
+* persistência de execuções;
+* histórico;
+* condições;
+* retries;
+* timeout;
+* desvio de fluxo;
+* auditoria por eventos.
+
+Todos os testes da v1.8.x homologados.
+
+---
+
+# PROBLEMAS ENCONTRADOS
+
+Nenhum problema crítico aberto.
+
+Pendências arquiteturais:
+
+* Workflow Engine ainda utiliza execução linear;
+* inexistência de DAG;
+* inexistência de paralelismo entre steps;
+* ausência de scheduler;
+* ausência de subworkflows;
+* ausência de métricas operacionais.
+
+---
+
 # PRÓXIMA VERSÃO
 
 Versão alvo:
 
-```text id="nextversion"
-v1.8.x-workflow-engine
-```
+v1.9.0-dag-engine
 
 Objetivo:
 
-Adicionar capacidade de orquestração operacional ao Runtime.
+Transformar a Workflow Engine linear em uma Workflow Engine baseada em DAG (Directed Acyclic Graph).
 
 ---
 
-# ESCOPO DA V1.8.X
-
-Criar a primeira geração do Workflow Engine.
-
----
-
-## Workflow Manager
-
-Responsável por coordenar workflows.
-
-Arquivo esperado:
-
-```text id="workflowmanager"
-core/workflows/manager.py
-```
-
-Responsabilidades:
-
-* registrar workflows;
-* executar workflows;
-* recuperar workflows;
-* monitorar execução.
-
----
+# ESCOPO DA V1.9.0
 
 ## Workflow Models
 
-Arquivo esperado:
+Adicionar:
 
-```text id="workflowmodels"
-core/workflows/models.py
+```python
+dependencies: list[str]
+stage: int
+parallel_group: str | None
 ```
-
-Modelos previstos:
-
-* Workflow
-* WorkflowStep
-* WorkflowExecution
-* WorkflowResult
-
----
-
-## Workflow Registry
-
-Arquivo esperado:
-
-```text id="workflowregistry"
-core/workflows/registry.py
-```
-
-Responsabilidades:
-
-* registro de workflows;
-* descoberta;
-* carregamento.
 
 ---
 
 ## Workflow Engine
 
-Arquivo esperado:
+Substituir execução linear por:
 
-```text id="workflowengine"
-core/workflows/engine.py
+```text
+DAG Scheduler
 ```
 
-Responsabilidades:
+Capacidades:
 
-* execução de etapas;
-* encadeamento;
-* tratamento de erros;
-* controle de fluxo.
+* resolução topológica;
+* detecção de dependências;
+* execução por estágios;
+* execução paralela;
+* sincronização de resultados;
+* isolamento de contexto.
+
+---
+
+## Workflow Scheduler Interno
+
+Adicionar:
+
+* build_execution_graph()
+* resolve_dependencies()
+* execute_stage()
+* execute_parallel_group()
 
 ---
 
 ## Workflow Context
 
-Arquivo esperado:
-
-```text id="workflowcontext"
-core/workflows/context.py
-```
-
-Responsabilidades:
-
-* compartilhamento de estado;
-* passagem de dados;
-* contexto de execução.
-
----
-
-# PRIMEIRA IMPLEMENTAÇÃO
-
-A primeira versão deve ser simples.
-
-Exemplo esperado:
-
-```text id="workflowexample"
-workflow:
-
-1. action_a
-2. action_b
-3. action_c
-```
-
-Execução:
-
-```text id="workflowexecution"
-action_a
-     ↓
-action_b
-     ↓
-action_c
-```
-
-Sem paralelismo.
-
-Sem DAG.
-
-Sem dependências complexas.
-
----
-
-# SEGUNDA ETAPA
-
-Após estabilização:
-
 Adicionar:
 
-* condições;
-* desvios;
-* retry;
-* timeout;
-* persistência.
+* compartilhamento seguro de resultados;
+* leitura de payloads de dependências;
+* resolução de dados entre nós do grafo.
 
 ---
 
-# TERCEIRA ETAPA
+## Eventos Novos
 
-Adicionar:
-
-* DAGs;
-* execução paralela;
-* workflows compostos.
-
----
-
-# INTEGRAÇÃO COM SECURITY LAYER
-
-Toda execução de workflow deverá passar por:
-
-```text id="securityintegration"
-SecurityManager
-```
-
-Objetivo:
-
-Garantir compatibilidade futura.
-
----
-
-# INTEGRAÇÃO COM ACTION SYSTEM
-
-Workflow Engine deve utilizar exclusivamente:
-
-```text id="actionintegration"
-ActionManager
-```
-
-Nenhuma action deve ser executada diretamente.
-
----
-
-# INTEGRAÇÃO COM EVENT SYSTEM
-
-Eventos previstos:
-
-```text id="workflowevents"
-WORKFLOW_STARTED
-WORKFLOW_STEP_STARTED
-WORKFLOW_STEP_FINISHED
-WORKFLOW_FINISHED
-WORKFLOW_FAILED
+```text
+WORKFLOW_STAGE_STARTED
+WORKFLOW_STAGE_FINISHED
+WORKFLOW_PARALLEL_STARTED
+WORKFLOW_PARALLEL_FINISHED
+WORKFLOW_GRAPH_BUILT
+WORKFLOW_GRAPH_FAILED
 ```
 
 ---
 
-# REGRAS DE DESENVOLVIMENTO
+# ROADMAP FUTURO
 
-Manter padrão arquitetural existente.
+## v1.9.1
+
+Scheduler / Delayed Workflows
+
+## v1.9.2
+
+Nested Workflows
+
+## v1.9.3
+
+Workflow Templates
+
+## v1.9.4
+
+Import / Export JSON-YAML
+
+## v1.9.5
+
+Workflow Recovery / Resume
+
+## v1.9.6
+
+Workflow Metrics
+
+## v1.9.7
+
+Visual Workflow Definition
 
 ---
 
-## Obrigatório
-
-Seguir cabeçalho padrão:
-
-```python
-"""
-OMEGA DRAKON • SYSTEMS
-
-Tecnologia que respira.
-
-Módulo: Nome do Módulo
-
-Descrição: Descrição.
-
-Interface Viva: Nicky Virthy
-
-Arquiteto: Alex Projeti
-"""
-```
-
----
-
-## Compatibilidade
+# REGRAS DE COMPATIBILIDADE
 
 Não quebrar:
 
-* Runtime Kernel
-* Tool Runtime
-* Security Layer
-* Coder Engine
+* Runtime Kernel;
+* Tool Runtime;
+* Security Layer;
+* Coder Engine;
+* APIs existentes;
+* Workflow Linear v1.8.x.
+
+Proibido:
+
+* remover Actions;
+* alterar interfaces públicas existentes;
+* modificar comportamento homologado da Foundation.
 
 ---
 
-## Proibido
+# TESTES OBRIGATÓRIOS
 
-Não remover:
+Criar:
 
-* APIs existentes
-* Models existentes
-* Actions existentes
-
----
-
-## Testes
-
-Toda implementação deve possuir testes dedicados.
-
-Padrão utilizado pelo projeto:
-
-```bash
-python tests/test_xxx.py
+```text
+tests/test_workflow_dag.py
+tests/test_workflow_parallel.py
+tests/test_workflow_dependencies.py
+tests/test_workflow_stages.py
+tests/test_workflow_graph_validation.py
 ```
 
-Não assumir pytest.
+Todos os testes devem executar com:
 
-Os testes atuais são programas independentes.
+```bash
+pytest tests -v
+```
 
 ---
 
 # CRITÉRIO DE CONCLUSÃO
 
-A v1.8.x será considerada concluída quando existir:
+A v1.9.0 será considerada concluída quando existir:
 
-* WorkflowManager
-* WorkflowRegistry
-* WorkflowEngine
-* WorkflowModels
-* WorkflowContext
-* Testes
-* Documentação
-
-E pelo menos um workflow funcional executando Actions reais.
+* DAG funcional;
+* resolução automática de dependências;
+* execução por estágios;
+* execução paralela;
+* eventos homologados;
+* todos os testes passando.
 
 ---
 
@@ -451,42 +305,54 @@ E pelo menos um workflow funcional executando Actions reais.
 
 Atualizar:
 
-* README.md
-* CHANGELOG.md
-* FOUNDATION.md
-* MILESTONE.md
-* WORKFLOW_ENGINE.md
-* PROMPT_CONTINUIDADE.md
+```text
+README.md
+CHANGELOG.md
+FOUNDATION.md
+MILESTONE.md
+WORKFLOW_ENGINE.md
+PROMPT_CONTINUIDADE.md
+```
+
+---
+
+# CONTEXTO PERSISTENTE
+
+Repositório GitHub:
+
+https://github.com/nickyvirthy-droid/NV
+
+Branches atuais:
+
+```text
+develop
+develop-v1.4.0-memory-evolution
+develop-v1.9.0-dag-engine
+main
+master
+```
+
+Tag oficial:
+
+```text
+v1.8-final
+```
 
 ---
 
 # ESTADO OFICIAL
 
 Versão Atual:
-
-```text id="officialversion"
-v1.7.0-security-layer
-```
+v1.8-final
 
 Status:
-
-```text id="officialstatus"
 CONGELADA
-```
 
 Foundation:
-
-```text id="officialfoundation"
-98% concluída
-```
+100% concluída
 
 Próxima Versão:
-
-```text id="officialnext"
-v1.8.x-workflow-engine
-```
-
----
+v1.9.0-dag-engine
 
 OMEGA DRAKON • SYSTEMS
 

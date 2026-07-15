@@ -1,4 +1,5 @@
 .
+├── api.log
 ├── backups
 │   ├── teste_backup.txt.20260613_115725.bak
 │   ├── teste_backup.txt.20260622_175301.bak
@@ -6,6 +7,16 @@
 │   ├── teste_backup.txt.20260622_181808.bak
 │   ├── teste_backup.txt.20260622_182717.bak
 │   ├── teste_backup.txt.20260622_183821.bak
+│   ├── teste_backup.txt.20260626_194108.bak
+│   ├── teste_backup.txt.20260626_194813.bak
+│   ├── teste_backup.txt.20260626_194836.bak
+│   ├── teste_backup.txt.20260626_195136.bak
+│   ├── teste_backup.txt.20260626_195510.bak
+│   ├── teste_backup.txt.20260626_195822.bak
+│   ├── teste_backup.txt.20260627_130045.bak
+│   ├── teste_backup.txt.20260627_130800.bak
+│   ├── teste_backup.txt.20260627_133301.bak
+│   ├── teste_backup.txt.20260627_134158.bak
 │   ├── teste_bug.py.20260608_173750.bak
 │   ├── teste_patch.txt.20260608_170639.bak
 │   ├── teste_patch.txt.20260608_171355.bak
@@ -14,7 +25,17 @@
 │   ├── teste_restore.txt.20260622_181636.bak
 │   ├── teste_restore.txt.20260622_181810.bak
 │   ├── teste_restore.txt.20260622_182722.bak
-│   └── teste_restore.txt.20260622_183826.bak
+│   ├── teste_restore.txt.20260622_183826.bak
+│   ├── teste_restore.txt.20260626_194113.bak
+│   ├── teste_restore.txt.20260626_194818.bak
+│   ├── teste_restore.txt.20260626_194841.bak
+│   ├── teste_restore.txt.20260626_195141.bak
+│   ├── teste_restore.txt.20260626_195515.bak
+│   ├── teste_restore.txt.20260626_195827.bak
+│   ├── teste_restore.txt.20260627_130050.bak
+│   ├── teste_restore.txt.20260627_130805.bak
+│   ├── teste_restore.txt.20260627_133306.bak
+│   └── teste_restore.txt.20260627_134203.bak
 ├── config
 │   ├── __init__.py
 │   ├── __pycache__
@@ -70,11 +91,13 @@
 │   │       ├── __init__.py
 │   │       ├── key_value.py
 │   │       ├── messages.py
-│   │       └── __pycache__
-│   │           ├── base.cpython-312.pyc
-│   │           ├── __init__.cpython-312.pyc
-│   │           ├── key_value.cpython-312.pyc
-│   │           └── messages.cpython-312.pyc
+│   │       ├── __pycache__
+│   │       │   ├── base.cpython-312.pyc
+│   │       │   ├── __init__.cpython-312.pyc
+│   │       │   ├── key_value.cpython-312.pyc
+│   │       │   ├── messages.cpython-312.pyc
+│   │       │   └── workflow_executions.cpython-312.pyc
+│   │       └── workflow_executions.py
 │   ├── events
 │   │   ├── bus.py
 │   │   ├── __init__.py
@@ -183,8 +206,6 @@
 │   └── __init__.py
 ├── debug_action.py
 ├── docs
-│   ├── 000 ativar venv.txt
-│   ├── 000 comandos.txt
 │   ├── CHANGELOG.md
 │   ├── FOUNDATION.md
 │   ├── MILESTONE.md
@@ -199,11 +220,17 @@
 ├── __init__.py
 ├── interfaces
 │   ├── api
-│   │   └── __init__.py
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-312.pyc
+│   │   │   └── server.cpython-312.pyc
+│   │   └── server.py
 │   ├── cli
 │   │   ├── chat.py
 │   │   └── __init__.py
 │   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-312.pyc
 │   ├── telegram
 │   │   └── __init__.py
 │   └── websocket
@@ -656,7 +683,10 @@
 │   │   └── loader.cpython-312.pyc
 │   └── workflows
 │       ├── __init__.py
-│       └── loader.py
+│       ├── loader.py
+│       └── __pycache__
+│           ├── __init__.cpython-312.pyc
+│           └── loader.cpython-312.pyc
 ├── __pycache__
 │   ├── __init__.cpython-312.pyc
 │   └── main.cpython-312.pyc
@@ -702,112 +732,204 @@
 │   │   ├── test_action.cpython-312.pyc
 │   │   ├── test_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_info_action.cpython-312.pyc
+│   │   ├── test_action_info_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_manager.cpython-312.pyc
 │   │   ├── test_action_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_registry.cpython-312.pyc
+│   │   ├── test_action_registry.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_resolver.cpython-312.pyc
+│   │   ├── test_action_resolver.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_schema_action.cpython-312.pyc
+│   │   ├── test_action_schema_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_validate_action.cpython-312.pyc
+│   │   ├── test_action_validate_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_backup_manager.cpython-312.pyc
+│   │   ├── test_backup_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_code_analyzer.cpython-312.pyc
+│   │   ├── test_code_analyzer.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_cpu_info_action.cpython-312.pyc
+│   │   ├── test_cpu_info_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_database.cpython-312.pyc
 │   │   ├── test_database.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_database_manager.cpython-312.pyc
+│   │   ├── test_database_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_database_query_action.cpython-312.pyc
+│   │   ├── test_database_query_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_database_schema_action.cpython-312.pyc
+│   │   ├── test_database_schema_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_database_tables_action.cpython-312.pyc
+│   │   ├── test_database_tables_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_datetime_action.cpython-312.pyc
+│   │   ├── test_datetime_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_disk_usage_action.cpython-312.pyc
+│   │   ├── test_disk_usage_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_docker_list_action.cpython-312.pyc
+│   │   ├── test_docker_list_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_docker_logs_action.cpython-312.pyc
+│   │   ├── test_docker_logs_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_docker_stats_action.cpython-312.pyc
+│   │   ├── test_docker_stats_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_docker_status_action.cpython-312.pyc
+│   │   ├── test_docker_status_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── teste_coder.cpython-312.pyc
 │   │   ├── teste_coder_git.cpython-312.pyc
 │   │   ├── test_event_bus.cpython-312.pyc
+│   │   ├── test_event_bus.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_execute_action.cpython-312.pyc
 │   │   ├── test_execute_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_archive_action.cpython-312.pyc
+│   │   ├── test_filesystem_archive_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_copy_action.cpython-312.pyc
+│   │   ├── test_filesystem_copy_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_delete_action.cpython-312.pyc
+│   │   ├── test_filesystem_delete_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_exists_action.cpython-312.pyc
+│   │   ├── test_filesystem_exists_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_extract_action.cpython-312.pyc
+│   │   ├── test_filesystem_extract_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_hash_action.cpython-312.pyc
+│   │   ├── test_filesystem_hash_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_info_action.cpython-312.pyc
+│   │   ├── test_filesystem_info_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_list_action.cpython-312.pyc
+│   │   ├── test_filesystem_list_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_mkdir_action.cpython-312.pyc
+│   │   ├── test_filesystem_mkdir_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_move_action.cpython-312.pyc
+│   │   ├── test_filesystem_move_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_read_action.cpython-312.pyc
+│   │   ├── test_filesystem_read_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_search_action.cpython-312.pyc
+│   │   ├── test_filesystem_search_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_touch_action.cpython-312.pyc
+│   │   ├── test_filesystem_touch_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_tree_action.cpython-312.pyc
+│   │   ├── test_filesystem_tree_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_filesystem_write_action.cpython-312.pyc
+│   │   ├── test_filesystem_write_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_add_action.cpython-312.pyc
+│   │   ├── test_git_add_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_branch_action.cpython-312.pyc
+│   │   ├── test_git_branch_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_checkout_action.cpython-312.pyc
+│   │   ├── test_git_checkout_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_commit_action.cpython-312.pyc
+│   │   ├── test_git_commit_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_diff_action.cpython-312.pyc
+│   │   ├── test_git_diff_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_fetch_action.cpython-312.pyc
+│   │   ├── test_git_fetch_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_log_action.cpython-312.pyc
+│   │   ├── test_git_log_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_pull_action.cpython-312.pyc
+│   │   ├── test_git_pull_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_push_action.cpython-312.pyc
+│   │   ├── test_git_push_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_git_status_action.cpython-312.pyc
+│   │   ├── test_git_status_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_history.cpython-312.pyc
 │   │   ├── test_history.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_ip_address_action.cpython-312.pyc
+│   │   ├── test_ip_address_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_kernel_actions.cpython-312.pyc
 │   │   ├── test_kernel_actions.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_key_value.cpython-312.pyc
 │   │   ├── test_key_value.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_list_actions_action.cpython-312.pyc
+│   │   ├── test_list_actions_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_logger.cpython-312.pyc
+│   │   ├── test_logger.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_memory_fact.cpython-312.pyc
+│   │   ├── test_memory_fact.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_memory_manager.cpython-312.pyc
 │   │   ├── test_memory_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_memory_usage_action.cpython-312.pyc
+│   │   ├── test_memory_usage_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_messages_repository.cpython-312.pyc
+│   │   ├── test_messages_repository.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_migration.cpython-312.pyc
 │   │   ├── test_migration.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_process_info_action.cpython-312.pyc
+│   │   ├── test_process_info_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_process_kill_action.cpython-312.pyc
+│   │   ├── test_process_kill_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_process_list_action.cpython-312.pyc
+│   │   ├── test_process_list_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_profile_memory.cpython-312.pyc
 │   │   ├── test_profile_memory.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_resolver.cpython-312.pyc
 │   │   ├── test_resolver.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_rollback_manager.cpython-312.pyc
+│   │   ├── test_rollback_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_runtime_coder.cpython-312.pyc
 │   │   ├── test_runtime_coder.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_runtime_context.cpython-312.pyc
+│   │   ├── test_runtime_context.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_runtime_database.cpython-312.pyc
 │   │   ├── test_runtime_database.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_runtime_memory.cpython-312.pyc
 │   │   ├── test_runtime_memory.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_runtime_state.cpython-312.pyc
+│   │   ├── test_runtime_state.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_sandbox_manager.cpython-312.pyc
+│   │   ├── test_sandbox_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_approval.cpython-312.pyc
+│   │   ├── test_security_approval.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_audit.cpython-312.pyc
+│   │   ├── test_security_audit.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_manager.cpython-312.pyc
+│   │   ├── test_security_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_permission.cpython-312.pyc
+│   │   ├── test_security_permission.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_policy.cpython-312.pyc
+│   │   ├── test_security_policy.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_security_scope.cpython-312.pyc
+│   │   ├── test_security_scope.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_service_container.cpython-312.pyc
+│   │   ├── test_service_container.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_service_list_action.cpython-312.pyc
+│   │   ├── test_service_list_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_service_logs_action.cpython-312.pyc
+│   │   ├── test_service_logs_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_service_status_action.cpython-312.pyc
+│   │   ├── test_service_status_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_session.cpython-312.pyc
+│   │   ├── test_session.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_session_manager.cpython-312.pyc
+│   │   ├── test_session_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_env_action.cpython-312.pyc
+│   │   ├── test_system_env_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_exec_action.cpython-312.pyc
+│   │   ├── test_system_exec_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_groups_action.cpython-312.pyc
+│   │   ├── test_system_groups_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_hostname_action.cpython-312.pyc
+│   │   ├── test_system_hostname_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_info_action.cpython-312.pyc
+│   │   ├── test_system_info_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_ping_action.cpython-312.pyc
+│   │   ├── test_system_ping_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_user_action.cpython-312.pyc
+│   │   ├── test_system_user_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_system_which_action.cpython-312.pyc
+│   │   ├── test_system_which_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_uptime_action.cpython-312.pyc
-│   │   └── test_validation_pipeline.cpython-312.pyc
+│   │   ├── test_uptime_action.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_validation_pipeline.cpython-312.pyc
+│   │   ├── test_validation_pipeline.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_branching.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_branching_false.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_condition.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_context.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_engine.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_history.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_persistence.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_real.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_resilience.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_retry.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflows.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_skip.cpython-312-pytest-9.0.3.pyc
+│   │   └── test_workflow_timeout.cpython-312-pytest-9.0.3.pyc
 │   ├── sandbox
 │   ├── test_action_info_action.py
 │   ├── test_action_manager.py
@@ -905,8 +1027,19 @@
 │   ├── test_system_which_action.py
 │   ├── test_uptime_action.py
 │   ├── test_validation_pipeline.py
+│   ├── test_workflow_branching_false.py
+│   ├── test_workflow_branching.py
+│   ├── test_workflow_condition.py
+│   ├── test_workflow_context.py
 │   ├── test_workflow_engine.py
-│   └── test_workflow_real.py
+│   ├── test_workflow_history.py
+│   ├── test_workflow_persistence.py
+│   ├── test_workflow_real.py
+│   ├── test_workflow_resilience.py
+│   ├── test_workflow_retry.py
+│   ├── test_workflow_skip.py
+│   ├── test_workflows.py
+│   └── test_workflow_timeout.py
 └── tree.txt
 
-205 directories, 705 files
+208 directories, 835 files

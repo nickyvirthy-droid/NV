@@ -2,11 +2,9 @@
 
 Runtime Cognitivo Modular para execução local de agentes inteligentes, automação operacional e evolução controlada.
 
-Versão Atual: v1.8.0-workflow-engine
-
-Status: Foundation Concluída
-
-Última Atualização: Junho/2026
+**Versão Atual:** v1.8-final
+**Status:** Foundation Concluída
+**Última Atualização:** Julho/2026
 
 ---
 
@@ -35,164 +33,186 @@ O projeto foi concebido para evoluir gradualmente de um runtime inteligente para
 
 # Estado Atual
 
-Versão:
-v1.8.0-workflow-engine
+**Versão:** v1.8-final
 
-Foundation:
-100% concluída (Core base estabilizado)
+**Foundation:** 100% concluída.
 
-Status Geral:
-Estável para desenvolvimento.
-Tool Runtime concluído.
-Security Layer concluída.
-Workflow Engine Linear concluída.
+**Status Geral:**
+
+* Runtime estabilizado;
+* Tool Runtime concluído;
+* Security Layer concluída;
+* Workflow Engine concluído;
+* Base preparada para evolução da API Layer.
 
 ---
 
 # Capacidades Implementadas
 
 ## Runtime Kernel
+
 Responsável pelo ciclo de vida do sistema.
-Recursos:
+
+**Recursos:**
+
 * bootstrap do runtime;
 * gerenciamento de serviços;
 * coordenação de módulos;
 * carregamento de componentes.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Event System
+
 Sistema interno de eventos.
-Recursos:
+
+**Recursos:**
+
 * publicação de eventos;
 * assinatura de eventos;
 * comunicação desacoplada.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Action System
+
 Camada responsável pela execução de capacidades operacionais.
-Componentes:
+
+**Componentes:**
+
 * ActionManager
 * ActionRegistry
 * ActionContext
 * ActionResolver
 
-Recursos:
+**Recursos:**
+
 * registro de ações;
 * descoberta de ações;
 * execução controlada.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Memory Layer
+
 Sistema de memória persistente e contextual.
-Componentes:
+
+**Componentes:**
+
 * MemoryManager
 * ProfileMemory
 * RuntimeMemory
 * Fact Extraction
 * Resolver
 
-Recursos:
+**Recursos:**
+
 * armazenamento persistente;
 * recuperação contextual;
 * gerenciamento de perfil;
 * resolução de informações.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Database Layer
+
 Infraestrutura de persistência.
-Componentes:
+
+**Componentes:**
+
 * DatabaseConnection
 * DatabaseManager
 * Repositories
 * Migrations
 
-Recursos:
+**Recursos:**
+
 * MariaDB nativo;
 * acesso estruturado;
 * persistência de runtime;
 * reutilização por ferramentas operacionais.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Session Layer
+
 Gerenciamento de sessões operacionais.
-Componentes:
+
+**Componentes:**
+
 * SessionManager
 * SessionHistory
 
-Recursos:
+**Recursos:**
+
 * histórico;
 * rastreamento;
 * contexto temporal.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Registry Layer
+
 Container interno de serviços.
-Recursos:
+
+**Recursos:**
+
 * registro de serviços;
 * resolução de dependências;
 * compartilhamento de componentes.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Provider Layer
+
 Integração com provedores de IA.
-Recursos:
-* àbstração de providers;
+
+**Recursos:**
+
+* abstração de providers;
 * integração Ollama;
 * expansão futura para múltiplos modelos.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Plugin Layer
+
 Sistema de extensibilidade.
-Recursos:
+
+**Recursos:**
+
 * carregamento dinâmico;
 * descoberta automática;
 * expansão modular.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Tool Runtime
-Primeira geração operacional concluída.
-Total atual:
-56 Actions Operacionais
 
-Recursos:
+Primeira geração operacional concluída.
+
+**Total atual:** 56 Actions Operacionais.
 
 ### Sistema
+
 * system_info
 * datetime
 * uptime
@@ -208,22 +228,26 @@ Recursos:
 * system_groups
 
 ### Processos
+
 * process_list
 * process_info
 * process_kill
 
 ### Docker
+
 * docker_list
 * docker_status
 * docker_logs
 * docker_stats
 
 ### Serviços
+
 * service_list
 * service_status
 * service_logs
 
 ### Arquivos
+
 * filesystem_search
 * filesystem_read
 * filesystem_write
@@ -241,6 +265,7 @@ Recursos:
 * filesystem_extract
 
 ### Git
+
 * git_branch
 * git_status
 * git_commit
@@ -253,23 +278,27 @@ Recursos:
 * git_push
 
 ### Banco de Dados
+
 * database_tables
 * database_schema
 * database_query
 
 ### Introspecção
+
 * action_info
 * action_schema
 * action_validate
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Coder Engine
+
 Sistema de modificação segura de código.
-Componentes:
+
+**Componentes:**
+
 * FileInspector
 * SandboxManager
 * BackupManager
@@ -280,7 +309,8 @@ Componentes:
 * SafeApply
 * GitManager
 
-Recursos:
+**Recursos:**
+
 * análise estática;
 * aplicação de patches;
 * validação sintática;
@@ -290,30 +320,32 @@ Recursos:
 * sandbox isolada;
 * promoção segura.
 
-Status:
-✅ Implementado
+**Status:** ✅ Implementado
 
 ---
 
 ## Security Layer
+
 Infraestrutura de governança operacional.
-Componentes:
+
+**Componentes:**
+
 * SecurityManager
 * SecurityDecision
-
-### Engines
 * PolicyEngine
 * PermissionEngine
 * ScopeEngine
 * ApprovalEngine
 * AuditEngine
 
-### Configuração
+**Configuração:**
+
 * permissions.yaml
 * scopes.yaml
 * approval.yaml
 
-### Recursos
+**Recursos:**
+
 * pipeline de validação;
 * decisões centralizadas;
 * auditoria operacional;
@@ -321,32 +353,38 @@ Componentes:
 * preparação para workflows de aprovação;
 * integração transparente ao Runtime.
 
-Status:
-✅ Implementado
-
-Observação:
-A Security Layer opera em modo compatibilidade.
-Nenhuma restrição operacional está ativa nesta versão.
+**Status:** ✅ Implementado
 
 ---
 
 ## Workflow Engine
+
 Sistema de orquestração de pipelines e automações.
-Componentes:
+
+**Componentes:**
+
 * WorkflowManager
 * WorkflowRegistry
 * WorkflowEngine
 * WorkflowModels
 * WorkflowContext
+* WorkflowRepository
+* WorkflowHistory
 
-### Recursos
-* Execução assíncrona linear de tarefas;
-* Catálogo estruturado de fluxos reaproveitáveis;
-* Isolamento estrito de variáveis de contexto por ID único de execução;
-* Integração nativa com o ActionManager e o Kernel Real do sistema.
+**Recursos:**
 
-Status:
-✅ Implementado (Fase Inicial Sequencial)
+* execução assíncrona de workflows;
+* persistência de execuções;
+* histórico de execuções;
+* contexto isolado por execução;
+* condicionais;
+* desvio de fluxo;
+* retries automáticos;
+* timeouts por etapa;
+* eventos de execução;
+* integração nativa com ActionManager.
+
+**Status:** ✅ Implementado
 
 ---
 
@@ -354,7 +392,6 @@ Status:
 
 ```text
 NV Runtime
-
 ├── Runtime Kernel
 ├── Event System
 ├── Action System
@@ -369,9 +406,13 @@ NV Runtime
 ├── Security Layer
 ├── Workflow Engine
 └── API Layer
+```
 
-## Estrutura do Projeto
+---
 
+# Estrutura do Projeto
+
+```text
 core/
 ├── actions/
 ├── capabilities/
@@ -389,23 +430,19 @@ core/
 └── workflows/
 
 plugins/
-
 interfaces/
-
 config/
-
 storage/
-
 sandbox/
-
 tests/
-
 docs/
+```
 
-## Segurança de Código
+---
 
-Desde a versão v1.5.1 todo patch segue o fluxo:
+# Segurança de Código
 
+```text
 Arquivo Original
         ↓
 Sandbox
@@ -417,9 +454,11 @@ Validação
 Backup
         ↓
 Promoção
+```
 
 Em caso de erro:
 
+```text
 Sandbox
         ↓
 Erro
@@ -427,121 +466,96 @@ Erro
 Remoção
         ↓
 Arquivo Original Preservado
+```
 
-## Instalação
+---
 
-Clonar o projeto:
+# Instalação
 
+```bash
 git clone <repositorio>
 cd NV
-
-Criar ambiente virtual:
 
 python3 -m venv .venv
 source .venv/bin/activate
 
-Instalar dependências:
-
 pip install -r requirements.txt
+```
 
-## Execução
+---
 
-Inicializar o runtime:
+# Execução
 
+```bash
 python main.py
+```
 
-## Testes
+---
 
-Executar testes do runtime:
+# Testes
 
-python tests/test_action_manager.py
-python tests/test_execute_action.py
-python tests/test_memory_manager.py
-python tests/test_runtime_memory.py
-python tests/test_database_manager.py
+```bash
+pytest tests -v
+```
 
-Executar testes da Security Layer:
+---
 
-python tests/test_security_policy.py
-python tests/test_security_permission.py
-python tests/test_security_scope.py
-python tests/test_security_approval.py
-python tests/test_security_audit.py
-python tests/test_security_manager.py
+# Roadmap
 
-Executar testes do Subsistema de Workflows:
-
-python tests/test_workflow_engine.py
-python tests/test_workflow_real.py
-
-## Roadmap
-
-v1.9.x
-
-Workflow Engine Inteligente & Resiliente
-Objetivos:
-
-    Desvios condicionais (If/Else) baseados em resultados de Steps;
-
-    Políticas de tolerância a falhas (Retries e timeouts automáticos por passo);
-
-    Persistência histórica de execuções de workflows para auditoria.
-
-v1.10.x
+## v1.9.0
 
 API Layer
+
 Objetivos:
 
-    API pública;
+* API pública;
+* autenticação;
+* API Keys;
+* endpoints operacionais;
+* integração externa;
+* automação remota.
 
-    integração externa;
+---
 
-    automação remota;
-
-    endpoints operacionais.
-
-v2.0.0
+## v2.0.0
 
 Operational Cognitive Runtime
+
 Objetivo:
+
 Concluir a primeira geração do NV como plataforma operacional cognitiva completa.
-Documentação
 
-## Documentação oficial do projeto:
+---
 
-    FOUNDATION.md
+# Documentação
 
-    README.md
+* FOUNDATION.md
+* README.md
+* CHANGELOG.md
+* MILESTONE.md
+* SECURITY_LAYER.md
+* WORKFLOW_ENGINE.md
+* PROMPT_CONTINUIDADE.md
+* docs/workflows.md
 
-    CHANGELOG.md
+---
 
-    MILESTONE.md
+# Status da Versão
 
-    SECURITY_LAYER.md
+**Versão:** v1.8-final
 
-    WORKFLOW_ENGINE.md
+**Status:** CONGELADA
 
-    PROMPT_CONTINUIDADE.md
+**Foundation:** 100% concluída.
 
-    docs/workflows.md
+---
 
-## Status da Versão
-
-Versão:
-v1.8.0-workflow-engine
-
-Status:
-CONGELADA (v1.8.x concluída)
-
-Foundation:
-100% concluída
-
-## Licença
+# Licença
 
 Projeto experimental de pesquisa e desenvolvimento.
 
-Nicky Virthy (NV)
+**Nicky Virthy (NV)**
 Runtime Cognitivo Modular Local.
 
-OMEGA DRAKON • SYSTEMS
+**OMEGA DRAKON • SYSTEMS**
 Tecnologia que respira.
