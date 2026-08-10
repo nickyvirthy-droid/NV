@@ -1,347 +1,58 @@
-# MILESTONE
-
+MILESTONE
 Projeto: Nicky Virthy (NV)
 
 Roadmap Oficial de Evolução
-
-Versão de Referência: v1.9.0-dag-engine
-
-Data: Julho/2026
-
+Versão de Referência: v1.11.0-operational-hardening
+Data: Agosto/2026
 Status: Atualizado
 
----
 
-# Visão Geral
-
+Visão Geral
 O desenvolvimento do NV é organizado em marcos evolutivos.
-
 Cada milestone representa uma expansão significativa das capacidades do Runtime.
-
 A progressão é sequencial e cumulativa.
 
-Nenhuma milestone remove funcionalidades anteriores.
 
----
+Foundation Runtime          v1.4.0   ✅
+Coder Engine                v1.5.0   ✅
+Sandbox Hardening           v1.5.1   ✅
+Tool Runtime (56 Actions)   v1.6.0   ✅
+Security Layer              v1.7.0   ✅ (modo compatibilidade)
+Workflow Engine Linear      v1.8.0   ✅
+DAG Workflow Engine         v1.9.0   ✅
+Nested Workflows + Scheduler v1.9.2  ✅
+API Layer                   v1.10.0  ✅
+Operational Hardening       v1.11.0  ✅
 
-# Foundation Runtime
 
-## v1.4.0-omega-drakon
-
-Status:
-✅ Concluída
-
-Objetivo:
-Estabelecer a infraestrutura principal do Runtime.
-
-Entregas:
-
-* Runtime Kernel
-* Event System
-* Registry Layer
-* Session Layer
-* Database Layer
-* Memory Layer
-* Provider Layer
-* Plugin Layer
-
-Resultado:
-Foundation operacional estabelecida.
-
----
-
-# Coder Engine
-
-## v1.5.0-coder-engine
-
-Status:
-✅ Concluída
-
-Objetivo:
-Permitir evolução controlada do próprio código.
+Operational Hardening — v1.11.0
+Status: ✅ Concluída ✅ Homologada
 
 Entregas:
+- Security Enforcement configurável (compatibility | soft | strict)
+- Workflow Metrics (contadores, duração, profundidade)
+- Templates + Import/Export YAML/JSON
+- CORS + Rate Limit na API Layer
+- systemd unit (nv-api.service) + porta oficial 7001
+- Homologação: 48/48 PASSED
 
-* RuntimeCoder
-* FileInspector
-* CodeAnalyzer
-* ValidationEngine
-* GitManager
+Resultado: Runtime pronto para operação controlada em produção.
 
-Resultado:
-Primeira geração da autocorreção controlada.
 
----
+Foundation 100%
+v2.0.0-operational-cognitive-runtime
+Status: 🎯 Foundation completa + hardening operacional
 
-# Sandbox Hardening
+Todas as camadas estruturais entregues.
+Hardening pós-Foundation concluído.
+Próximas evoluções são incrementais.
 
-## v1.5.1-sandbox-hardening
 
-Status:
-✅ Concluída
-
-Objetivo:
-Eliminar riscos de corrupção de código.
-
-Entregas:
-
-* SandboxManager
-* BackupManager
-* RollbackManager
-* ValidationPipeline
-* SafeApply
-
-Resultado:
-Fluxo seguro de promoção de alterações.
-
----
-
-# Tool Runtime
-
-## v1.6.0-tool-runtime
-
-Status:
-✅ Concluída
-
-Objetivo:
-Transformar o Runtime em uma plataforma operacional.
-
-Entregas:
-
-* 56 Actions Operacionais
-
-Categorias:
-
-* Sistema
-* Processos
-* Docker
-* Serviços
-* Arquivos
-* Git
-* Banco de Dados
-* Introspecção
-
-Resultado:
-Primeira geração operacional concluída.
-
----
-
-# Security Layer
-
-## v1.7.0-security-layer
-
-Status:
-✅ Concluída
-
-Objetivo:
-Adicionar governança operacional ao Runtime.
-
-Entregas:
-
-### Núcleo
-
-* SecurityManager
-* SecurityDecision
-
-### Engines
-
-* PolicyEngine
-* PermissionEngine
-* ScopeEngine
-* ApprovalEngine
-* AuditEngine
-
-### Configuração
-
-* permissions.yaml
-* scopes.yaml
-* approval.yaml
-
-### Auditoria
-
-* AuditRecord
-* Audit Models
-
-### Testes
-
-* Security Policy
-* Security Permission
-* Security Scope
-* Security Approval
-* Security Audit
-* Security Manager
-
-Resultado:
-Primeira geração da Security Layer concluída.
-
-Observação:
-Opera em modo compatibilidade.
-Nenhuma restrição operacional ativa nesta versão.
-
----
-
-# Workflow Engine Core
-
-## v1.8.0-workflow-engine
-
-Status:
-✅ Concluída
-✅ Congelada
-✅ Homologada
-✅ Publicada
-
-Objetivo:
-Adicionar orquestração operacional assíncrona linear ao Runtime.
-
-Entregas:
-
-* WorkflowModels
-* WorkflowContext
-* WorkflowRegistry
-* WorkflowEngine
-* WorkflowManager
-* WorkflowExecution Persistence
-* Workflow History
-* Workflow Conditions
-* Workflow Branching
-* Workflow Retry
-* Workflow Timeout
-* Workflow Skip
-
-Resultado:
-Coordenação linear estável entre ferramentas operacionais em ambiente real.
-
----
-
-# DAG Workflow Engine
-
-## v1.9.0-dag-engine
-
-Status:
-🔄 Aberta
-
-Objetivo:
-Transformar o Workflow Engine linear em um mecanismo baseado em DAG (Directed Acyclic Graph).
-
-Capacidades previstas:
-
-* Stage Model
-* Dependency Graph
-* Parallel Execution (async DAG)
-* Execution Scheduler
-* Delayed Workflows
-* Nested Workflows
-* Workflow Templates
-* Import/Export JSON/YAML
-* Workflow Recovery / Resume
-* Workflow Metrics
-* Visual Workflow Definition
-
-Resultado esperado:
-Segunda geração do Workflow Runtime, preparada para automações complexas, paralelismo e orquestração avançada.
-
----
-
-# API Layer
-
-## v1.10.x-api-layer
-
-Status:
-🔄 Planejada
-
-Objetivo:
-Expor capacidades do Runtime para sistemas externos.
-
-Capacidades previstas:
-
-* REST API
-* autenticação
-* autorização
-* integração remota
-* endpoints administrativos
-* endpoints operacionais
-* integração com Workflow Engine
-
-Resultado esperado:
-Transformar o NV em uma plataforma operacional acessível externamente.
-
----
-
-# Foundation 100%
-
-## v2.0.0-operational-cognitive-runtime
-
-Status:
-🎯 Objetivo Final da Foundation
-
-Requisitos:
-
-* Runtime Kernel
-* Event System
-* Registry Layer
-* Session Layer
-* Database Layer
-* Memory Layer
-* Provider Layer
-* Plugin Layer
-* Coder Engine
-* Tool Runtime
-* Security Layer
-* Workflow Engine
-* API Layer
-
-Resultado esperado:
-Conclusão da primeira geração do NV Runtime.
-
----
-
-# Evolução da Foundation
-
-| Versão | Foundation |
-| ------ | ---------- |
-| v1.4.0 | 70%        |
-| v1.5.0 | 80%        |
-| v1.5.1 | 85%        |
-| v1.6.0 | 96%        |
-| v1.7.0 | 98%        |
-| v1.8.0 | 99%        |
-| v2.0.0 | 100%       |
-
----
-
-# Estado Atual
-
-Versão Atual:
-v1.8.0-workflow-engine
-
-Status:
-✅ CONGELADA
-✅ HOMOLOGADA
-✅ PUBLICADA
-
-Foundation:
-99% concluída
-
-Milestone Atual:
-DAG Workflow Engine
-
-Próxima Milestone:
-v1.9.0-dag-engine
-
-Próxima Versão:
-v1.9.0-dag-engine
-
-Branch Estável:
-develop-v1.4.0-memory-evolution
-
-Branch de Desenvolvimento:
-develop-v1.9.0-dag-engine
-
-Tag Estável:
-v1.8-final
-
----
+Estado Atual
+Versão Atual: v1.11.0-operational-hardening
+Status: ✅ ESTÁVEL ✅ HOMOLOGADA
+Foundation: 100% concluída
+Hardening: 100% concluído
 
 OMEGA DRAKON • SYSTEMS
-
 Tecnologia que respira.

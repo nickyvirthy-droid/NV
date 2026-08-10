@@ -3,8 +3,7 @@ OMEGA DRAKON • SYSTEMS
 
 Tecnologia que respira.
 
-Módulo:
-core/workflows/manager.py
+Módulo: core/workflows/manager.py
 
 Descrição:
 Orquestrador central do Workflow Runtime.
@@ -20,9 +19,10 @@ Responsável por:
 - Workflow Stack
 - Proteção contra Recursão
 - Controle de Profundidade
+- Métricas
+- Import / Export (YAML + JSON)
 
-Versão:
-v1.9.2
+Versão: v1.11.0
 
 Interface Viva: Nicky Virthy
 Arquiteto: Alex Projeti
@@ -31,13 +31,18 @@ Arquiteto: Alex Projeti
 from __future__ import annotations
 
 import uuid
+from pathlib import Path
+from typing import List, Optional, Union
 
 from core.workflows.registry import WorkflowRegistry
 from core.workflows.context import WorkflowContext
-from core.workflows.models import WorkflowExecution
+from core.workflows.models import Workflow, WorkflowExecution
 from core.workflows.engine import WorkflowEngine
 from core.workflows.dag_engine import WorkflowDAGEngine
 from core.workflows.workflow_stack import WorkflowStack
+from core.workflows.metrics import WorkflowMetrics
+from core.workflows.serializer import WorkflowSerializer
+from core.workflows.templates import WorkflowTemplates
 
 
 class WorkflowManager:
@@ -74,6 +79,12 @@ class WorkflowManager:
         self.engine = WorkflowEngine()
 
         self.dag_engine = WorkflowDAGEngine()
+
+        #
+        # Metrics
+        #
+
+        self.metrics = WorkflowMetrics()
 
     # ==========================================================
     # Registry
@@ -758,3 +769,238 @@ class WorkflowManager:
         self.contexts.clear()
 
         self.workflow_stack.clear()
+
+    # ==========================================================
+    # Metrics API
+    # ==========================================================
+
+    def _finalize_execution(
+        self,
+        execution: WorkflowExecution,
+    ) -> None:
+        """
+        Garante finished_at e registra métricas.
+        Chamado após o término de uma execução.
+        """
+        from datetime import datetime, timezone
+
+        if execution.finished_at is None:
+            execution.finished_at = datetime.now(timezone.utc)
+
+        if execution.started_at is None:
+            execution.started_at = execution.created_at
+
+        self.metrics.record(execution)
+
+    def get_metrics_summary(self) -> dict:
+        return self.metrics.summary()
+
+    def get_workflow_metrics(
+        self,
+        workflow_id: str,
+    ) -> dict:
+        return self.metrics.workflow_stats(workflow_id)
+
+    def get_recent_executions(
+        self,
+        limit: int = 20,
+    ) -> list:
+        return self.metrics.recent(limit)
+
+    def reset_metrics(self) -> None:
+        self.metrics.reset()
+
+    # ==========================================================
+    # Import / Export API
+    # ==========================================================
+
+    def export_workflow(
+        self,
+        workflow_id: str,
+        *,
+        format: str = "yaml",
+    ) -> str:
+        """
+        Exporta um workflow registrado para string YAML ou JSON.
+        """
+        workflow = self.get(workflow_id)
+        if workflow is None:
+            raise ValueError(f"Workflow not found: {workflow_id}")
+
+        fmt = format.lower().strip()
+        if fmt in ("yaml", "yml"):
+            return WorkflowSerializer.to_yaml(workflow)
+        if fmt == "json":
+            return WorkflowSerializer.to_json(workflow)
+
+        raise ValueError(f"Formato não suportado: {format}")
+
+    def export_workflow_to_file(
+        self,
+        workflow_id: str,
+        path: Union[str, Path],
+        *,
+        format: str = "yaml",
+    ) -> Path:
+        """Exporta um workflow registrado para arquivo."""
+        workflow = self.get(workflow_id)
+        if workflow is None:
+            raise ValueError(f"Workflow not found: {workflow_id}")
+
+        return WorkflowSerializer.export_to_file(
+            workflow,
+            path,
+            format=format,
+        )
+
+    def import_workflow(
+        self,
+        source: Union[str, Path, dict],
+        *,
+        register: bool = True,
+        format: Optional[str] = None,
+    ) -> Workflow:
+        """
+        Importa um workflow a partir de:
+        - caminho de arquivo (.yaml / .yml / .json)
+        - string YAML ou JSON
+        - dicionário já carregado
+
+        Se register=True, registra automaticamente no Manager.
+        """
+        if isinstance(source, dict):
+            workflow = WorkflowSerializer.from_dict(source)
+        elif isinstance(source, (str, Path)):
+            path = Path(source)
+            if path.exists() and path.is_file():
+                workflow = WorkflowSerializer.import_from_file(path)
+            else:
+                # Trata como conteúdo textual
+                content = str(source)
+                fmt = (format or "").lower().strip()
+                if fmt in ("yaml", "yml") or content.lstrip().startswith(
+                    ("workflow_id:", "name:", "-")
+                ):
+                    workflow = WorkflowSerializer.from_yaml(content)
+                else:
+                    workflow = WorkflowSerializer.from_json(content)
+        else:
+            raise TypeError(
+                "source deve ser Path, str ou dict"
+            )
+
+        if register:
+            self.register(workflow)
+
+        return workflow
+
+    def export_all(
+        self,
+        *,
+        format: str = "yaml",
+    ) -> List[str]:
+        """
+        Exporta todos os workflows registrados.
+        Retorna lista de strings (YAML ou JSON).
+        """
+        results = []
+        for workflow_id in self.list():
+            results.append(
+                self.export_workflow(workflow_id, format=format)
+            )
+        return results
+
+    def export_all_to_directory(
+        self,
+        directory: Union[str, Path],
+        *,
+        format: str = "yaml",
+    ) -> List[Path]:
+        """
+        Exporta todos os workflows registrados para um diretório.
+        Um arquivo por workflow.
+        """
+        workflows = []
+        for workflow_id in self.list():
+            wf = self.get(workflow_id)
+            if wf is not None:
+                workflows.append(wf)
+
+        return WorkflowSerializer.export_directory(
+            workflows,
+            directory,
+            format=format,
+        )
+
+    def import_directory(
+        self,
+        directory: Union[str, Path],
+        *,
+        register: bool = True,
+    ) -> List[Workflow]:
+        """
+        Importa todos os workflows de um diretório
+        (.yaml / .yml / .json) e opcionalmente registra.
+        """
+        workflows = WorkflowSerializer.import_directory(directory)
+
+        if register:
+            for wf in workflows:
+                self.register(wf)
+
+        return workflows
+
+    # ==========================================================
+    # Templates API
+    # ==========================================================
+
+    def list_templates(self) -> List[str]:
+        """Lista os IDs dos templates oficiais disponíveis."""
+        return WorkflowTemplates.list_ids()
+
+    def get_template(
+        self,
+        template_id: str,
+    ) -> Optional[Workflow]:
+        """Retorna um template pelo ID (sem registrar)."""
+        return WorkflowTemplates.get(template_id)
+
+    def instantiate_template(
+        self,
+        template_id: str,
+        *,
+        workflow_id: Optional[str] = None,
+        name: Optional[str] = None,
+        register: bool = True,
+    ) -> Workflow:
+        """
+        Cria uma instância a partir de um template.
+        Se register=True, registra no Manager.
+        """
+        workflow = WorkflowTemplates.instantiate(
+            template_id,
+            workflow_id=workflow_id,
+            name=name,
+        )
+
+        if register:
+            self.register(workflow)
+
+        return workflow
+
+    def load_all_templates(
+        self,
+        *,
+        register: bool = True,
+    ) -> List[Workflow]:
+        """
+        Carrega todos os templates oficiais.
+        Se register=True, registra no Manager.
+        """
+        templates = list(WorkflowTemplates.catalog().values())
+
+        if register:
+            for t in templates:
+                self.register(t)
+
+        return templates

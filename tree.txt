@@ -17,6 +17,16 @@
 │   ├── teste_backup.txt.20260627_130800.bak
 │   ├── teste_backup.txt.20260627_133301.bak
 │   ├── teste_backup.txt.20260627_134158.bak
+│   ├── teste_backup.txt.20260703_103747.bak
+│   ├── teste_backup.txt.20260703_105328.bak
+│   ├── teste_backup.txt.20260703_105847.bak
+│   ├── teste_backup.txt.20260707_093649.bak
+│   ├── teste_backup.txt.20260707_094301.bak
+│   ├── teste_backup.txt.20260707_094717.bak
+│   ├── teste_backup.txt.20260707_102312.bak
+│   ├── teste_backup.txt.20260810_181904.bak
+│   ├── teste_backup.txt.20260810_182221.bak
+│   ├── teste_backup.txt.20260810_182828.bak
 │   ├── teste_bug.py.20260608_173750.bak
 │   ├── teste_patch.txt.20260608_170639.bak
 │   ├── teste_patch.txt.20260608_171355.bak
@@ -35,7 +45,17 @@
 │   ├── teste_restore.txt.20260627_130050.bak
 │   ├── teste_restore.txt.20260627_130805.bak
 │   ├── teste_restore.txt.20260627_133306.bak
-│   └── teste_restore.txt.20260627_134203.bak
+│   ├── teste_restore.txt.20260627_134203.bak
+│   ├── teste_restore.txt.20260703_103818.bak
+│   ├── teste_restore.txt.20260703_105354.bak
+│   ├── teste_restore.txt.20260703_105911.bak
+│   ├── teste_restore.txt.20260707_093731.bak
+│   ├── teste_restore.txt.20260707_094326.bak
+│   ├── teste_restore.txt.20260707_094743.bak
+│   ├── teste_restore.txt.20260707_102332.bak
+│   ├── teste_restore.txt.20260810_181905.bak
+│   ├── teste_restore.txt.20260810_182303.bak
+│   └── teste_restore.txt.20260810_182851.bak
 ├── config
 │   ├── __init__.py
 │   ├── __pycache__
@@ -44,6 +64,7 @@
 │   ├── runtime.py
 │   └── security
 │       ├── approval.yaml
+│       ├── enforcement.yaml
 │       ├── permissions.yaml
 │       └── scopes.yaml
 ├── core
@@ -140,8 +161,26 @@
 │   │   └── services.py
 │   ├── runtime
 │   │   ├── context.py
+│   │   ├── events
+│   │   │   └── __init__.py
+│   │   ├── execution
+│   │   │   ├── action_executor.py
+│   │   │   ├── __init__.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── action_executor.cpython-312.pyc
+│   │   │   │   ├── __init__.cpython-312.pyc
+│   │   │   │   ├── step_executor.cpython-312.pyc
+│   │   │   │   └── workflow_executor.cpython-312.pyc
+│   │   │   ├── step_executor.py
+│   │   │   └── workflow_executor.py
 │   │   ├── __init__.py
 │   │   ├── kernel.py
+│   │   ├── models
+│   │   │   ├── execution.py
+│   │   │   └── __pycache__
+│   │   │       └── execution.cpython-312.pyc
+│   │   ├── policies
+│   │   │   └── __init__.py
 │   │   └── __pycache__
 │   │       ├── context.cpython-312.pyc
 │   │       ├── __init__.cpython-312.pyc
@@ -189,25 +228,48 @@
 │   │   └── __init__.py
 │   └── workflows
 │       ├── context.py
+│       ├── dag_engine.py
 │       ├── engine.py
 │       ├── __init__.py
 │       ├── manager.py
+│       ├── metrics.py
 │       ├── models.py
 │       ├── __pycache__
 │       │   ├── base.cpython-312.pyc
 │       │   ├── context.cpython-312.pyc
+│       │   ├── dag_engine.cpython-312.pyc
 │       │   ├── engine.cpython-312.pyc
 │       │   ├── __init__.cpython-312.pyc
 │       │   ├── manager.cpython-312.pyc
+│       │   ├── metrics.cpython-312.pyc
 │       │   ├── models.cpython-312.pyc
-│       │   └── registry.cpython-312.pyc
-│       └── registry.py
+│       │   ├── registry.cpython-312.pyc
+│       │   ├── schedule_models.cpython-312.pyc
+│       │   ├── scheduler.cpython-312.pyc
+│       │   ├── scheduler_engine.cpython-312.pyc
+│       │   ├── schedule_repository.cpython-312.pyc
+│       │   ├── serializer.cpython-312.pyc
+│       │   ├── templates.cpython-312.pyc
+│       │   └── workflow_stack.cpython-312.pyc
+│       ├── registry.py
+│       ├── runtime
+│       │   └── __init__.py
+│       ├── schedule_models.py
+│       ├── scheduler_engine.py
+│       ├── schedule_repository.py
+│       ├── scheduler.py
+│       ├── serializer.py
+│       ├── subworkflow.py
+│       ├── templates.py
+│       └── workflow_stack.py
 ├── data
 │   └── __init__.py
 ├── debug_action.py
 ├── docs
+│   ├── API_DEPLOY.md
 │   ├── CHANGELOG.md
 │   ├── FOUNDATION.md
+│   ├── HOMOLOGACAO_v1.11.0.md
 │   ├── MILESTONE.md
 │   ├── Nicky Virthy.txt
 │   ├── PROCEDIMENTO OFICIAL DE FECHAMENTO.md
@@ -280,6 +342,8 @@
 ├── logs
 │   └── security
 ├── main.py
+├── nv-api.env.example
+├── nv-api.service
 ├── nv_runtime.egg-info
 │   ├── dependency_links.txt
 │   ├── PKG-INFO
@@ -743,6 +807,7 @@
 │   │   ├── test_action_schema_action.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_action_validate_action.cpython-312.pyc
 │   │   ├── test_action_validate_action.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_api_layer.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_backup_manager.cpython-312.pyc
 │   │   ├── test_backup_manager.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_code_analyzer.cpython-312.pyc
@@ -921,14 +986,27 @@
 │   │   ├── test_workflow_branching_false.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_condition.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_context.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_dag_inputs.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_engine.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_graph_validation.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_history.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_max_depth.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_nested.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_parallel.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_persistence.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_real.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_recursion.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_resilience.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_retry.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler_cancel.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler_cron.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler_cron_execution.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler_interval.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_scheduler_persistence.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflows.cpython-312-pytest-9.0.3.pyc
 │   │   ├── test_workflow_skip.cpython-312-pytest-9.0.3.pyc
+│   │   ├── test_workflow_stages.cpython-312-pytest-9.0.3.pyc
 │   │   └── test_workflow_timeout.cpython-312-pytest-9.0.3.pyc
 │   ├── sandbox
 │   ├── test_action_info_action.py
@@ -938,6 +1016,7 @@
 │   ├── test_action_resolver.py
 │   ├── test_action_schema_action.py
 │   ├── test_action_validate_action.py
+│   ├── test_api_layer.py
 │   ├── test_backup_manager.py
 │   ├── test_code_analyzer.py
 │   ├── test_cpu_info_action.py
@@ -1031,15 +1110,28 @@
 │   ├── test_workflow_branching.py
 │   ├── test_workflow_condition.py
 │   ├── test_workflow_context.py
+│   ├── test_workflow_dag_inputs.py
 │   ├── test_workflow_engine.py
+│   ├── test_workflow_graph_validation.py
 │   ├── test_workflow_history.py
+│   ├── test_workflow_max_depth.py
+│   ├── test_workflow_nested.py
+│   ├── test_workflow_parallel.py
 │   ├── test_workflow_persistence.py
 │   ├── test_workflow_real.py
+│   ├── test_workflow_recursion.py
 │   ├── test_workflow_resilience.py
 │   ├── test_workflow_retry.py
+│   ├── test_workflow_scheduler_cancel.py
+│   ├── test_workflow_scheduler_cron_execution.py
+│   ├── test_workflow_scheduler_cron.py
+│   ├── test_workflow_scheduler_interval.py
+│   ├── test_workflow_scheduler_persistence.py
+│   ├── test_workflow_scheduler.py
 │   ├── test_workflow_skip.py
 │   ├── test_workflows.py
+│   ├── test_workflow_stages.py
 │   └── test_workflow_timeout.py
 └── tree.txt
 
-208 directories, 835 files
+215 directories, 920 files

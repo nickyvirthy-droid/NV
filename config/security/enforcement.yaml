@@ -1,0 +1,24 @@
+# OMEGA DRAKON • SYSTEMS
+# Security Layer — Enforcement Configuration
+# Interface Viva: Nicky Virthy
+# Arquiteto: Alex Projeti
+
+enforcement:
+  # compatibility | soft | strict
+  # compatibility → tudo liberado (estado legado)
+  # soft          → avalia + audita, nunca bloqueia
+  # strict        → avalia + bloqueia quando negar
+  mode: compatibility
+
+  # Controle individual das engines
+  policy: true
+  permission: true
+  scope: true
+  approval: false
+
+  # Em soft: apenas registra
+  # Em strict: bloqueia se fail_closed=true (recomendado)
+  fail_closed: true
+
+  # Role padrão enquanto não houver identidade real
+  default_role: admin

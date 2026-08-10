@@ -17,7 +17,7 @@ Arquiteto: Alex Projeti
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 from typing import Dict
 from typing import List
@@ -204,7 +204,7 @@ class WorkflowExecution(BaseModel):
     #
 
     created_at: datetime = Field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(timezone.utc)
     )
 
     started_at: Optional[datetime] = None

@@ -1,0 +1,41 @@
+[Unit]
+Description=Nicky Virthy API Layer (FastAPI)
+Documentation=https://github.com/nickyvirthy-droid
+After=network-online.target mariadb.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=alex
+Group=alex
+WorkingDirectory=/home/alex/NV
+
+# Ambiente
+EnvironmentFile=-/home/alex/NV/.env
+Environment=PYTHONUNBUFFERED=1
+Environment=NV_API_PORT=7001
+Environment=NV_API_HOST=0.0.0.0
+
+# Execução (uvicorn sobre o módulo da API)
+ExecStart=/home/alex/NV/venv/bin/uvicorn interfaces.api.server:app \
+    --host ${NV_API_HOST} \
+    --port ${NV_API_PORT} \
+    --workers 1 \
+    --log-level info
+
+# Segurança e estabilidade
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+KillMode=mixed
+
+# Limites
+LimitNOFILE=65535
+
+# Logs
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=nv-api
+
+[Install]
+WantedBy=multi-user.target

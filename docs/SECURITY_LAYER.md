@@ -1,50 +1,40 @@
-# SECURITY_LAYER
-
+SECURITY_LAYER
 Projeto: Nicky Virthy (NV)
 
-Versão: v1.7.0-security-layer
+Versão: v1.11.0-security-enforcement
+Data: Agosto/2026
+Status: EM EVOLUÇÃO
 
-Data: Junho/2026
 
-Status: CONCLUÍDA
-
----
-
-# Visão Geral
-
+Visão Geral
 A Security Layer é a infraestrutura responsável pela governança operacional do NV Runtime.
 
 Seu objetivo é fornecer um ponto central de validação para todas as operações executadas pelo sistema.
 
 A camada foi projetada para evoluir sem quebrar compatibilidade, permitindo a ativação gradual de:
 
-* permissões;
-* escopos;
-* aprovações;
-* auditoria;
-* políticas operacionais.
+permissões;
+escopos;
+aprovações;
+auditoria;
+políticas operacionais.
 
----
 
-# Objetivos
-
+Objetivos
 A Security Layer existe para:
 
-* validar solicitações antes da execução;
-* centralizar regras de segurança;
-* registrar decisões operacionais;
-* permitir futuras políticas RBAC;
-* preparar o Runtime para ambientes multiusuário;
-* suportar workflows de aprovação;
-* fornecer rastreabilidade operacional.
+validar solicitações antes da execução;
+centralizar regras de segurança;
+registrar decisões operacionais;
+permitir futuras políticas RBAC;
+preparar o Runtime para ambientes multiusuário;
+suportar workflows de aprovação;
+fornecer rastreabilidade operacional.
 
----
 
-# Arquitetura
-
+Arquitetura
 Fluxo atual:
 
-```text id="securityflow"
 Action Request
         ↓
 Policy Engine
@@ -58,290 +48,199 @@ Approval Engine
 Audit Engine
         ↓
 Action Execute
-```
 
-A execução de uma Action somente ocorre após a passagem por toda a pipeline de validação.
+A execução de uma Action somente ocorre após a passagem por toda a pipeline de validação
+(quando o modo de enforcement exige bloqueio).
 
----
 
-# SecurityManager
+Enforcement Configurável (v1.11.0)
 
+Arquivo:
+config/security/enforcement.yaml
+
+Modos disponíveis:
+
+| Mode            | Comportamento                                      |
+|-----------------|----------------------------------------------------|
+| compatibility   | Tudo liberado (estado legado / default)            |
+| soft            | Avalia + audita, nunca bloqueia                    |
+| strict          | Avalia + bloqueia quando Policy/Permission/Scope negar |
+
+Controles individuais:
+
+- policy: true/false
+- permission: true/false
+- scope: true/false
+- approval: true/false   (ainda desativado por padrão)
+- fail_closed: true/false
+- default_role: admin
+
+Comportamento:
+
+- compatibility → engines retornam allowed=True (compatibilidade total)
+- soft          → engines avaliam regras reais e registram no Audit, mas o Manager não bloqueia
+- strict        → engines avaliam regras reais; Manager bloqueia se fail_closed=true
+
+
+SecurityManager
 Responsável por coordenar toda a Security Layer.
 
 Arquivo:
-
-```text id="secmgrpath"
 core/security/manager.py
-```
 
 Funções:
-
-* orquestrar engines;
-* consolidar decisões;
-* registrar auditoria;
-* fornecer interface única ao Runtime.
+- orquestrar engines;
+- carregar enforcement.yaml;
+- consolidar decisões conforme o modo;
+- registrar auditoria;
+- fornecer interface única ao Runtime;
+- permitir reload() das configurações.
 
 Status:
+✅ Implementado (enforcement configurável)
 
-✅ Implementado
 
----
-
-# SecurityDecision
-
+SecurityDecision
 Objeto padrão utilizado pela camada de segurança.
 
 Arquivo:
-
-```text id="secdecisionpath"
 core/security/models.py
-```
 
-Objetivo:
-
-Padronizar respostas das engines.
-
-Estrutura:
-
-```text id="secdecisionfields"
-allowed
-reason
-```
+Campos:
+- allowed
+- reason
+- engine
+- mode
 
 Status:
-
 ✅ Implementado
 
----
 
-# Policy Engine
-
+Policy Engine
 Arquivo:
-
-```text id="policypath"
 core/security/policy_engine.py
-```
 
 Responsável por:
-
-* validações globais;
-* políticas operacionais;
-* decisões iniciais.
+- validações globais;
+- políticas operacionais;
+- decisões iniciais.
 
 Status:
-
 ✅ Implementado
 
 Modo Atual:
+Compatibilidade (estrutura pronta para regras futuras).
 
-Compatibilidade.
 
----
-
-# Permission Engine
-
+Permission Engine
 Arquivo:
-
-```text id="permissionpath"
 core/security/permission_engine.py
-```
 
 Responsável por:
-
-* permissões operacionais;
-* validação de acesso;
-* futura integração com identidades.
+- permissões operacionais por role;
+- validação de acesso usando permissions.yaml;
+- hierarquia read < write < admin.
 
 Status:
-
 ✅ Implementado
 
 Modo Atual:
+Avaliação real quando mode != compatibility.
 
-Compatibilidade.
 
----
-
-# Scope Engine
-
+Scope Engine
 Arquivo:
-
-```text id="scopepath"
 core/security/scope_engine.py
-```
 
 Responsável por:
-
-* delimitação de escopo;
-* restrições operacionais;
-* validação contextual.
+- delimitação de escopo (paths, commands, tables);
+- restrições operacionais via scopes.yaml;
+- validação contextual do payload.
 
 Status:
-
 ✅ Implementado
 
 Modo Atual:
+Avaliação real quando mode != compatibility.
 
-Compatibilidade.
 
----
-
-# Approval Engine
-
+Approval Engine
 Arquivo:
-
-```text id="approvalpath"
 core/security/approval_engine.py
-```
 
 Responsável por:
-
-* aprovações manuais;
-* workflows de autorização;
-* validação de operações críticas.
+- aprovações manuais;
+- workflows de autorização;
+- validação de operações críticas.
 
 Status:
-
-✅ Implementado
+✅ Implementado (infraestrutura)
 
 Modo Atual:
+Desativado por padrão (approval: false).
+Ativação futura controlada pelo enforcement.yaml.
 
-Compatibilidade.
 
----
-
-# Audit Engine
-
+Audit Engine
 Arquivo:
-
-```text id="auditpath"
 core/security/audit_engine.py
-```
 
 Responsável por:
-
-* registrar eventos;
-* rastrear decisões;
-* produzir histórico operacional.
+- registrar eventos;
+- rastrear decisões;
+- produzir histórico operacional em memória.
 
 Status:
-
 ✅ Implementado
 
-Modo Atual:
+Persistência futura planejada (Database Layer).
 
-Memória temporária.
 
-Persistência futura planejada.
-
----
-
-# Auditoria
-
-Modelos:
-
-```text id="auditmodels"
-AuditRecord
-Audit Models
-```
-
-Objetivo:
-
-Registrar:
-
-* ação executada;
-* decisão tomada;
-* resultado da validação;
-* motivo da decisão.
-
----
-
-# Configuração
-
+Configuração
 Diretório:
-
-```text id="configsecurity"
 config/security/
-```
 
 Arquivos:
+- enforcement.yaml   → modo e flags de enforcement
+- permissions.yaml   → mapa de permissões por role + actions
+- scopes.yaml        → restrições de path / command / table
+- approval.yaml      → ações que exigem aprovação
 
-### permissions.yaml
 
-Mapa de permissões.
-
----
-
-### scopes.yaml
-
-Definição de escopos operacionais.
-
----
-
-### approval.yaml
-
-Configuração de aprovações.
-
----
-
-# Integração com o Runtime
-
-A Security Layer foi integrada ao Runtime sem alterar o comportamento existente.
+Integração com o Runtime
+A Security Layer permanece integrada ao Runtime sem alterar o comportamento existente
+enquanto o mode = compatibility.
 
 Benefícios:
+- compatibilidade preservada;
+- ativação gradual sem breaking change;
+- desacoplamento da lógica de segurança;
+- hot-reload via SecurityManager.reload().
 
-* compatibilidade preservada;
-* preparação para versões futuras;
-* desacoplamento da lógica de segurança.
 
----
-
-# Modo Compatibilidade
-
-A v1.7.0 introduz a infraestrutura completa.
-
-Porém:
-
-```text id="compatibilitymode"
+Modo Compatibilidade (default)
 Nenhuma Action é bloqueada.
 Nenhuma aprovação é exigida.
 Nenhuma restrição de escopo é aplicada.
-```
-
 Todas as engines retornam decisões permissivas.
 
 Objetivo:
-
 Garantir migração segura da arquitetura.
 
----
 
-# Testes
-
-Arquivos:
-
-```text id="securitytests"
+Testes
+Arquivos planejados / existentes:
 tests/test_security_policy.py
 tests/test_security_permission.py
 tests/test_security_scope.py
 tests/test_security_approval.py
 tests/test_security_audit.py
 tests/test_security_manager.py
-```
+tests/test_security_enforcement.py  (novo)
 
-Resultado:
 
-```text id="securitytestresult"
-Todos aprovados.
-```
-
----
-
-# Estrutura da Security Layer
-
-```text id="securitytree"
+Estrutura da Security Layer
 core/security/
-
 ├── __init__.py
 ├── exceptions.py
 ├── manager.py
@@ -353,87 +252,44 @@ core/security/
 ├── approval_engine.py
 ├── audit_engine.py
 └── audit_models.py
-```
 
----
+config/security/
+├── enforcement.yaml
+├── permissions.yaml
+├── scopes.yaml
+└── approval.yaml
 
-# Roadmap
 
-## Permission Enforcement
+Roadmap restante (desta frente)
+- Testes formais do enforcement (compatibility / soft / strict)
+- Persistência de Audit no Database Layer
+- Workflow real de Approval
+- Security Reports
 
-Implementação de permissões reais.
 
----
-
-## Scope Enforcement
-
-Aplicação de restrições de escopo.
-
----
-
-## Approval Workflow
-
-Aprovações obrigatórias para operações críticas.
-
----
-
-## Persistent Audit
-
-Persistência em banco de dados.
-
----
-
-## Security Reports
-
-Relatórios e estatísticas operacionais.
-
----
-
-# Resultado da v1.7.0
-
+Resultado da v1.11.0-security-enforcement
 Entregue:
-
-* Security Foundation
-* SecurityManager
-* SecurityDecision
-* Policy Engine
-* Permission Engine
-* Scope Engine
-* Approval Engine
-* Audit Engine
-* Configuração YAML
-* Testes dedicados
-
-Compatibilidade:
-
-✅ Preservada
+- Enforcement configurável (compatibility | soft | strict)
+- Permission Engine com avaliação real
+- Scope Engine com avaliação real
+- Audit enriquecido (mode + engine)
+- Configuração centralizada em enforcement.yaml
+- Compatibilidade total preservada (default = compatibility)
 
 Quebras de API:
-
 Nenhuma
 
----
 
-# Estado Atual
-
+Estado Atual
 Versão:
-
-v1.7.0-security-layer
+v1.11.0-security-enforcement (em evolução)
 
 Status:
+Item 1 da sequência pós-Foundation
 
-CONCLUÍDA
+Próximo Item:
+Métricas de Workflow
 
-Foundation:
-
-98% concluída
-
-Próxima Etapa:
-
-v1.8.x-workflow-engine
-
----
 
 OMEGA DRAKON • SYSTEMS
-
 Tecnologia que respira.

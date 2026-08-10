@@ -23,5 +23,17 @@ class PolicyViolation(SecurityError):
     pass
 
 
+class PermissionDenied(SecurityError):
+    pass
+
+
+class ScopeViolation(SecurityError):
+    pass
+
+
+class ApprovalRequired(SecurityError):
+    pass
+
+
 class SecurityConfigurationError(SecurityError):
     pass

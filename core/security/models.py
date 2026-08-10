@@ -23,3 +23,7 @@ class SecurityDecision:
     allowed: bool = True
 
     reason: str | None = None
+
+    engine: str | None = None
+
+    mode: str | None = None

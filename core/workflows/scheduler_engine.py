@@ -22,10 +22,7 @@ from __future__ import annotations
 import asyncio
 import uuid
 
-from datetime import (
-    datetime,
-    timedelta,
-)
+from datetime import datetime, timedelta, timezone
 
 from croniter import (
     croniter,
@@ -242,7 +239,7 @@ class WorkflowSchedulerEngine:
             )
 
             schedule.last_run = (
-                datetime.utcnow()
+                datetime.now(timezone.utc)
             )
 
             await self.kernel.events.emit(
@@ -295,7 +292,7 @@ class WorkflowSchedulerEngine:
             return False
 
         return (
-            datetime.utcnow()
+            datetime.now(timezone.utc)
             >= next_run
         )
 
@@ -304,7 +301,7 @@ class WorkflowSchedulerEngine:
         schedule: WorkflowSchedule
     ):
 
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
 
         #
         # ONCE

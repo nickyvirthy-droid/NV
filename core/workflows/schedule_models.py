@@ -21,9 +21,7 @@ from dataclasses import (
     field
 )
 
-from datetime import (
-    datetime
-)
+from datetime import datetime, timezone
 
 from typing import (
     Optional,
@@ -52,7 +50,7 @@ class WorkflowSchedule:
     enabled: bool = True
 
     created_at: datetime = field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(timezone.utc)
     )
 
     last_run: Optional[
@@ -153,7 +151,7 @@ class WorkflowSchedule:
                     "created_at"
                 )
             )
-            or datetime.utcnow(),
+            or datetime.now(timezone.utc),
             last_run=parse_dt(
                 data.get(
                     "last_run"
@@ -179,7 +177,7 @@ class WorkflowScheduleExecution:
     workflow_id: str
 
     started_at: datetime = field(
-        default_factory=datetime.utcnow
+        default_factory=lambda: datetime.now(timezone.utc)
     )
 
     finished_at: Optional[
@@ -250,7 +248,7 @@ class WorkflowScheduleExecution:
                     "started_at"
                 )
             )
-            or datetime.utcnow(),
+            or datetime.now(timezone.utc),
             finished_at=parse_dt(
                 data.get(
                     "finished_at"

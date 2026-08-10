@@ -34,13 +34,12 @@ class WorkflowEngine:
         manager,
     ):
 
+        from datetime import datetime, timezone
+
         execution.status = "RUNNING"
 
-        execution.started_at = getattr(
-            execution,
-            "started_at",
-            None,
-        )
+        if execution.started_at is None:
+            execution.started_at = datetime.now(timezone.utc)
 
         await kernel.events.emit(
             "WORKFLOW_STARTED",
@@ -217,11 +216,18 @@ class WorkflowEngine:
 
                 current = None
 
-        execution.status = "COMPLETED"
+        from datetime import datetime, timezone
 
-        kernel.workflow_repo.save(
-            execution
-        )
+        execution.status = "COMPLETED"
+        execution.finished_at = datetime.now(timezone.utc)
+
+        if hasattr(manager, "_finalize_execution"):
+            manager._finalize_execution(execution)
+
+        if hasattr(kernel, "workflow_repo") and kernel.workflow_repo:
+            kernel.workflow_repo.save(
+                execution
+            )
 
         await kernel.events.emit(
 
@@ -338,11 +344,17 @@ class WorkflowEngine:
 
             except asyncio.TimeoutError:
 
+                from datetime import datetime, timezone
+
                 execution.errors.append(
                     f"Step '{step.step_id}' timed out."
                 )
 
                 execution.status = "FAILED"
+                execution.finished_at = datetime.now(timezone.utc)
+
+                if hasattr(manager, "_finalize_execution"):
+                    manager._finalize_execution(execution)
 
                 await kernel.events.emit(
                     "WORKFLOW_STEP_TIMEOUT",
@@ -356,9 +368,10 @@ class WorkflowEngine:
                     },
                 )
 
-                kernel.workflow_repo.save(
-                    execution
-                )
+                if hasattr(kernel, "workflow_repo") and kernel.workflow_repo:
+                    kernel.workflow_repo.save(
+                        execution
+                    )
 
                 raise
 
@@ -384,7 +397,13 @@ class WorkflowEngine:
 
                 if attempt >= step.retry_count:
 
+                    from datetime import datetime, timezone
+
                     execution.status = "FAILED"
+                    execution.finished_at = datetime.now(timezone.utc)
+
+                    if hasattr(manager, "_finalize_execution"):
+                        manager._finalize_execution(execution)
 
                     await kernel.events.emit(
                         "WORKFLOW_STEP_FAILED",
@@ -398,9 +417,10 @@ class WorkflowEngine:
                         },
                     )
 
-                    kernel.workflow_repo.save(
-                        execution
-                    )
+                    if hasattr(kernel, "workflow_repo") and kernel.workflow_repo:
+                        kernel.workflow_repo.save(
+                            execution
+                        )
 
                     raise
 

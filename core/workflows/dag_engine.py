@@ -3,21 +3,19 @@ OMEGA DRAKON • SYSTEMS
 
 Tecnologia que respira.
 
-Módulo:
-core/workflows/dag_engine.py
+Módulo: core/workflows/dag_engine.py
 
 Descrição:
 Motor de execução DAG do Workflow Runtime.
 
 Responsável por:
-
 - Validação do DAG
 - Construção dos estágios
-- Execução paralela
-- Delegação ao StepExecutor
+- Execução paralela por estágio
+- Nested Workflows
+- Compatibilidade com ActionManager
 
-Versão:
-v1.9.2
+Versão: v1.9.2
 
 Interface Viva: Nicky Virthy
 Arquiteto: Alex Projeti
@@ -27,9 +25,7 @@ from __future__ import annotations
 
 import asyncio
 
-from core.workflows.scheduler import (
-    WorkflowScheduler,
-)
+from core.workflows.scheduler import WorkflowScheduler
 
 
 class WorkflowDAGEngine:
@@ -42,186 +38,86 @@ class WorkflowDAGEngine:
         kernel,
         manager,
     ):
+        from datetime import datetime, timezone
 
         execution.status = "RUNNING"
+
+        if execution.started_at is None:
+            execution.started_at = datetime.now(timezone.utc)
 
         await kernel.events.emit(
             "WORKFLOW_STARTED",
             {
-                "execution_id":
-                    execution.execution_id,
-                "workflow_id":
-                    workflow.workflow_id,
+                "execution_id": execution.execution_id,
+                "workflow_id": workflow.workflow_id,
             },
         )
 
-        scheduler = WorkflowScheduler(
-            workflow
-        )
-
+        scheduler = WorkflowScheduler(workflow)
         scheduler.validate()
-
-        stages = (
-            scheduler.build_stages()
-        )
+        stages = scheduler.build_stages()
 
         await kernel.events.emit(
             "WORKFLOW_GRAPH_BUILT",
             {
-                "execution_id":
-                    execution.execution_id,
-                "workflow_id":
-                    workflow.workflow_id,
-                "stages":
-                    len(stages),
+                "execution_id": execution.execution_id,
+                "workflow_id": workflow.workflow_id,
+                "stages": len(stages),
             },
         )
 
         step_map = {
-
             step.step_id: step
-
             for step in workflow.steps
-
         }
 
         try:
-
             for stage in stages:
-
                 await self._execute_stage(
-
                     stage,
-
                     step_map,
-
                     context,
-
                     execution,
-
                     kernel,
-
                     manager,
-
                 )
 
-            execution.status = "COMPLETED"
+            from datetime import datetime, timezone
 
-        except Exception:
+            execution.status = "COMPLETED"
+            execution.finished_at = datetime.now(timezone.utc)
+
+        except Exception as e:
+            from datetime import datetime, timezone
 
             execution.status = "FAILED"
+            execution.finished_at = datetime.now(timezone.utc)
+            execution.errors.append(str(e))
 
             await kernel.events.emit(
-
                 "WORKFLOW_GRAPH_FAILED",
-
                 {
-
-                    "execution_id":
-                        execution.execution_id,
-
-                    "workflow_id":
-                        workflow.workflow_id,
-
-                    "errors":
-                        execution.errors,
-
+                    "execution_id": execution.execution_id,
+                    "workflow_id": workflow.workflow_id,
+                    "errors": execution.errors,
                 },
-
             )
-
             raise
 
         finally:
+            if hasattr(manager, "_finalize_execution"):
+                manager._finalize_execution(execution)
 
-            kernel.workflow_repo.save(
-                execution
-            )
+            if hasattr(kernel, "workflow_repo") and kernel.workflow_repo:
+                kernel.workflow_repo.save(execution)
 
             await kernel.events.emit(
-
                 "WORKFLOW_FINISHED",
-
                 {
-
-                    "execution_id":
-                        execution.execution_id,
-
-                    "status":
-                        execution.status,
-
+                    "execution_id": execution.execution_id,
+                    "status": execution.status,
                 },
-
             )
-
-        return execution
-
-        current = step_order[0]
-
-        while current:
-
-            step = step_map[current]
-
-            execution.current_step = (
-                step.step_id
-            )
-
-            result = await self._execute_step(
-                step=step,
-                context=context,
-                execution=execution,
-                kernel=kernel,
-                manager=manager,
-            )
-
-            if (
-                step.step_type
-                == "subworkflow"
-            ):
-
-                context.set_result(
-                    step.step_id,
-                    result,
-                )
-
-                execution.results[
-                    step.step_id
-                ] = result
-
-            index = step_order.index(
-                step.step_id
-            )
-
-            if (
-                index + 1
-                < len(step_order)
-            ):
-
-                current = step_order[
-                    index + 1
-                ]
-
-            else:
-
-                current = None
-
-        execution.status = (
-            "COMPLETED"
-        )
-
-        kernel.workflow_repo.save(
-            execution
-        )
-
-        await kernel.events.emit(
-            "WORKFLOW_FINISHED",
-            {
-                "execution_id":
-                    execution.execution_id,
-                "status":
-                    execution.status
-            }
-        )
 
         return execution
 
@@ -234,49 +130,33 @@ class WorkflowDAGEngine:
         kernel,
         manager,
     ):
-
         await kernel.events.emit(
             "WORKFLOW_STAGE_STARTED",
             {
-                "execution_id":
-                    execution.execution_id,
-                "nodes":
-                    stage_nodes
-            }
+                "execution_id": execution.execution_id,
+                "nodes": stage_nodes,
+            },
         )
 
         tasks = [
-
             self._execute_step(
-
                 step=step_map[node],
-
                 context=context,
-
                 execution=execution,
-
                 kernel=kernel,
-
                 manager=manager,
-
             )
-
             for node in stage_nodes
-
         ]
 
-        await asyncio.gather(
-            *tasks
-        )
+        await asyncio.gather(*tasks)
 
         await kernel.events.emit(
             "WORKFLOW_STAGE_FINISHED",
             {
-                "execution_id":
-                    execution.execution_id,
-                "nodes":
-                    stage_nodes
-            }
+                "execution_id": execution.execution_id,
+                "nodes": stage_nodes,
+            },
         )
 
     async def _execute_step(
@@ -287,146 +167,114 @@ class WorkflowDAGEngine:
         kernel,
         manager,
     ):
-
-        #
+        # --------------------------------------------------
         # Nested Workflow
-        #
+        # --------------------------------------------------
+        if step.step_type in ("workflow", "subworkflow"):
+            from core.workflows.subworkflow import SubWorkflowExecutor
 
-        if step.step_type == "subworkflow":
-
-            from core.workflows.subworkflow import (
-                SubWorkflowExecutor,
-            )
-
-            executor = SubWorkflowExecutor(
-                manager
-            )
-
-            return await executor.execute(
-
+            executor = SubWorkflowExecutor(manager)
+            result = await executor.execute(
                 step=step,
-
                 execution=execution,
-
                 context=context,
-
             )
 
-        #
-        # Action
-        #
+            context.set_result(step.step_id, result)
+            execution.results[step.step_id] = result
+            return result
 
-        execution.current_step = (
-            step.step_id
-        )
+        # --------------------------------------------------
+        # Action (mesmo caminho do engine linear)
+        # --------------------------------------------------
+        execution.current_step = step.step_id
 
         await kernel.events.emit(
             "WORKFLOW_STEP_STARTED",
             {
-                "execution_id":
-                    execution.execution_id,
-                "step_id":
-                    step.step_id,
-            }
+                "execution_id": execution.execution_id,
+                "step_id": step.step_id,
+            },
         )
 
-        payload = dict(
-            step.arguments
-        )
-
+        payload = dict(step.arguments)
         payload["_inputs"] = {
-
             dep: context.get_result(dep)
-
             for dep in step.dependencies
-
         }
 
-        result = await StepExecutor.execute(
+        result = None
 
-            step=step,
+        for attempt in range(step.retry_count + 1):
+            try:
+                if step.timeout:
+                    result = await asyncio.wait_for(
+                        kernel.actions.execute(
+                            action_name=step.action_name,
+                            payload=payload,
+                        ),
+                        timeout=step.timeout,
+                    )
+                else:
+                    result = await kernel.actions.execute(
+                        action_name=step.action_name,
+                        payload=payload,
+                    )
+                break
 
-            payload=payload,
+            except asyncio.TimeoutError:
+                execution.errors.append(
+                    f"Step '{step.step_id}' timed out."
+                )
+                execution.status = "FAILED"
 
-            context=context,
+                await kernel.events.emit(
+                    "WORKFLOW_STEP_TIMEOUT",
+                    {
+                        "execution_id": execution.execution_id,
+                        "step_id": step.step_id,
+                        "timeout": step.timeout,
+                    },
+                )
+                raise
 
-            execution=execution,
+            except Exception as e:
+                execution.errors.append(str(e))
 
-            kernel=kernel,
+                await kernel.events.emit(
+                    "WORKFLOW_STEP_RETRY",
+                    {
+                        "execution_id": execution.execution_id,
+                        "step_id": step.step_id,
+                        "attempt": attempt + 1,
+                        "error": str(e),
+                    },
+                )
 
-        )
+                if attempt >= step.retry_count:
+                    execution.status = "FAILED"
 
-        context.set_result(
-            step.step_id,
-            result,
-        )
+                    await kernel.events.emit(
+                        "WORKFLOW_STEP_FAILED",
+                        {
+                            "execution_id": execution.execution_id,
+                            "step_id": step.step_id,
+                            "error": str(e),
+                        },
+                    )
+                    raise
 
-        execution.results[
-            step.step_id
-        ] = result
+                await asyncio.sleep(step.retry_delay)
+
+        context.set_result(step.step_id, result)
+        execution.results[step.step_id] = result
 
         await kernel.events.emit(
             "WORKFLOW_STEP_FINISHED",
             {
-                "execution_id":
-                    execution.execution_id,
-                "step_id":
-                    step.step_id,
-            }
+                "execution_id": execution.execution_id,
+                "step_id": step.step_id,
+            },
         )
 
         return result
-
-    async def _execute_parallel_stage(
-        self,
-        stage_nodes,
-        step_map,
-        context,
-        execution,
-        kernel,
-        manager,
-    ):
-
-        await kernel.events.emit(
-            "WORKFLOW_PARALLEL_STARTED",
-            {
-                "execution_id":
-                    execution.execution_id,
-                "nodes":
-                    stage_nodes,
-            }
-        )
-
-        tasks = [
-
-            self._execute_step(
-
-                step=step_map[node],
-
-                context=context,
-
-                execution=execution,
-
-                kernel=kernel,
-
-                manager=manager,
-
-            )
-
-            for node in stage_nodes
-
-        ]
-
-        await asyncio.gather(
-            *tasks
-        )
-
-        await kernel.events.emit(
-            "WORKFLOW_PARALLEL_FINISHED",
-            {
-                "execution_id":
-                    execution.execution_id,
-                "nodes":
-                    stage_nodes,
-            }
-        )

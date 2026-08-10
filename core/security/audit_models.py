@@ -6,7 +6,7 @@ Tecnologia que respira.
 
 Módulo: Audit Models
 
-Descrição: Modelos da Audit Layer.
+Descrição: Modelos de auditoria da Security Layer.
 
 Interface Viva: Nicky Virthy
 
@@ -28,3 +28,7 @@ class AuditRecord:
     allowed: bool
 
     reason: str | None = None
+
+    mode: str | None = None
+
+    engine: str | None = None
